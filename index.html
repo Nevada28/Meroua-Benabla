@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harbit de Jijel - Patrimoine Botanique & Nutritionnel</title>
+    <title>Harbit de Jijel - Présentation PowerPoint Style</title>
     
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -24,14 +24,17 @@
             --border-light: #e0e0e0;
         }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
             background-color: #0d2b1f;
             color: var(--text-main);
             font-family: 'Lato', sans-serif;
             line-height: 1.8;
-            overflow-x: hidden;
+            overflow: hidden;
             position: relative;
-            min-height: 100vh;
+            height: 100vh;
+            width: 100vw;
         }
 
         /* ============================================
@@ -47,7 +50,6 @@
             overflow: hidden;
         }
 
-        /* Layer 1: Main leafy background with slow zoom */
         .bg-layer-1 {
             position: absolute;
             top: -10%;
@@ -61,7 +63,6 @@
             filter: saturate(1.2) brightness(0.7);
         }
 
-        /* Layer 2: Overlapping leafy texture */
         .bg-layer-2 {
             position: absolute;
             top: -15%;
@@ -76,34 +77,14 @@
             mix-blend-mode: overlay;
         }
 
-        /* Layer 3: Green overlay */
         .bg-layer-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(
-                135deg,
-                rgba(13, 43, 31, 0.75) 0%,
-                rgba(26, 60, 52, 0.6) 30%,
-                rgba(74, 124, 111, 0.5) 60%,
-                rgba(13, 43, 31, 0.8) 100%
-            );
+            background: linear-gradient(135deg, rgba(13, 43, 31, 0.75) 0%, rgba(26, 60, 52, 0.6) 30%, rgba(74, 124, 111, 0.5) 60%, rgba(13, 43, 31, 0.8) 100%);
             z-index: 1;
-        }
-
-        /* Floating animated leaves */
-        .floating-leaf {
-            position: absolute;
-            z-index: 0;
-            opacity: 0;
-            animation: floatLeaf linear infinite;
-            pointer-events: none;
-        }
-
-        .floating-leaf svg {
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
         }
 
         @keyframes slowZoom {
@@ -118,27 +99,24 @@
             100% { transform: scale(1.15) translate(-1%, -1%); }
         }
 
-        @keyframes floatLeaf {
-            0% {
-                transform: translateY(110vh) rotate(0deg) scale(0.8);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.7;
-            }
-            50% {
-                opacity: 0.5;
-            }
-            90% {
-                opacity: 0.3;
-            }
-            100% {
-                transform: translateY(-20vh) rotate(360deg) scale(1.1);
-                opacity: 0;
-            }
+        .floating-leaf {
+            position: absolute;
+            z-index: 0;
+            opacity: 0;
+            animation: floatLeaf linear infinite;
+            pointer-events: none;
         }
 
-        /* Breathing light spots - simulating sunlight through leaves */
+        .floating-leaf svg { filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); }
+
+        @keyframes floatLeaf {
+            0% { transform: translateY(110vh) rotate(0deg) scale(0.8); opacity: 0; }
+            10% { opacity: 0.7; }
+            50% { opacity: 0.5; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-20vh) rotate(360deg) scale(1.1); opacity: 0; }
+        }
+
         .light-spot {
             position: absolute;
             border-radius: 50%;
@@ -153,89 +131,161 @@
         }
 
         /* ============================================
-           END BACKGROUND ANIMATION
+           POWERPOINT SLIDE SYSTEM
            ============================================ */
+        .slides-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
 
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.6s ease, visibility 0s 0.6s;
+            overflow-y: auto;
+            pointer-events: none;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.6s ease, visibility 0s 0s;
+            pointer-events: all;
+            z-index: 10;
+        }
+
+        .slide-content {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 1200px;
+            width: 95%;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.6);
+            animation: slideInUp 0.6s ease forwards;
+        }
+
+        .slide.active .slide-content {
+            animation: slideInUp 0.6s ease forwards;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Cover Slide Animations */
+        .slide.cover .hero-title {
+            animation: titleEntrance 1s ease forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .slide.cover .hero-subtitle {
+            animation: subtitleEntrance 1s ease 0.3s forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .slide.cover .hero-img {
+            animation: imageEntrance 1s ease 0.6s forwards;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .slide.cover .btn-explore {
+            animation: btnEntrance 0.5s ease 0.9s forwards;
+            opacity: 0;
+        }
+
+        @keyframes titleEntrance {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes subtitleEntrance {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes imageEntrance {
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes btnEntrance {
+            to { opacity: 1; }
+        }
+
+        /* Closing Slide Animation */
+        .slide.closing .thank-you {
+            animation: thankYouPulse 2s ease infinite;
+        }
+
+        .slide.closing .final-message {
+            animation: messageSlideIn 1s ease 0.5s forwards;
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+
+        @keyframes thankYouPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes messageSlideIn {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Slide Content Styles */
         h1, h2, h3, h4, h5, .brand-font {
             font-family: 'Playfair Display', serif;
             color: var(--primary-dark);
         }
 
-        /* Glassmorphism Navbar */
-        .navbar {
-            background-color: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255,255,255,0.3);
-            padding: 1rem 0;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
-        }
-        .navbar-brand {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: var(--primary-dark) !important;
-        }
-        .nav-link {
-            color: var(--text-main) !important;
-            font-weight: 400;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 1.5px;
-            margin: 0 10px;
-        }
-        .nav-link:hover {
-            color: var(--accent-gold) !important;
-        }
-
-        /* Hero Section */
-        .hero-section {
-            min-height: 80vh;
-            display: flex;
-            align-items: center;
-            padding-top: 80px;
-        }
-        
-        .hero-content-box {
-            background: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.6);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.12);
-        }
-
         .hero-title {
-            font-size: 3.5rem;
+            font-size: 3rem;
             line-height: 1.1;
             margin-bottom: 1.5rem;
+            color: var(--primary-dark);
         }
+
         .hero-subtitle {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: var(--primary-light);
             font-style: italic;
             margin-bottom: 2rem;
             font-family: 'Playfair Display', serif;
         }
-        
+
         .hero-img {
             width: 100%;
-            max-width: 400px;
+            max-width: 350px;
             height: auto;
             border-radius: 50%;
-            border: 8px solid rgba(255,255,255,0.8);
+            border: 8px solid rgba(255,255,255,0.9);
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
             object-fit: cover;
-            transition: transform 0.3s ease;
         }
-        .hero-img:hover {
-            transform: scale(1.02);
-        }
-        
+
         .ingredient-img {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             object-fit: cover;
             border-radius: 50%;
             border: 2px solid var(--border-light);
@@ -243,10 +293,10 @@
             display: block;
             background-color: white;
         }
-        
+
         .plant-img {
             width: 100%;
-            height: 250px;
+            height: 220px;
             object-fit: cover;
             border-radius: 8px;
             margin-bottom: 20px;
@@ -255,8 +305,9 @@
 
         .section-header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 30px;
         }
+
         .section-header .divider {
             width: 60px;
             height: 3px;
@@ -264,147 +315,205 @@
             margin: 10px auto;
         }
 
-        section {
-            padding: 80px 0;
-        }
-
-        /* Glassmorphism Cards */
         .card-journal {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            padding: 30px;
-            height: 100%;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-        .card-journal:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            border-color: var(--accent-gold);
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid var(--border-light);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
         }
 
         .plant-detail-box {
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 15px;
-            margin-bottom: 40px;
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            margin-bottom: 25px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
+
         .plant-header {
             background-color: var(--primary-dark);
             color: white;
-            padding: 20px;
+            padding: 15px 20px;
         }
-        .plant-header h3 { color: white; margin: 0; }
-        .plant-header .sci-name { color: #a8d0c4; font-style: italic; }
-        
-        .plant-body {
-            padding: 30px;
-        }
+
+        .plant-header h3 { color: white; margin: 0; font-size: 1.4rem; }
+        .plant-header .sci-name { color: #a8d0c4; font-style: italic; font-size: 0.9rem; }
+
+        .plant-body { padding: 25px; }
         .plant-body h4 {
-            font-size: 1.3rem;
-            margin-top: 25px;
+            font-size: 1.2rem;
+            margin-top: 20px;
             margin-bottom: 10px;
             border-bottom: 1px solid #eee;
             padding-bottom: 5px;
         }
-        .plant-body ul {
-            padding-left: 20px;
-        }
-        
+
         .highlight-box {
-            background-color: rgba(238, 242, 241, 0.8);
+            background-color: rgba(238, 242, 241, 0.9);
             border-left: 4px solid var(--accent-gold);
-            padding: 15px;
+            padding: 12px 15px;
             margin: 15px 0;
             font-size: 0.95rem;
-            border-radius: 0 8px 8px 0;
+            border-radius: 0 6px 6px 0;
         }
 
         .step-card {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(5px);
-            padding: 20px;
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 10px;
             border-left: 4px solid var(--accent-gold);
-            margin-bottom: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
-        }
-        .step-card:hover {
-            transform: translateX(5px);
-            background: white;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
         }
 
-        .toc-sidebar {
-            position: sticky;
-            top: 100px;
-            background: rgba(255, 255, 255, 0.9);
+        /* Navigation Controls */
+        .slide-nav {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 100;
+            background: rgba(26, 60, 52, 0.9);
+            padding: 12px 25px;
+            border-radius: 50px;
             backdrop-filter: blur(10px);
-            padding: 20px;
-            border-radius: 15px;
-            border: 1px solid rgba(255,255,255,0.5);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-        .toc-sidebar a {
-            display: block;
-            padding: 8px 0;
-            color: var(--text-main);
-            text-decoration: none;
-            border-bottom: 1px solid #f0f0f0;
-            font-size: 0.9rem;
-        }
-        .toc-sidebar a:hover { color: var(--accent-gold); }
-
-        footer {
-            background: rgba(13, 43, 31, 0.95) !important;
-            backdrop-filter: blur(10px);
-            border-top: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* Section headers with glow on dark bg */
-        .section-header h2 {
+        .nav-btn {
+            background: var(--accent-gold);
+            border: none;
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .nav-btn:hover {
+            background: #b08d55;
+            transform: scale(1.1);
+        }
+
+        .nav-btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-counter {
+            color: white;
+            font-weight: 500;
+            font-size: 0.95rem;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .slide-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .slide-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.4);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .slide-dot.active {
+            background: var(--accent-gold);
+            transform: scale(1.3);
+        }
+
+        /* Progress Bar */
+        .progress-bar-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.2);
+            z-index: 101;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--accent-gold);
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        /* Section headers on dark bg */
+        .slide:not(.cover):not(.closing) .section-header h2 {
             color: white;
             text-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
-        .section-header .text-muted {
-            color: rgba(255,255,255,0.7) !important;
-        }
-        .section-header .divider {
-            background-color: var(--accent-gold);
+
+        .slide:not(.cover):not(.closing) .text-muted {
+            color: rgba(255,255,255,0.8) !important;
         }
 
+        /* Closing slide special styles */
+        .closing-content {
+            text-align: center;
+            padding: 60px 40px;
+        }
+
+        .thank-you {
+            font-size: 4rem;
+            color: var(--accent-gold);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .final-message {
+            font-size: 1.4rem;
+            color: white;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .signature {
+            color: rgba(255,255,255,0.8);
+            font-style: italic;
+            margin-top: 20px;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .hero-section { text-align: center; }
-            .toc-sidebar { display: none; }
-            .hero-title { font-size: 2.5rem; }
-            .hero-content-box { padding: 20px; }
+            .slide { padding: 20px; }
+            .slide-content { padding: 25px; width: 98%; max-height: 80vh; }
+            .hero-title { font-size: 2rem; }
+            .hero-subtitle { font-size: 1.1rem; }
+            .thank-you { font-size: 2.5rem; }
+            .final-message { font-size: 1.1rem; }
+            .slide-nav { bottom: 15px; padding: 10px 20px; }
+            .nav-btn { width: 40px; height: 40px; }
         }
     </style>
 </head>
-<body data-bs-spy="scroll" data-bs-target="#mainNav">
+<body>
 
-    <!-- ============================================
-         ANIMATED BOTANICAL BACKGROUND
-         ============================================ -->
+    <!-- Animated Botanical Background -->
     <div class="bg-plant-layer">
-        <!-- Layer 1: Main forest/leaf image zooming -->
         <div class="bg-layer-1"></div>
-        <!-- Layer 2: Overlapping leaf texture -->
         <div class="bg-layer-2"></div>
-        <!-- Layer 3: Green gradient overlay for readability -->
         <div class="bg-layer-overlay"></div>
     </div>
-
-    <!-- Floating leaves will be added by JavaScript -->
     <div id="floating-leaves-container"></div>
-
-    <!-- Breathing light spots -->
     <div class="bg-plant-layer" style="z-index: -9;">
         <div class="light-spot" style="width: 300px; height: 300px; top: 10%; left: 20%; animation-duration: 8s;"></div>
         <div class="light-spot" style="width: 400px; height: 400px; top: 50%; left: 60%; animation-duration: 12s; animation-delay: 2s;"></div>
@@ -413,562 +522,406 @@
         <div class="light-spot" style="width: 200px; height: 200px; top: 85%; left: 50%; animation-duration: 9s; animation-delay: 3s;"></div>
     </div>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand" href="#"><i class="fas fa-leaf me-2 text-success"></i>Harbit de Jijel</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#intro">Introduction</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#region">Jijel</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#plat">Le Plat Harbit</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#preparation">Préparation</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#fiches">Fiches Plantes</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#conclusion">Conclusion</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero -->
-    <header class="hero-section">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-7">
-                    <div class="hero-content-box">
-                        <span class="text-uppercase text-muted mb-3 d-block" style="letter-spacing: 2px;">Patrimoine Botanique & Culinaire</span>
-                        <h1 class="hero-title">L'Art Nutritionnel du <span class="fst-italic" style="color: var(--primary-light);">Harbit</span></h1>
-                        <p class="hero-subtitle">Une exploration complète des ressources végétales spontanées de la région de Jijel.</p>
-                        <p class="lead text-muted mb-4">
-                            Les plantes constituent la base de l'alimentation humaine depuis des millénaires. Découvrez comment la biodiversité végétale algérienne se transforme en un plat traditionnel équilibré, riche en histoire et en bienfaits pour la santé.
-                        </p>
-                        <a href="#intro" class="btn btn-outline-dark rounded-0 px-4 py-2">Explorer le Projet</a>
-                    </div>
-                </div>
-                <div class="col-lg-5 d-none d-lg-block text-center mt-4 mt-lg-0">
-                    <img src="plat.png" alt="Plat traditionnel Harbit de Jijel avec plantes sauvages" class="hero-img">
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <div class="container py-5">
-        <div class="row">
-            <div class="col-lg-3 d-none d-lg-block">
-                <div class="toc-sidebar">
-                    <h6 class="text-uppercase mb-3" style="letter-spacing: 1px; color: var(--primary-dark);">Sommaire</h6>
-                    <a href="#intro">1. Introduction</a>
-                    <a href="#region">2. La Région : Jijel</a>
-                    <a href="#plat">3. Présentation du Harbit</a>
-                    <a href="#preparation">4. Méthode de Préparation</a>
-                    <a href="#fiches">5. Fiches Descriptives</a>
-                    <a href="#fiches-mjir">&nbsp;&nbsp;• El Mjire</a>
-                    <a href="#fiches-lahleh">&nbsp;&nbsp;• El Lahleh</a>
-                    <a href="#fiches-hmidha">&nbsp;&nbsp;• El H'midha</a>
-                    <a href="#conclusion">6. Conclusion Générale</a>
-                </div>
-            </div>
-
-            <div class="col-lg-9">
-                
-                <section id="intro" class="mb-5">
-                    <div class="card-journal">
-                        <h2 class="mb-4"><i class="fas fa-book-open me-2"></i>1. Introduction</h2>
-                        <p>Les plantes constituent la base de l'alimentation humaine depuis des millénaires. Elles fournissent les macronutriments essentiels (glucides, protéines, lipides) ainsi que des micronutriments indispensables (vitamines, minéraux et composés bioactifs).</p>
-                        <p>La biodiversité végétale joue un rôle fondamental dans l'équilibre nutritionnel et la prévention de nombreuses maladies. Dans ce contexte, les plats traditionnels algériens reflètent une utilisation intelligente et variée des ressources végétales locales.</p>
-                        <div class="highlight-box">
-                            <strong>Focus :</strong> Le plat <strong>« Harbit »</strong>, originaire de Jijel, représente un excellent exemple de cuisine végétale équilibrée, combinant plusieurs plantes aux propriétés nutritionnelles et médicinales importantes.
-                        </div>
-                    </div>
-                </section>
-
-                <section id="region" class="mb-5">
-                    <div class="section-header text-start">
-                        <h2>2. Présentation de la région d'intérêt : Jijel</h2>
-                        <div class="divider ms-0"></div>
-                    </div>
-                    <div class="row g-4">
-                        <div class="col-md-12 mb-4">
-                            <div class="card-journal h-auto">
-                                <h4><i class="fas fa-map-marker-alt me-2 text-danger"></i>Contexte géographique et climatique</h4>
-                                <p>La wilaya de Jijel, située au nord-est de l'Algérie sur la côte méditerranéenne, se caractérise par une richesse écologique et une biodiversité végétale remarquable.</p>
-                                <p>Cette région montagneuse, appartenant à la chaîne des Babors, bénéficie d'un climat méditerranéen humide, avec des précipitations abondantes et des températures modérées. Ces conditions favorisent le développement d'une flore variée et une agriculture diversifiée.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <div class="card-journal">
-                                <h4><i class="fas fa-leaf me-2 text-success"></i>Importance botanique</h4>
-                                <p>La fertilité des sols et l'humidité élevée permettent la culture de nombreuses espèces végétales, notamment :</p>
-                                <ul>
-                                    <li>Les légumes (comme les Brassicaceae)</li>
-                                    <li>Les plantes aromatiques</li>
-                                    <li>Les arbres fruitiers, en particulier l'olivier</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <div class="card-journal">
-                                <h4><i class="fas fa-utensils me-2 text-warning"></i>Dimension culturelle et culinaire</h4>
-                                <p>La richesse végétale de Jijel se reflète dans sa gastronomie traditionnelle, basée principalement sur l'utilisation de produits locaux frais.</p>
-                                <p>Parmi les plats typiques de la région, on retrouve le plat végétal <strong>"Harbit"</strong>, qui illustre parfaitement l'intégration des ressources végétales locales dans l'alimentation quotidienne.</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="plat" class="mb-5">
-                    <div class="section-header text-start">
-                        <h2>3. Présentation du plat : « Harbit »</h2>
-                        <div class="divider ms-0"></div>
-                    </div>
-                    <div class="card-journal mb-4">
-                        <p class="lead">Le « Harbit » est un plat traditionnel végétarien originaire de la région de Jijel, caractérisé par l'utilisation de plantes sauvages comestibles locales. Il reflète un savoir-faire culinaire ancien basé sur l'exploitation des ressources végétales spontanées.</p>
-                        
-                        <h4 class="mt-4 mb-3">Identification des constituants alimentaires principaux</h4>
-                        <p>Ce plat est préparé à partir de plusieurs plantes locales, notamment :</p>
-                        
-                        <div class="row g-3 mt-2">
-                            <div class="col-md-6">
-                                <div class="bg-white p-3 rounded border h-100 text-center">
-                                    <img src="" alt="Oseille sauvage Rumex spp." class="ingredient-img">
-                                    <h5>L'oseille (Rumex spp.) – « Hmida »</h5>
-                                    <ul class="small text-start">
-                                        <li>Plante sauvage à goût acide</li>
-                                        <li>Riche en vitamine C et en acides organiques</li>
-                                        <li>Favorise la digestion et possède des propriétés antioxydantes</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="bg-white p-3 rounded border h-100 text-center">
-                                    <img src="mjir.jpg" alt="Plante M'jir Chenopodium sp." class="ingredient-img">
-                                    <h5>Le « Mjir » (plante locale)</h5>
-                                    <ul class="small text-start">
-                                        <li>Plante herbacée consommée traditionnellement dans la région</li>
-                                        <li>Source de fibres et de micronutriments</li>
-                                        <li>Contribue à l'équilibre nutritionnel du plat</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="bg-white p-3 rounded border h-100 text-center">
-                                    <img src="" alt="Mauve sauvage Malva sylvestris" class="ingredient-img">
-                                    <h5>Le « Lahlah » (plante sauvage locale)</h5>
-                                    <ul class="small text-start">
-                                        <li>Utilisée dans certaines préparations traditionnelles</li>
-                                        <li>Riche en composés bioactifs</li>
-                                        <li>Connue pour ses propriétés médicinales empiriques</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="bg-white p-3 rounded border h-100 text-center">
-                                    <img src="" alt="Ail et huile d'olive d'Algérie" class="ingredient-img">
-                                    <h5>L'ail (Allium sativum) & Huile d'olive (Olea europaea)</h5>
-                                    <ul class="small text-start">
-                                        <li><strong>Ail :</strong> Agent aromatique, propriétés antimicrobiennes et cardioprotectrices.</li>
-                                        <li><strong>Huile d'olive :</strong> Principale source de lipides, riche en acides gras monoinsaturés et polyphénols. Rôle important dans la prévention des maladies cardiovasculaires.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mt-4 bg-light p-4 rounded">
-                            <h4>Analyse des méthodes de cuisson et leurs bénéfices</h4>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <p><strong>Cuisson des plantes (ébullition ou vapeur) :</strong></p>
-                                    <ul class="small">
-                                        <li>Diminue l'acidité et améliore la digestibilité</li>
-                                        <li>Permet l'élimination de certains composés antinutritionnels</li>
-                                        <li>Peut entraîner une perte partielle de vitamines hydrosolubles</li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-6">
-                                    <p><strong>Assaisonnement à l'huile d'olive :</strong></p>
-                                    <ul class="small">
-                                        <li>Améliore la biodisponibilité des nutriments liposolubles</li>
-                                        <li>Apporte une valeur énergétique équilibrée</li>
-                                        <li>Renforce les propriétés antioxydantes du plat</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="preparation" class="mb-5">
-                    <div class="section-header text-start">
-                        <h2>🔴 Méthode de préparation</h2>
-                        <div class="divider ms-0"></div>
-                        <p class="text-white" style="opacity: 0.9;">La préparation de l'Arbiṭ demande de la patience et du soin pour préserver les qualités nutritionnelles des plantes.</p>
-                    </div>
-                    
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <div class="step-card">
-                                <strong>1 - Nettoyage des plantes :</strong><br>
-                                Les feuilles de mejir, lahlah et hamida sont soigneusement lavées plusieurs fois pour éliminer toute impureté.
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="step-card">
-                                <strong>2 - Découpage :</strong><br>
-                                Les plantes sont coupées finement afin de faciliter la cuisson et d'obtenir une texture homogène.
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="step-card">
-                                <strong>3 - Cuisson initiale :</strong><br>
-                                Les plantes sont mises dans une marmite avec de l'eau et laissées à bouillir pendant quelques minutes jusqu'à ce qu'elles deviennent tendres.
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="step-card">
-                                <strong>4 - Égouttage :</strong><br>
-                                Après cuisson, on retire l'excès d'eau pour éviter que le plat soit trop liquide.
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="step-card">
-                                <strong>5 - Écrasement :</strong><br>
-                                Les plantes sont légèrement écrasées à l'aide d'une cuillère ou d'un ustensile traditionnel pour obtenir une consistance plus liée.
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="step-card">
-                                <strong>6 - Assaisonnement :</strong><br>
-                                On ajoute l'ail écrasé, le sel et les épices selon le goût.
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="step-card">
-                                <strong>7 - Ajout de l'huile d'olive :</strong><br>
-                                Une quantité généreuse d'huile d'olive est incorporée pour améliorer le goût et apporter une texture onctueuse.
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="step-card">
-                                <strong>8 - Cuisson finale :</strong><br>
-                                Le mélange est remis à feu doux pendant quelques minutes pour bien mélanger les saveurs.
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="fiches" class="mb-5">
-                    <div class="section-header text-start">
-                        <h2>🔴4. Fiches descriptives des plantes</h2>
-                        <div class="divider ms-0"></div>
-                        <p class="text-white" style="opacity: 0.9;">Dans cette partie, nous allons présenter les plantes principales utilisées dans la préparation du plat Arbiṭ, notamment el mejir, el lahlah et el hamida. Ces plantes naturelles jouent un rôle important dans le goût et la valeur nutritionnelle du plat.</p>
-                    </div>
-
-                    <div id="fiches-mjir" class="plant-detail-box">
-                        <div class="plant-header d-flex justify-content-between align-items-center flex-wrap">
-                            <div>
-                                <span class="sci-name">Fiche descriptive</span>
-                                <h3>El Mjire</h3>
-                            </div>
-                            <span class="badge bg-warning text-dark px-3 py-2">Chenopodium sp.</span>
-                        </div>
-                        <div class="plant-body">
-                            <img src="mjir.jpg" alt="Chenopodium sp. - El Mjire dans son habitat naturel" class="plant-img">
-                            
-                            <h4>1. Classification systématique</h4>
-                            <ul>
-                                <li><strong>Règne :</strong> Plantae</li>
-                                <li><strong>Embranchement :</strong> Angiospermes</li>
-                                <li><strong>Classe :</strong> Dicotylédones</li>
-                                <li><strong>Ordre :</strong> Caryophyllales</li>
-                                <li><strong>Famille :</strong> Amaranthaceae (ou Chenopodiaceae selon certaines classifications)</li>
-                                <li><strong>Genre :</strong> Chenopodium</li>
-                                <li><strong>Espèce :</strong> Chenopodium sp.</li>
-                            </ul>
-
-                            <h4>2. Description morphologique</h4>
-                            <p>El Mjire est une plante herbacée sauvage, de couleur verte, avec des feuilles tendres et une tige fine. Elle pousse naturellement sans culture.</p>
-
-                            <h4>3. Système végétatif</h4>
-                            <ul>
-                                <li><strong>Racine :</strong> racine fine et ramifiée</li>
-                                <li><strong>Tige :</strong> tige verte, souple et dressée</li>
-                                <li><strong>Feuilles :</strong> feuilles vertes, molles et comestibles</li>
-                            </ul>
-
-                            <h4>4. Système reproducteur</h4>
-                            <ul>
-                                <li><strong>Fleur :</strong> petites fleurs vertes peu visibles</li>
-                                <li><strong>Fruit :</strong> petit et sec</li>
-                                <li><strong>Graine :</strong> graines très fines</li>
-                            </ul>
-
-                            <h4>5. Partie consommée</h4>
-                            <p>Les parties consommées sont principalement : <strong>Les feuilles 🌿</strong> (Parfois les jeunes tiges).</p>
-
-                            <h4>6. Phytochimie et valeur nutritionnelle</h4>
-                            <p><strong>Métabolites primaires :</strong></p>
-                            <ul>
-                                <li><strong>Glucides :</strong> source d'énergie immédiate pour le corps</li>
-                                <li><strong>Fibres alimentaires :</strong> améliorent la digestion et régulent le transit intestinal</li>
-                                <li><strong>Protéines :</strong> en faible quantité, contribuent à l'apport protéique global</li>
-                                <li><strong>Lipides :</strong> traces, surtout dans les feuilles</li>
-                            </ul>
-                            <p><strong>Métabolites secondaires :</strong></p>
-                            <ul>
-                                <li><strong>Polyphénols :</strong> puissants antioxydants, protègent les cellules contre le stress oxydatif</li>
-                                <li><strong>Flavonoïdes :</strong> propriétés anti-inflammatoires et cardioprotectrices</li>
-                                <li><strong>Acides organiques :</strong> confèrent le goût acidulé et facilitent la digestion</li>
-                                <li><strong>Composés bioactifs divers :</strong> renforcent le système immunitaire et peuvent avoir des effets antimicrobiens</li>
-                            </ul>
-
-                            <h4>7. Bienfaits pour la santé</h4>
-                            <ul>
-                                <li><strong>Antioxydants :</strong> protègent les cellules contre les radicaux libres et le vieillissement cellulaire</li>
-                                <li><strong>Anti-inflammatoire :</strong> aide à réduire les inflammations légères et le stress oxydatif</li>
-                                <li><strong>Digestif :</strong> les fibres et acides organiques facilitent la digestion</li>
-                                <li><strong>Renforcement immunitaire :</strong> grâce aux polyphénols et flavonoïdes</li>
-                            </ul>
-
-                            <h4>8. Valeur nutritionnelle (Cru vs Cuit)</h4>
-                            <p>La valeur nutritionnelle de l'El Mjire varie selon qu'il est consommé cru ou cuit, ainsi que selon la méthode de cuisson utilisée.</p>
-                            <ul>
-                                <li><strong>Consommation crue :</strong> El Mjire conserve mieux ses vitamines, surtout la vitamine C, et ses composés antioxydants. Cependant, il peut être plus difficile à digérer.</li>
-                                <li><strong>Consommation cuite :</strong> La cuisson améliore la digestibilité et réduit certaines substances indésirables, mais elle peut entraîner une perte de vitamines sensibles à la chaleur.</li>
-                                <li><strong>Méthodes de cuisson :</strong>
-                                    <ul>
-                                        <li>La cuisson à la vapeur est la meilleure méthode, car elle conserve la majorité des nutriments.</li>
-                                        <li>L'ébullition (dans l'eau) peut provoquer une perte de minéraux et de vitamines hydrosolubles.</li>
-                                        <li>La friture réduit la qualité nutritionnelle et augmente la teneur en matières grasses.</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <div class="highlight-box mt-3">
-                                👉 <strong>Conseil :</strong> Pour préserver au maximum les bienfaits de l'El Mjire, il est préférable de privilégier une cuisson douce comme la vapeur.
-                            </div>
-
-                            <div class="alert alert-success mt-4" role="alert">
-                                <strong>🔴 Conclusion El Mjire :</strong> En conclusion, la plante « El mjir » est une plante sauvage très bénéfique pour la santé. Elle est riche en nutriments et joue un rôle important dans la cuisine traditionnelle algérienne.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="fiches-lahleh" class="plant-detail-box">
-                        <div class="plant-header d-flex justify-content-between align-items-center flex-wrap">
-                            <div>
-                                <span class="sci-name">Fiche descriptive</span>
-                                <h3>El Lahleh (La mauve)</h3>
-                            </div>
-                            <span class="badge bg-warning text-dark px-3 py-2">Malva sylvestris</span>
-                        </div>
-                        <div class="plant-body">
-                            <img src="" alt="Malva sylvestris - Fleurs violettes de la mauve sauvage" class="plant-img">
-                            
-                            <h4>1. Classification systématique</h4>
-                            <ul>
-                                <li><strong>Règne :</strong> Plantae</li>
-                                <li><strong>Embranchement :</strong> Angiospermes</li>
-                                <li><strong>Classe :</strong> Dicotylédones</li>
-                                <li><strong>Ordre :</strong> Malvales</li>
-                                <li><strong>Famille :</strong> Malvaceae</li>
-                                <li><strong>Genre :</strong> Malva</li>
-                                <li><strong>Espèce :</strong> Malva sylvestris</li>
-                            </ul>
-
-                            <h4>2. Description morphologique</h4>
-                            <p>El Lahleh est une plante herbacée sauvage très connue. Elle possède des feuilles larges et douces, et des fleurs violettes. Elle pousse naturellement dans les champs et les jardins.</p>
-
-                            <h4>3. Système végétatif</h4>
-                            <ul>
-                                <li><strong>Racine :</strong> racine pivotante</li>
-                                <li><strong>Tige :</strong> tige verte, droite et légèrement velue</li>
-                                <li><strong>Feuilles :</strong> grandes feuilles rondes, vertes et tendres</li>
-                            </ul>
-
-                            <h4>4. Système reproducteur</h4>
-                            <ul>
-                                <li><strong>Fleur :</strong> fleurs violettes ou roses 🌸</li>
-                                <li><strong>Fruit :</strong> petit fruit sec en forme de disque</li>
-                                <li><strong>Graine :</strong> graines petites et nombreuses</li>
-                            </ul>
-
-                            <h4>5. Partie consommée</h4>
-                            <p>Les parties consommées sont : <strong>Les feuilles 🌿</strong> (Parfois les fleurs).</p>
-
-                            <h4>6. Phytochimie et valeur nutritionnelle</h4>
-                            <ul>
-                                <li><strong>Métabolites primaires :</strong> fibres alimentaires, glucides, petites quantités de protéines</li>
-                                <li><strong>Métabolites secondaires :</strong> polyphénols, flavonoïdes, acides organiques</li>
-                                <li><strong>Vitamines :</strong> vitamine C, petites quantités de vitamines B</li>
-                                <li><strong>Minéraux :</strong> calcium, fer, magnésium, potassium</li>
-                            </ul>
-
-                            <h4>7. Bienfaits pour la santé</h4>
-                            <ul>
-                                <li><strong>Antioxydant :</strong> flavonoïdes et polyphénols réduisent le stress oxydatif et protègent le cœur.</li>
-                                <li><strong>Anti-inflammatoire :</strong> contribue à limiter les inflammations légères.</li>
-                                <li><strong>Digestif et nutritif :</strong> fibres et minéraux essentiels pour les os, muscles et sang.</li>
-                            </ul>
-
-                            <h4>8. Valeur nutritionnelle (Cru vs Cuit)</h4>
-                            <p>La valeur nutritionnelle du Lahlah varie selon qu'il est consommé cru ou cuit, ainsi que selon la méthode de cuisson utilisée.</p>
-                            <ul>
-                                <li><strong>Consommation crue :</strong> Le Lahlah conserve une grande quantité de vitamines, notamment la vitamine C, ainsi que ses composés antioxydants. Cependant, il peut être moins digeste.</li>
-                                <li><strong>Consommation cuite :</strong> La cuisson rend le Lahlah plus facile à digérer et réduit certaines substances naturelles, mais elle peut entraîner une perte de vitamines sensibles à la chaleur.</li>
-                                <li><strong>Méthodes de cuisson :</strong>
-                                    <ul>
-                                        <li>La cuisson à la vapeur permet de préserver la majorité des nutriments.</li>
-                                        <li>L'ébullition peut causer une perte de vitamines et de minéraux dans l'eau.</li>
-                                        <li>La friture diminue la qualité nutritionnelle et augmente la quantité de graisses.</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <div class="highlight-box mt-3">
-                                👉 <strong>Recommandation :</strong> Pour conserver au mieux les bienfaits du Lahlah, il est recommandé d'utiliser des méthodes de cuisson douces comme la vapeur.
-                            </div>
-
-                            <div class="alert alert-success mt-4" role="alert">
-                                <strong>🔹 Conclusion :</strong> En conclusion, la plante « El Lahleh » est une plante sauvage très bénéfique pour la santé. Elle est riche en nutriments et joue un rôle important dans la cuisine traditionnelle algérienne.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="fiches-hmidha" class="plant-detail-box">
-                        <div class="plant-header d-flex justify-content-between align-items-center flex-wrap">
-                            <div>
-                                <span class="sci-name">Fiche descriptive</span>
-                                <h3>El H'midha (L'oseille)</h3>
-                            </div>
-                            <span class="badge bg-warning text-dark px-3 py-2">Rumex acetosa</span>
-                        </div>
-                        <div class="plant-body">
-                            <img src="" alt="Rumex acetosa - Feuilles d'oseille sauvage au goût acidulé" class="plant-img">
-                            
-                            <h4>1. Classification systématique</h4>
-                            <ul>
-                                <li><strong>Règne :</strong> Plantae</li>
-                                <li><strong>Embranchement :</strong> Angiospermes</li>
-                                <li><strong>Classe :</strong> Dicotylédones</li>
-                                <li><strong>Ordre :</strong> Caryophyllales</li>
-                                <li><strong>Famille :</strong> Polygonaceae</li>
-                                <li><strong>Genre :</strong> Rumex</li>
-                                <li><strong>Espèce :</strong> Rumex acetosa</li>
-                            </ul>
-
-                            <h4>2. Description morphologique</h4>
-                            <p>El H'midha est une plante herbacée sauvage connue pour son goût acide. Elle possède des feuilles vertes allongées et pousse dans les zones humides.</p>
-
-                            <h4>3. Système végétatif</h4>
-                            <ul>
-                                <li><strong>Racine :</strong> racine pivotante</li>
-                                <li><strong>Tige :</strong> tige verte, fine et dressée</li>
-                                <li><strong>Feuilles :</strong> feuilles allongées, vertes avec un goût acide</li>
-                            </ul>
-
-                            <h4>4. Système reproducteur</h4>
-                            <ul>
-                                <li><strong>Fleur :</strong> petites fleurs vertes ou rougeâtres</li>
-                                <li><strong>Fruit :</strong> petit fruit sec</li>
-                                <li><strong>Graine :</strong> graines fines</li>
-                            </ul>
-
-                            <h4>5. Partie consommée</h4>
-                            <p>Les parties consommées sont : <strong>Les feuilles 🌿</strong>.</p>
-
-                            <h4>6. Phytochimie et valeur nutritionnelle</h4>
-                            <ul>
-                                <li><strong>Métabolites primaires :</strong> fibres, glucides, petites quantités de protéines</li>
-                                <li><strong>Métabolites secondaires :</strong> acides organiques (responsables du goût acidulé), polyphénols, flavonoïdes</li>
-                                <li><strong>Vitamines :</strong> vitamine C, petites quantités de vitamines B</li>
-                                <li><strong>Minéraux :</strong> potassium élevé, calcium, fer, magnésium</li>
-                            </ul>
-
-                            <h4>7. Bienfaits pour la santé</h4>
-                            <ul>
-                                <li><strong>Antioxydant :</strong> protège les cellules contre le stress oxydatif grâce à la vitamine C et aux polyphénols.</li>
-                                <li><strong>Anti-inflammatoire :</strong> réduit les inflammations légères.</li>
-                                <li><strong>Digestif :</strong> acides organiques et fibres facilitent la digestion et l'absorption des nutriments.</li>
-                                <li><strong>Minéraux essentiels :</strong> potassium, calcium et fer soutiennent le cœur, les muscles et le sang.</li>
-                                <li><strong>Renforcement immunitaire :</strong> vitamine C stimule les défenses naturelles.</li>
-                            </ul>
-                            <p class="fst-italic mt-2">Même après cuisson, surtout à la vapeur, la Hmida conserve la majorité de ses nutriments et reste bénéfique pour la santé.</p>
-
-                            <h4>8. Valeur nutritionnelle (Cru vs Cuit)</h4>
-                            <p>La valeur nutritionnelle de la Hmida varie selon qu'elle est consommée crue ou cuite, ainsi que selon la méthode de cuisson utilisée.</p>
-                            <ul>
-                                <li><strong>Consommation crue :</strong> La Hmida conserve une grande partie de ses vitamines, en particulier la vitamine C, ainsi que ses acides organiques et antioxydants. Cependant, sa forte acidité peut la rendre moins agréable ou difficile à consommer en grande quantité.</li>
-                                <li><strong>Consommation cuite :</strong> La cuisson réduit l'acidité et améliore la digestibilité, mais elle peut entraîner une diminution de certaines vitamines sensibles à la chaleur.</li>
-                                <li><strong>Méthodes de cuisson :</strong>
-                                    <ul>
-                                        <li>La cuisson à la vapeur permet de conserver au maximum les nutriments.</li>
-                                        <li>L'ébullition peut provoquer une perte de vitamines et de minéraux dans l'eau.</li>
-                                        <li>La friture diminue la qualité nutritionnelle et augmente la teneur en matières grasses.</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <div class="highlight-box mt-3">
-                                👉 <strong>Conseil :</strong> Pour préserver les bienfaits de la Hmida, il est préférable d'utiliser une cuisson douce comme la vapeur ou une cuisson rapide.
-                            </div>
-
-                            <div class="alert alert-success mt-4" role="alert">
-                                <strong>🔴 Conclusion :</strong> En conclusion, « El H'midha » est une plante sauvage riche en nutriments et très utilisée dans la cuisine traditionnelle. Elle apporte un goût particulier et des bienfaits pour la santé.
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="conclusion" class="mb-5">
-                    <div class="section-header text-start">
-                        <h2>🔴 Conclusion Générale</h2>
-                        <div class="divider ms-0"></div>
-                    </div>
-                    <div class="card-journal bg-white shadow-sm">
-                        <p class="lead">En conclusion, le plat traditionnel <strong>Arbiṭ</strong> illustre parfaitement la richesse de la nature et de la culture culinaire de la région de Jijel. À travers l'utilisation de plantes comme <strong>el mejir, el lahlah et el hamida</strong>, nous découvrons une alimentation simple, naturelle et pleine de bienfaits.</p>
-                        <p>Ce projet nous a permis de comprendre que les plantes ne sont pas seulement des ingrédients, mais de véritables sources de santé, riches en nutriments essentiels et en composés protecteurs.</p>
-                        
-                        <div class="highlight-box mt-4 border-primary" style="border-left-color: var(--primary-dark);">
-                            👉 <strong>Héritage :</strong> Plus qu'un simple plat, l'Arbiṭ représente un héritage précieux transmis de génération en génération, qui reflète notre identité et notre lien profond avec la nature.
-                        </div>
-
-                        <p class="mt-3">Ainsi, préserver les plantes et valoriser leur utilisation dans notre alimentation est une nécessité pour un avenir sain et durable.</p>
-                    </div>
-                </section>
-
-            </div>
-        </div>
+    <!-- Progress Bar -->
+    <div class="progress-bar-container">
+        <div class="progress-bar" id="progressBar"></div>
     </div>
 
-    <!-- Footer -->
-    <footer class="text-light py-5">
-        <div class="container text-center">
-            <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <h3 class="mb-4" style="font-family: 'Playfair Display', serif;">Harbit de Jijel</h3>
-                    <p class="mb-4 text-white-50">Projet de Recherche en Nutrition & Botanique</p>
-                    
-                    <p class="small text-white-50">
-                        &copy; Meroua Benabla | Saad Dahlab University<br>
-                    </p>
+    <!-- Slides Container -->
+    <div class="slides-container">
+
+        <!-- SLIDE 1: COVER (Animated) -->
+        <section class="slide cover active" data-slide="1">
+            <div class="slide-content text-center">
+                <span class="text-uppercase text-muted mb-3 d-block" style="letter-spacing: 3px; font-size: 0.9rem;">Patrimoine Botanique & Culinaire</span>
+                <h1 class="hero-title">L'Art Nutritionnel du <span class="fst-italic" style="color: var(--primary-light);">Harbit</span></h1>
+                <p class="hero-subtitle">Une exploration complète des ressources végétales spontanées de la région de Jijel</p>
+                <div class="d-flex justify-content-center mb-4">
+                    <img src="" alt="Plat traditionnel Harbit de Jijel" class="hero-img">
+                </div>
+                <p class="lead text-muted mb-4" style="max-width: 700px; margin: 0 auto 2rem;">
+                    Découvrez comment la biodiversité végétale algérienne se transforme en un plat traditionnel équilibré, riche en histoire et en bienfaits pour la santé.
+                </p>
+                <button class="btn btn-explore btn-outline-dark rounded-0 px-5 py-2" onclick="goToSlide(2)">
+                    Commencer la Présentation <i class="fas fa-arrow-right ms-2"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- SLIDE 2: INTRODUCTION -->
+        <section class="slide" data-slide="2">
+            <div class="slide-content">
+                <div class="section-header">
+                    <h2><i class="fas fa-book-open me-2"></i>1. Introduction</h2>
+                    <div class="divider"></div>
+                </div>
+                <div class="card-journal">
+                    <p>Les plantes constituent la base de l'alimentation humaine depuis des millénaires. Elles fournissent les macronutriments essentiels (glucides, protéines, lipides) ainsi que des micronutriments indispensables (vitamines, minéraux et composés bioactifs).</p>
+                    <p>La biodiversité végétale joue un rôle fondamental dans l'équilibre nutritionnel et la prévention de nombreuses maladies. Dans ce contexte, les plats traditionnels algériens reflètent une utilisation intelligente et variée des ressources végétales locales.</p>
+                    <div class="highlight-box">
+                        <strong>Focus :</strong> Le plat <strong>« Harbit »</strong>, originaire de Jijel, représente un excellent exemple de cuisine végétale équilibrée, combinant plusieurs plantes aux propriétés nutritionnelles et médicinales importantes.
+                    </div>
                 </div>
             </div>
-        </div>
-    </footer>
+        </section>
+
+        <!-- SLIDE 3: REGION JIJEL -->
+        <section class="slide" data-slide="3">
+            <div class="slide-content">
+                <div class="section-header">
+                    <h2>2. La Région : Jijel</h2>
+                    <div class="divider"></div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-12">
+                        <div class="card-journal">
+                            <h5><i class="fas fa-map-marker-alt me-2 text-danger"></i>Contexte géographique</h5>
+                            <p class="mb-0">La wilaya de Jijel, située au nord-est de l'Algérie sur la côte méditerranéenne, se caractérise par une richesse écologique et une biodiversité végétale remarquable. Climat méditerranéen humide favorisant une flore variée.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-journal">
+                            <h5><i class="fas fa-leaf me-2 text-success"></i>Importance botanique</h5>
+                            <ul class="small mb-0">
+                                <li>Légumes (Brassicaceae)</li>
+                                <li>Plantes aromatiques</li>
+                                <li>Arbres fruitiers, olivier</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-journal">
+                            <h5><i class="fas fa-utensils me-2 text-warning"></i>Dimension culinaire</h5>
+                            <p class="mb-0 small">Gastronomie traditionnelle basée sur produits locaux frais. Le plat végétal <strong>"Harbit"</strong> illustre l'intégration des ressources végétales locales.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 4: PRESENTATION DU PLAT -->
+        <section class="slide" data-slide="4">
+            <div class="slide-content">
+                <div class="section-header">
+                    <h2>3. Le Plat « Harbit »</h2>
+                    <div class="divider"></div>
+                </div>
+                <p class="lead mb-4">Plat traditionnel végétarien de Jijel, caractérisé par l'utilisation de plantes sauvages comestibles locales.</p>
+                
+                <h5 class="mb-3">Constituants principaux :</h5>
+                <div class="row g-2">
+                    <div class="col-md-6">
+                        <div class="card-journal text-center p-3">
+                            <img src="plat.png" alt="Oseille" class="ingredient-img">
+                            <strong>Hmida</strong> (Oseille)<br>
+                            <small class="text-muted">Vitamine C, antioxydants</small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-journal text-center p-3">
+                            <img src="" alt="M'jir" class="ingredient-img">
+                            <strong>M'jir</strong> (Chenopodium)<br>
+                            <small class="text-muted">Fibres, micronutriments</small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-journal text-center p-3">
+                            <img src="" alt="Lahlah" class="ingredient-img">
+                            <strong>Lahlah</strong> (Mauve)<br>
+                            <small class="text-muted">Composés bioactifs</small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-journal text-center p-3">
+                            <img src="" alt="Ail & Huile" class="ingredient-img">
+                            <strong>Ail & Huile d'olive</strong><br>
+                            <small class="text-muted">Antimicrobien, cardioprotecteur</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 5: METHODE DE PREPARATION -->
+        <section class="slide" data-slide="5">
+            <div class="slide-content">
+                <div class="section-header">
+                    <h2>🔴 Méthode de Préparation</h2>
+                    <div class="divider"></div>
+                </div>
+                <div class="row g-2">
+                    <div class="col-md-6">
+                        <div class="step-card"><strong>1.</strong> Nettoyage des plantes</div>
+                        <div class="step-card"><strong>2.</strong> Découpage fin</div>
+                        <div class="step-card"><strong>3.</strong> Cuisson initiale (ébullition)</div>
+                        <div class="step-card"><strong>4.</strong> Égouttage</div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="step-card"><strong>5.</strong> Écrasement traditionnel</div>
+                        <div class="step-card"><strong>6.</strong> Assaisonnement (ail, sel, épices)</div>
+                        <div class="step-card"><strong>7.</strong> Ajout huile d'olive</div>
+                        <div class="step-card"><strong>8.</strong> Cuisson finale à feu doux</div>
+                    </div>
+                </div>
+                <div class="highlight-box mt-3 mb-0">
+                    💡 <strong>Conseil :</strong> Privilégier une cuisson douce pour préserver les nutriments.
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 6: FICHE EL MJIRE -->
+        <section class="slide" data-slide="6">
+            <div class="slide-content">
+                <div class="section-header">
+                    <h2>🌿 Fiche : El Mjire</h2>
+                    <div class="divider"></div>
+                    <span class="badge bg-warning text-dark">Chenopodium sp.</span>
+                </div>
+                <img src="" alt="El Mjire" class="plant-img">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Classification</h5>
+                        <ul class="small">
+                            <li>Famille: Amaranthaceae</li>
+                            <li>Plante herbacée sauvage</li>
+                            <li>Feuilles tendres comestibles</li>
+                        </ul>
+                        <h5>Bienfaits santé</h5>
+                        <ul class="small">
+                            <li>✅ Antioxydants</li>
+                            <li>✅ Anti-inflammatoire</li>
+                            <li>✅ Digestif</li>
+                            <li>✅ Renforcement immunitaire</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Valeur nutritionnelle</h5>
+                        <ul class="small">
+                            <li>Glucides • Fibres • Protéines</li>
+                            <li>Polyphénols • Flavonoïdes</li>
+                            <li>Acides organiques</li>
+                        </ul>
+                        <div class="highlight-box">
+                            👉 Cuisson vapeur recommandée pour préserver les vitamines.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 7: FICHE EL LAHLEH -->
+        <section class="slide" data-slide="7">
+            <div class="slide-content">
+                <div class="section-header">
+                    <h2>🌸 Fiche : El Lahleh</h2>
+                    <div class="divider"></div>
+                    <span class="badge bg-warning text-dark">Malva sylvestris</span>
+                </div>
+                <img src="" alt="El Lahleh" class="plant-img">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Classification</h5>
+                        <ul class="small">
+                            <li>Famille: Malvaceae</li>
+                            <li>Feuilles larges, fleurs violettes 🌸</li>
+                            <li>Pousse dans champs et jardins</li>
+                        </ul>
+                        <h5>Bienfaits santé</h5>
+                        <ul class="small">
+                            <li>✅ Antioxydant cardiaque</li>
+                            <li>✅ Anti-inflammatoire</li>
+                            <li>✅ Fibres & minéraux</li>
+                            <li>✅ Vitamine C</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Composition</h5>
+                        <ul class="small">
+                            <li>Fibres alimentaires</li>
+                            <li>Polyphénols • Flavonoïdes</li>
+                            <li>Calcium • Fer • Magnésium • Potassium</li>
+                        </ul>
+                        <div class="highlight-box">
+                            👉 Cuisson douce recommandée pour conserver les bienfaits.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 8: FICHE EL H'MIDHA -->
+        <section class="slide" data-slide="8">
+            <div class="slide-content">
+                <div class="section-header">
+                    <h2>🍃 Fiche : El H'midha</h2>
+                    <div class="divider"></div>
+                    <span class="badge bg-warning text-dark">Rumex acetosa</span>
+                </div>
+                <img src="" alt="El H'midha" class="plant-img">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Classification</h5>
+                        <ul class="small">
+                            <li>Famille: Polygonaceae</li>
+                            <li>Feuilles allongées, goût acide</li>
+                            <li>Zones humides</li>
+                        </ul>
+                        <h5>Bienfaits santé</h5>
+                        <ul class="small">
+                            <li>✅ Antioxydant (Vit C + polyphénols)</li>
+                            <li>✅ Digestif (acides organiques)</li>
+                            <li>✅ Minéraux essentiels</li>
+                            <li>✅ Renforcement immunitaire</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Particularités</h5>
+                        <ul class="small">
+                            <li>Potassium élevé</li>
+                            <li>Acides organiques (goût acidulé)</li>
+                            <li>Flavonoïdes cardioprotecteurs</li>
+                        </ul>
+                        <div class="highlight-box">
+                            👉 Cuisson rapide ou vapeur pour équilibrer acidité et nutriments.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 9: CONCLUSION -->
+        <section class="slide" data-slide="9">
+            <div class="slide-content">
+                <div class="section-header">
+                    <h2>🔴 Conclusion Générale</h2>
+                    <div class="divider"></div>
+                </div>
+                <div class="card-journal">
+                    <p class="lead mb-3">Le plat traditionnel <strong>Arbiṭ</strong> illustre parfaitement la richesse de la nature et de la culture culinaire de Jijel.</p>
+                    <p>À travers <strong>el mejir, el lahlah et el hamida</strong>, nous découvrons une alimentation simple, naturelle et pleine de bienfaits.</p>
+                    <div class="highlight-box mt-3 border-primary" style="border-left-color: var(--primary-dark);">
+                        👉 <strong>Héritage :</strong> Plus qu'un plat, l'Arbiṭ est un héritage transmis de génération en génération, reflétant notre identité et notre lien avec la nature.
+                    </div>
+                    <p class="mb-0 mt-3">Préserver les plantes et valoriser leur utilisation est une nécessité pour un avenir sain et durable.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 10: CLOSING (Animated) -->
+        <section class="slide closing" data-slide="10">
+            <div class="slide-content closing-content">
+                <h1 class="thank-you">🙏 Merci !</h1>
+                <p class="final-message">
+                    Cette présentation vous a permis de découvrir l'art nutritionnel du Harbit de Jijel.<br>
+                    Ensemble, valorisons notre patrimoine botanique pour une alimentation saine et durable.
+                </p>
+                <div class="signature">
+                    <i class="fas fa-leaf me-2"></i>Meroua Benabla | Saad Dahlab University<br>
+                    <small>Projet de Recherche en Nutrition & Botanique</small>
+                </div>
+                <button class="btn btn-outline-light mt-4 rounded-0 px-4" onclick="goToSlide(1)">
+                    <i class="fas fa-redo me-2"></i>Recommencer
+                </button>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="slide-nav">
+        <button class="nav-btn" id="prevBtn" onclick="prevSlide()" title="Précédent">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <div class="slide-counter" id="slideCounter">1 / 10</div>
+        
+        <div class="slide-dots" id="slideDots"></div>
+        
+        <button class="nav-btn" id="nextBtn" onclick="nextSlide()" title="Suivant">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+        // ============================================
+        // POWERPOINT SLIDE NAVIGATION SYSTEM
+        // ============================================
+        let currentSlide = 1;
+        const totalSlides = 10;
+
+        function initSlides() {
+            // Create slide dots
+            const dotsContainer = document.getElementById('slideDots');
+            for (let i = 1; i <= totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.className = `slide-dot ${i === 1 ? 'active' : ''}`;
+                dot.onclick = () => goToSlide(i);
+                dot.title = `Diapositive ${i}`;
+                dotsContainer.appendChild(dot);
+            }
+            updateSlide();
+        }
+
+        function goToSlide(slideNum) {
+            if (slideNum < 1 || slideNum > totalSlides) return;
+            
+            // Hide current slide
+            document.querySelector(`.slide[data-slide="${currentSlide}"]`).classList.remove('active');
+            
+            // Show new slide
+            currentSlide = slideNum;
+            document.querySelector(`.slide[data-slide="${currentSlide}"]`).classList.add('active');
+            
+            // Reset animations for cover/closing slides
+            if (currentSlide === 1 || currentSlide === totalSlides) {
+                const slide = document.querySelector(`.slide[data-slide="${currentSlide}"]`);
+                slide.style.animation = 'none';
+                setTimeout(() => slide.style.animation = '', 10);
+            }
+            
+            updateSlide();
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                goToSlide(currentSlide + 1);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                goToSlide(currentSlide - 1);
+            }
+        }
+
+        function updateSlide() {
+            // Update counter
+            document.getElementById('slideCounter').textContent = `${currentSlide} / ${totalSlides}`;
+            
+            // Update dots
+            document.querySelectorAll('.slide-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index + 1 === currentSlide);
             });
-        });
+            
+            // Update buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+            
+            // Update progress bar
+            const progress = (currentSlide / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+            
+            // Keyboard navigation
+            document.onkeydown = function(e) {
+                if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+                if (e.key === 'ArrowLeft') prevSlide();
+                if (e.key >= '1' && e.key <= '9') goToSlide(parseInt(e.key));
+                if (e.key === '0') goToSlide(10);
+            };
+        }
 
         // ============================================
         // FLOATING LEAVES ANIMATION
@@ -978,33 +931,11 @@
             if (!container) return;
 
             const leafShapes = [
-                // Leaf shape 1 - simple oval leaf
-                `<svg viewBox="0 0 60 100" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M30 5 C30 5, 55 20, 55 50 C55 80, 30 95, 30 95 C30 95, 5 80, 5 50 C5 20, 30 5, 30 5Z" fill="#2d6b4a" opacity="0.6"/>
-                    <line x1="30" y1="5" x2="30" y2="95" stroke="#1a4a2e" stroke-width="1.5" opacity="0.5"/>
-                </svg>`,
-                // Leaf shape 2 - pointed leaf
-                `<svg viewBox="0 0 50 90" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M25 0 C25 0, 45 15, 40 45 C35 75, 25 90, 25 90 C25 90, 15 75, 10 45 C5 15, 25 0, 25 0Z" fill="#3a8a5c" opacity="0.5"/>
-                    <line x1="25" y1="2" x2="25" y2="88" stroke="#2a6a42" stroke-width="1" opacity="0.4"/>
-                </svg>`,
-                // Leaf shape 3 - broad leaf
-                `<svg viewBox="0 0 70 80" xmlns="http://www.w3.org/2000/svg">
-                    <ellipse cx="35" cy="40" rx="30" ry="35" fill="#1a5c3a" opacity="0.5"/>
-                    <line x1="35" y1="5" x2="35" y2="75" stroke="#0d4028" stroke-width="1.5" opacity="0.4"/>
-                </svg>`,
-                // Leaf shape 4 - small round leaf
-                `<svg viewBox="0 0 40 50" xmlns="http://www.w3.org/2000/svg">
-                    <ellipse cx="20" cy="25" rx="18" ry="22" fill="#4a9a6a" opacity="0.4"/>
-                    <line x1="20" y1="3" x2="20" y2="47" stroke="#2a6a42" stroke-width="1" opacity="0.3"/>
-                </svg>`,
-                // Leaf shape 5 - fern-like
-                `<svg viewBox="0 0 60 80" xmlns="http://www.w3.org/2000/svg">
-                    <ellipse cx="30" cy="40" rx="25" ry="35" fill="#2a7a4a" opacity="0.45"/>
-                    <ellipse cx="20" cy="30" rx="12" ry="20" fill="#3a8a5c" opacity="0.35"/>
-                    <ellipse cx="40" cy="50" rx="12" ry="20" fill="#3a8a5c" opacity="0.35"/>
-                    <line x1="30" y1="5" x2="30" y2="75" stroke="#1a5a3a" stroke-width="1.5" opacity="0.4"/>
-                </svg>`
+                `<svg viewBox="0 0 60 100" xmlns="http://www.w3.org/2000/svg"><path d="M30 5 C30 5, 55 20, 55 50 C55 80, 30 95, 30 95 C30 95, 5 80, 5 50 C5 20, 30 5, 30 5Z" fill="#2d6b4a" opacity="0.6"/><line x1="30" y1="5" x2="30" y2="95" stroke="#1a4a2e" stroke-width="1.5" opacity="0.5"/></svg>`,
+                `<svg viewBox="0 0 50 90" xmlns="http://www.w3.org/2000/svg"><path d="M25 0 C25 0, 45 15, 40 45 C35 75, 25 90, 25 90 C25 90, 15 75, 10 45 C5 15, 25 0, 25 0Z" fill="#3a8a5c" opacity="0.5"/><line x1="25" y1="2" x2="25" y2="88" stroke="#2a6a42" stroke-width="1" opacity="0.4"/></svg>`,
+                `<svg viewBox="0 0 70 80" xmlns="http://www.w3.org/2000/svg"><ellipse cx="35" cy="40" rx="30" ry="35" fill="#1a5c3a" opacity="0.5"/><line x1="35" y1="5" x2="35" y2="75" stroke="#0d4028" stroke-width="1.5" opacity="0.4"/></svg>`,
+                `<svg viewBox="0 0 40 50" xmlns="http://www.w3.org/2000/svg"><ellipse cx="20" cy="25" rx="18" ry="22" fill="#4a9a6a" opacity="0.4"/><line x1="20" y1="3" x2="20" y2="47" stroke="#2a6a42" stroke-width="1" opacity="0.3"/></svg>`,
+                `<svg viewBox="0 0 60 80" xmlns="http://www.w3.org/2000/svg"><ellipse cx="30" cy="40" rx="25" ry="35" fill="#2a7a4a" opacity="0.45"/><ellipse cx="20" cy="30" rx="12" ry="20" fill="#3a8a5c" opacity="0.35"/><ellipse cx="40" cy="50" rx="12" ry="20" fill="#3a8a5c" opacity="0.35"/><line x1="30" y1="5" x2="30" y2="75" stroke="#1a5a3a" stroke-width="1.5" opacity="0.4"/></svg>`
             ];
 
             const colors = ['#2d6b4a', '#3a8a5c', '#1a5c3a', '#4a9a6a', '#2a7a4a', '#357a52', '#1a6a42'];
@@ -1019,14 +950,12 @@
                 const leftPos = Math.random() * 100;
                 const duration = 20 + Math.random() * 30;
                 const delay = Math.random() * 25;
-                const swayAmount = -30 + Math.random() * 60;
 
                 leaf.style.left = leftPos + '%';
                 leaf.style.width = size + 'px';
                 leaf.style.animationDuration = duration + 's';
                 leaf.style.animationDelay = delay + 's';
                 
-                // Replace color in SVG
                 let svgContent = leafShapes[shapeIndex].replace(/#2d6b4a|#3a8a5c|#1a5c3a|#4a9a6a|#2a7a4a|#357a52|#1a6a42/g, color);
                 leaf.innerHTML = svgContent;
                 
@@ -1034,8 +963,11 @@
             }
         }
 
-        // Initialize floating leaves
-        createFloatingLeaves();
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            initSlides();
+            createFloatingLeaves();
+        });
     </script>
 </body>
 </html>
