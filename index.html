@@ -295,8 +295,8 @@
             background-color: white;
         }
 
-        /* --- UPDATED PLANT IMAGE STYLES (SMALLER) --- */
-        .plant-img {
+        /* --- UPDATED PLANT MEDIA STYLES (Image & Video) --- */
+        .plant-img, .plant-video {
             width: 100%;
             max-width: 300px; /* Limits width so it's not too wide */
             height: 180px;    /* Reduced height from 220px */
@@ -311,8 +311,9 @@
             transform: scale(0.9);
         }
 
-        /* When the slide is active, trigger the plant reveal AND the floating animation */
-        .slide.active .plant-img {
+        /* When the slide is active, trigger the reveal AND the floating animation for both images and videos */
+        .slide.active .plant-img,
+        .slide.active .plant-video {
             animation: plantReveal 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards, 
                        floatInPlace 4s ease-in-out infinite 0.8s; /* Starts after reveal */
         }
@@ -623,8 +624,8 @@
             .scrollable-content { max-height: 60vh; }
             .closing-content { padding: 40px 25px; }
             
-            /* Make plant image slightly smaller on mobile too */
-            .plant-img {
+            /* Make plant media slightly smaller on mobile too */
+            .plant-img, .plant-video {
                 max-width: 250px;
                 height: 150px;
             }
@@ -758,8 +759,9 @@
                         </div>
                         <div class="col-md-6">
                             <div class="card-journal text-center p-3">
-                                <img src="halhal.jpg" alt="Lahlah" class="ingredient-img">
-                                <strong>Halhal</strong> (Mauve sauvage)<br>
+                                <!-- VIDEO REPLACED IMAGE HERE -->
+                                <video src="lahlah.jpg" class="ingredient-img" autoplay muted loop playsinline></video>
+                                <strong>Lahlah</strong> (Mauve sauvage)<br>
                                 <small class="text-muted">Composés bioactifs, propriétés médicinales</small>
                             </div>
                         </div>
@@ -897,7 +899,7 @@
             </div>
         </section>
 
-        <!-- SLIDE 7: FICHE EL LAHLEH -->
+        <!-- SLIDE 7: FICHE EL LAHLEH (WITH VIDEO) -->
         <section class="slide" data-slide="7">
             <div class="slide-content">
                 <div class="section-header">
@@ -906,7 +908,9 @@
                     <span class="badge bg-warning text-dark">Malva sylvestris</span>
                 </div>
                 <div class="scrollable-content">
-                    <img src="halhal.jpg" alt="El Lahleh" class="plant-img">
+                    <!-- VIDEO ELEMENT REPLACING IMAGE -->
+                    <video src="YzH1ObjP.mp4" class="plant-video" autoplay muted loop playsinline></video>
+                    
                     <div class="row">
                         <div class="col-md-6">
                             <h5>1. Classification systématique</h5>
