@@ -303,14 +303,15 @@
             border-radius: 8px;
             margin-bottom: 20px;
             border: 3px solid var(--accent-gold);
-            /* Apply animation only when slide is active */
+            /* Initial state for entrance animation */
             opacity: 0; 
             transform: scale(0.9);
         }
 
-        /* When the slide is active, trigger the plant reveal */
+        /* When the slide is active, trigger the plant reveal AND the floating animation */
         .slide.active .plant-img {
-            animation: plantReveal 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            animation: plantReveal 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards, 
+                       floatInPlace 4s ease-in-out infinite 0.8s; /* Starts after reveal */
         }
 
         /* Staggered animation for text content in plant slides */
@@ -324,6 +325,16 @@
             to {
                 opacity: 1;
                 transform: scale(1);
+            }
+        }
+
+        /* The "Move in Place" Animation */
+        @keyframes floatInPlace {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-10px) scale(1.02);
             }
         }
 
@@ -745,7 +756,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="card-journal text-center p-3">
-                                <img src="" alt="Ail & Huile" class="ingredient-img">
+                                <img src="oil.png" alt="Ail & Huile" class="ingredient-img">
                                 <strong>Ail & Huile d'olive</strong><br>
                                 <small class="text-muted">Antimicrobien, cardioprotecteur</small>
                             </div>
