@@ -295,14 +295,17 @@
             background-color: white;
         }
 
-        /* --- NEW PLANT ANIMATION STYLES --- */
+        /* --- UPDATED PLANT IMAGE STYLES (SMALLER) --- */
         .plant-img {
             width: 100%;
-            height: 220px;
+            max-width: 300px; /* Limits width so it's not too wide */
+            height: 180px;    /* Reduced height from 220px */
             object-fit: cover;
             border-radius: 8px;
-            margin-bottom: 20px;
+            margin: 0 auto 20px auto; /* Centered horizontally */
+            display: block;   /* Ensures margin auto works */
             border: 3px solid var(--accent-gold);
+            
             /* Initial state for entrance animation */
             opacity: 0; 
             transform: scale(0.9);
@@ -619,6 +622,12 @@
             .nav-btn { width: 40px; height: 40px; }
             .scrollable-content { max-height: 60vh; }
             .closing-content { padding: 40px 25px; }
+            
+            /* Make plant image slightly smaller on mobile too */
+            .plant-img {
+                max-width: 250px;
+                height: 150px;
+            }
         }
     </style>
 </head>
@@ -756,7 +765,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="card-journal text-center p-3">
-                                <img src="oil.png" alt="Ail & Huile" class="ingredient-img">
+                                <img src="" alt="Ail & Huile" class="ingredient-img">
                                 <strong>Ail & Huile d'olive</strong><br>
                                 <small class="text-muted">Antimicrobien, cardioprotecteur</small>
                             </div>
@@ -892,7 +901,7 @@
         <section class="slide" data-slide="7">
             <div class="slide-content">
                 <div class="section-header">
-                    <h2>🌸 Fiche : El Lahleh (La mauve)</h2>
+                    <h2>🌸 Fiche : El Halhal (La mauve)</h2>
                     <div class="divider"></div>
                     <span class="badge bg-warning text-dark">Malva sylvestris</span>
                 </div>
