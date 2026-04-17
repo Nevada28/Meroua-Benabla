@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harbit de Jijel - Présentation PowerPoint Style</title>
+    <title>Harbit de Jijel - Patrimoine Botanique & Nutritionnel</title>
     
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -17,6 +17,7 @@
             --primary-dark: #1a3c34;
             --primary-light: #4a7c6f;
             --accent-gold: #c5a065;
+            --accent-gold-light: #e8d5b7;
             --bg-cream: #f9f7f2;
             --bg-white: #ffffff;
             --text-main: #2c3e50;
@@ -464,32 +465,104 @@
             color: rgba(255,255,255,0.8) !important;
         }
 
-        /* Closing slide special styles */
+        /* ============================================
+           CLOSING SLIDE - NEW COLOR SCHEME
+           ============================================ */
         .closing-content {
             text-align: center;
             padding: 60px 40px;
+            background: linear-gradient(135deg, rgba(26, 60, 52, 0.95), rgba(74, 124, 111, 0.9));
+            border-radius: 20px;
+            border: 2px solid var(--accent-gold-light);
         }
 
         .thank-you {
             font-size: 4rem;
-            color: var(--accent-gold);
+            color: var(--accent-gold-light);
             font-family: 'Playfair Display', serif;
-            margin-bottom: 20px;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            margin-bottom: 25px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            letter-spacing: 2px;
         }
 
         .final-message {
-            font-size: 1.4rem;
-            color: white;
+            font-size: 1.3rem;
+            color: #f0f9f4;
             max-width: 700px;
-            margin: 0 auto 30px;
-            line-height: 1.6;
+            margin: 0 auto 35px;
+            line-height: 1.7;
+            font-weight: 300;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .final-message strong {
+            color: var(--accent-gold-light);
+            font-weight: 500;
         }
 
         .signature {
-            color: rgba(255,255,255,0.8);
+            color: #c8e6d9;
             font-style: italic;
-            margin-top: 20px;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(197, 160, 101, 0.4);
+        }
+
+        .signature i {
+            color: var(--accent-gold-light);
+        }
+
+        .signature small {
+            display: block;
+            margin-top: 8px;
+            color: #a8d0c4;
+            font-size: 0.9rem;
+        }
+
+        .closing-btn {
+            background: linear-gradient(135deg, var(--accent-gold), #b08d55);
+            border: 2px solid var(--accent-gold-light);
+            color: var(--primary-dark);
+            font-weight: 600;
+            padding: 12px 35px;
+            border-radius: 50px;
+            transition: all 0.3s;
+            margin-top: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .closing-btn:hover {
+            background: linear-gradient(135deg, #b08d55, var(--accent-gold));
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(197, 160, 101, 0.4);
+            color: white;
+        }
+
+        .closing-btn i {
+            margin-right: 8px;
+        }
+
+        /* Scrollable content for detailed slides */
+        .scrollable-content {
+            max-height: 65vh;
+            overflow-y: auto;
+            padding-right: 15px;
+        }
+
+        .scrollable-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .scrollable-content::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.1);
+            border-radius: 4px;
+        }
+
+        .scrollable-content::-webkit-scrollbar-thumb {
+            background: var(--accent-gold);
+            border-radius: 4px;
         }
 
         /* Responsive */
@@ -502,6 +575,8 @@
             .final-message { font-size: 1.1rem; }
             .slide-nav { bottom: 15px; padding: 10px 20px; }
             .nav-btn { width: 40px; height: 40px; }
+            .scrollable-content { max-height: 60vh; }
+            .closing-content { padding: 40px 25px; }
         }
     </style>
 </head>
@@ -537,7 +612,7 @@
                 <h1 class="hero-title">L'Art Nutritionnel du <span class="fst-italic" style="color: var(--primary-light);">Harbit</span></h1>
                 <p class="hero-subtitle">Une exploration complète des ressources végétales spontanées de la région de Jijel</p>
                 <div class="d-flex justify-content-center mb-4">
-                    <img src="plat.png"  class="hero-img">
+                    <img src="plat.png" alt="Plat traditionnel Harbit de Jijel" class="hero-img">
                 </div>
                 <p class="lead text-muted mb-4" style="max-width: 700px; margin: 0 auto 2rem;">
                     Découvrez comment la biodiversité végétale algérienne se transforme en un plat traditionnel équilibré, riche en histoire et en bienfaits pour la santé.
@@ -572,27 +647,32 @@
                     <h2>2. La Région : Jijel</h2>
                     <div class="divider"></div>
                 </div>
-                <div class="row g-3">
-                    <div class="col-md-12">
-                        <div class="card-journal">
-                            <h5><i class="fas fa-map-marker-alt me-2 text-danger"></i>Contexte géographique</h5>
-                            <p class="mb-0">La wilaya de Jijel, située au nord-est de l'Algérie sur la côte méditerranéenne, se caractérise par une richesse écologique et une biodiversité végétale remarquable. Climat méditerranéen humide favorisant une flore variée.</p>
+                <div class="scrollable-content">
+                    <div class="row g-3">
+                        <div class="col-md-12">
+                            <div class="card-journal">
+                                <h5><i class="fas fa-map-marker-alt me-2 text-danger"></i>Contexte géographique et climatique</h5>
+                                <p>La wilaya de Jijel, située au nord-est de l'Algérie sur la côte méditerranéenne, se caractérise par une richesse écologique et une biodiversité végétale remarquable.</p>
+                                <p class="mb-0">Cette région montagneuse, appartenant à la chaîne des Babors, bénéficie d'un climat méditerranéen humide, avec des précipitations abondantes et des températures modérées. Ces conditions favorisent le développement d'une flore variée et une agriculture diversifiée.</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card-journal">
-                            <h5><i class="fas fa-leaf me-2 text-success"></i>Importance botanique</h5>
-                            <ul class="small mb-0">
-                                <li>Légumes (Brassicaceae)</li>
-                                <li>Plantes aromatiques</li>
-                                <li>Arbres fruitiers, olivier</li>
-                            </ul>
+                        <div class="col-md-6">
+                            <div class="card-journal">
+                                <h5><i class="fas fa-leaf me-2 text-success"></i>Importance botanique</h5>
+                                <p>La fertilité des sols et l'humidité élevée permettent la culture de nombreuses espèces végétales, notamment :</p>
+                                <ul class="small mb-0">
+                                    <li>Les légumes (comme les Brassicaceae)</li>
+                                    <li>Les plantes aromatiques</li>
+                                    <li>Les arbres fruitiers, en particulier l'olivier</li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card-journal">
-                            <h5><i class="fas fa-utensils me-2 text-warning"></i>Dimension culinaire</h5>
-                            <p class="mb-0 small">Gastronomie traditionnelle basée sur produits locaux frais. Le plat végétal <strong>"Harbit"</strong> illustre l'intégration des ressources végétales locales.</p>
+                        <div class="col-md-6">
+                            <div class="card-journal">
+                                <h5><i class="fas fa-utensils me-2 text-warning"></i>Dimension culturelle et culinaire</h5>
+                                <p>La richesse végétale de Jijel se reflète dans sa gastronomie traditionnelle, basée principalement sur l'utilisation de produits locaux frais.</p>
+                                <p class="mb-0 small">Parmi les plats typiques de la région, on retrouve le plat végétal <strong>"Harbit"</strong>, qui illustre parfaitement l'intégration des ressources végétales locales dans l'alimentation quotidienne.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -606,36 +686,60 @@
                     <h2>3. Le Plat « Harbit »</h2>
                     <div class="divider"></div>
                 </div>
-                <p class="lead mb-4">Plat traditionnel végétarien de Jijel, caractérisé par l'utilisation de plantes sauvages comestibles locales.</p>
-                
-                <h5 class="mb-3">Constituants principaux :</h5>
-                <div class="row g-2">
-                    <div class="col-md-6">
-                        <div class="card-journal text-center p-3">
-                            <img src="" alt="Oseille" class="ingredient-img">
-                            <strong>Hmida</strong> (Oseille)<br>
-                            <small class="text-muted">Vitamine C, antioxydants</small>
+                <div class="scrollable-content">
+                    <p class="lead mb-4">Le « Harbit » est un plat traditionnel végétarien originaire de la région de Jijel, caractérisé par l'utilisation de plantes sauvages comestibles locales. Il reflète un savoir-faire culinaire ancien basé sur l'exploitation des ressources végétales spontanées.</p>
+                    
+                    <h5 class="mb-3">Constituants principaux :</h5>
+                    <div class="row g-2 mb-4">
+                        <div class="col-md-6">
+                            <div class="card-journal text-center p-3">
+                                <img src="" alt="Oseille" class="ingredient-img">
+                                <strong>Hmida</strong> (Oseille - Rumex spp.)<br>
+                                <small class="text-muted">Vitamine C, acides organiques, antioxydants</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-journal text-center p-3">
+                                <img src="" alt="M'jir" class="ingredient-img">
+                                <strong>M'jir</strong> (Chenopodium sp.)<br>
+                                <small class="text-muted">Fibres, micronutriments</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-journal text-center p-3">
+                                <img src="" alt="Lahlah" class="ingredient-img">
+                                <strong>Lahlah</strong> (Mauve sauvage)<br>
+                                <small class="text-muted">Composés bioactifs, propriétés médicinales</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-journal text-center p-3">
+                                <img src="" alt="Ail & Huile" class="ingredient-img">
+                                <strong>Ail & Huile d'olive</strong><br>
+                                <small class="text-muted">Antimicrobien, cardioprotecteur</small>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="card-journal text-center p-3">
-                            <img src="" alt="M'jir" class="ingredient-img">
-                            <strong>M'jir</strong> (Chenopodium)<br>
-                            <small class="text-muted">Fibres, micronutriments</small>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card-journal text-center p-3">
-                            <img src="" alt="Lahlah" class="ingredient-img">
-                            <strong>Lahlah</strong> (Mauve)<br>
-                            <small class="text-muted">Composés bioactifs</small>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card-journal text-center p-3">
-                            <img src="" alt="Ail & Huile" class="ingredient-img">
-                            <strong>Ail & Huile d'olive</strong><br>
-                            <small class="text-muted">Antimicrobien, cardioprotecteur</small>
+
+                    <div class="card-journal">
+                        <h5>Analyse des méthodes de cuisson</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Cuisson des plantes (ébullition ou vapeur) :</strong></p>
+                                <ul class="small">
+                                    <li>Diminue l'acidité et améliore la digestibilité</li>
+                                    <li>Permet l'élimination de certains composés antinutritionnels</li>
+                                    <li>Peut entraîner une perte partielle de vitamines hydrosolubles</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Assaisonnement à l'huile d'olive :</strong></p>
+                                <ul class="small">
+                                    <li>Améliore la biodisponibilité des nutriments liposolubles</li>
+                                    <li>Apporte une valeur énergétique équilibrée</li>
+                                    <li>Renforce les propriétés antioxydantes du plat</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -649,22 +753,25 @@
                     <h2>🔴 Méthode de Préparation</h2>
                     <div class="divider"></div>
                 </div>
-                <div class="row g-2">
-                    <div class="col-md-6">
-                        <div class="step-card"><strong>1.</strong> Nettoyage des plantes</div>
-                        <div class="step-card"><strong>2.</strong> Découpage fin</div>
-                        <div class="step-card"><strong>3.</strong> Cuisson initiale (ébullition)</div>
-                        <div class="step-card"><strong>4.</strong> Égouttage</div>
+                <div class="scrollable-content">
+                    <p class="text-muted mb-3">La préparation de l'Arbiṭ demande de la patience et du soin pour préserver les qualités nutritionnelles des plantes.</p>
+                    <div class="row g-2">
+                        <div class="col-md-6">
+                            <div class="step-card"><strong>1 - Nettoyage des plantes :</strong><br>Les feuilles de mejir, lahlah et hamida sont soigneusement lavées plusieurs fois pour éliminer toute impureté.</div>
+                            <div class="step-card"><strong>2 - Découpage :</strong><br>Les plantes sont coupées finement afin de faciliter la cuisson et d'obtenir une texture homogène.</div>
+                            <div class="step-card"><strong>3 - Cuisson initiale :</strong><br>Les plantes sont mises dans une marmite avec de l'eau et laissées à bouillir pendant quelques minutes jusqu'à ce qu'elles deviennent tendres.</div>
+                            <div class="step-card"><strong>4 - Égouttage :</strong><br>Après cuisson, on retire l'excès d'eau pour éviter que le plat soit trop liquide.</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="step-card"><strong>5 - Écrasement :</strong><br>Les plantes sont légèrement écrasées à l'aide d'une cuillère ou d'un ustensile traditionnel pour obtenir une consistance plus liée.</div>
+                            <div class="step-card"><strong>6 - Assaisonnement :</strong><br>On ajoute l'ail écrasé, le sel et les épices selon le goût.</div>
+                            <div class="step-card"><strong>7 - Ajout de l'huile d'olive :</strong><br>Une quantité généreuse d'huile d'olive est incorporée pour améliorer le goût et apporter une texture onctueuse.</div>
+                            <div class="step-card"><strong>8 - Cuisson finale :</strong><br>Le mélange est remis à feu doux pendant quelques minutes pour bien mélanger les saveurs.</div>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="step-card"><strong>5.</strong> Écrasement traditionnel</div>
-                        <div class="step-card"><strong>6.</strong> Assaisonnement (ail, sel, épices)</div>
-                        <div class="step-card"><strong>7.</strong> Ajout huile d'olive</div>
-                        <div class="step-card"><strong>8.</strong> Cuisson finale à feu doux</div>
+                    <div class="highlight-box mt-3 mb-0">
+                        💡 <strong>Conseil :</strong> Privilégier une cuisson douce comme la vapeur pour préserver les nutriments.
                     </div>
-                </div>
-                <div class="highlight-box mt-3 mb-0">
-                    💡 <strong>Conseil :</strong> Privilégier une cuisson douce pour préserver les nutriments.
                 </div>
             </div>
         </section>
@@ -677,32 +784,62 @@
                     <div class="divider"></div>
                     <span class="badge bg-warning text-dark">Chenopodium sp.</span>
                 </div>
-                <img src="" alt="El Mjire" class="plant-img">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h5>Classification</h5>
-                        <ul class="small">
-                            <li>Famille: Amaranthaceae</li>
-                            <li>Plante herbacée sauvage</li>
-                            <li>Feuilles tendres comestibles</li>
-                        </ul>
-                        <h5>Bienfaits santé</h5>
-                        <ul class="small">
-                            <li>✅ Antioxydants</li>
-                            <li>✅ Anti-inflammatoire</li>
-                            <li>✅ Digestif</li>
-                            <li>✅ Renforcement immunitaire</li>
-                        </ul>
-                    </div>
-                    <div class="col-md-6">
-                        <h5>Valeur nutritionnelle</h5>
-                        <ul class="small">
-                            <li>Glucides • Fibres • Protéines</li>
-                            <li>Polyphénols • Flavonoïdes</li>
-                            <li>Acides organiques</li>
-                        </ul>
-                        <div class="highlight-box">
-                            👉 Cuisson vapeur recommandée pour préserver les vitamines.
+                <div class="scrollable-content">
+                    <img src="" alt="El Mjire" class="plant-img">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>1. Classification systématique</h5>
+                            <ul class="small">
+                                <li><strong>Règne :</strong> Plantae</li>
+                                <li><strong>Embranchement :</strong> Angiospermes</li>
+                                <li><strong>Classe :</strong> Dicotylédones</li>
+                                <li><strong>Ordre :</strong> Caryophyllales</li>
+                                <li><strong>Famille :</strong> Amaranthaceae</li>
+                                <li><strong>Genre :</strong> Chenopodium</li>
+                            </ul>
+
+                            <h5>2. Description morphologique</h5>
+                            <p class="small">Plante herbacée sauvage, de couleur verte, avec des feuilles tendres et une tige fine. Elle pousse naturellement sans culture.</p>
+
+                            <h5>3. Système végétatif</h5>
+                            <ul class="small">
+                                <li><strong>Racine :</strong> racine fine et ramifiée</li>
+                                <li><strong>Tige :</strong> tige verte, souple et dressée</li>
+                                <li><strong>Feuilles :</strong> feuilles vertes, molles et comestibles</li>
+                            </ul>
+
+                            <h5>4. Système reproducteur</h5>
+                            <ul class="small">
+                                <li><strong>Fleur :</strong> petites fleurs vertes peu visibles</li>
+                                <li><strong>Fruit :</strong> petit et sec</li>
+                                <li><strong>Graine :</strong> graines très fines</li>
+                            </ul>
+
+                            <h5>5. Partie consommée</h5>
+                            <p class="small"><strong>Les feuilles 🌿</strong> (Parfois les jeunes tiges).</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>6. Phytochimie et valeur nutritionnelle</h5>
+                            <p class="small"><strong>Métabolites primaires :</strong> Glucides, Fibres alimentaires, Protéines, Lipides (traces)</p>
+                            <p class="small"><strong>Métabolites secondaires :</strong> Polyphénols, Flavonoïdes, Acides organiques, Composés bioactifs divers</p>
+
+                            <h5>7. Bienfaits pour la santé</h5>
+                            <ul class="small">
+                                <li>✅ Antioxydants</li>
+                                <li>✅ Anti-inflammatoire</li>
+                                <li>✅ Digestif</li>
+                                <li>✅ Renforcement immunitaire</li>
+                            </ul>
+
+                            <h5>8. Valeur nutritionnelle (Cru vs Cuit)</h5>
+                            <ul class="small">
+                                <li><strong>Cru :</strong> Meilleure conservation vitamine C</li>
+                                <li><strong>Cuit :</strong> Meilleure digestibilité</li>
+                                <li><strong>Méthode :</strong> Vapeur recommandée</li>
+                            </ul>
+                            <div class="highlight-box">
+                                👉 Pour préserver au maximum les bienfaits de l'El Mjire, il est préférable de privilégier une cuisson douce comme la vapeur.
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -713,36 +850,70 @@
         <section class="slide" data-slide="7">
             <div class="slide-content">
                 <div class="section-header">
-                    <h2>🌸 Fiche : El Lahleh</h2>
+                    <h2>🌸 Fiche : El Lahleh (La mauve)</h2>
                     <div class="divider"></div>
                     <span class="badge bg-warning text-dark">Malva sylvestris</span>
                 </div>
-                <img src="" alt="El Lahleh" class="plant-img">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h5>Classification</h5>
-                        <ul class="small">
-                            <li>Famille: Malvaceae</li>
-                            <li>Feuilles larges, fleurs violettes 🌸</li>
-                            <li>Pousse dans champs et jardins</li>
-                        </ul>
-                        <h5>Bienfaits santé</h5>
-                        <ul class="small">
-                            <li>✅ Antioxydant cardiaque</li>
-                            <li>✅ Anti-inflammatoire</li>
-                            <li>✅ Fibres & minéraux</li>
-                            <li>✅ Vitamine C</li>
-                        </ul>
-                    </div>
-                    <div class="col-md-6">
-                        <h5>Composition</h5>
-                        <ul class="small">
-                            <li>Fibres alimentaires</li>
-                            <li>Polyphénols • Flavonoïdes</li>
-                            <li>Calcium • Fer • Magnésium • Potassium</li>
-                        </ul>
-                        <div class="highlight-box">
-                            👉 Cuisson douce recommandée pour conserver les bienfaits.
+                <div class="scrollable-content">
+                    <img src="" alt="El Lahleh" class="plant-img">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>1. Classification systématique</h5>
+                            <ul class="small">
+                                <li><strong>Règne :</strong> Plantae</li>
+                                <li><strong>Embranchement :</strong> Angiospermes</li>
+                                <li><strong>Classe :</strong> Dicotylédones</li>
+                                <li><strong>Ordre :</strong> Malvales</li>
+                                <li><strong>Famille :</strong> Malvaceae</li>
+                                <li><strong>Genre :</strong> Malva</li>
+                                <li><strong>Espèce :</strong> Malva sylvestris</li>
+                            </ul>
+
+                            <h5>2. Description morphologique</h5>
+                            <p class="small">Plante herbacée sauvage très connue. Elle possède des feuilles larges et douces, et des fleurs violettes. Elle pousse naturellement dans les champs et les jardins.</p>
+
+                            <h5>3. Système végétatif</h5>
+                            <ul class="small">
+                                <li><strong>Racine :</strong> racine pivotante</li>
+                                <li><strong>Tige :</strong> tige verte, droite et légèrement velue</li>
+                                <li><strong>Feuilles :</strong> grandes feuilles rondes, vertes et tendres</li>
+                            </ul>
+
+                            <h5>4. Système reproducteur</h5>
+                            <ul class="small">
+                                <li><strong>Fleur :</strong> fleurs violettes ou roses 🌸</li>
+                                <li><strong>Fruit :</strong> petit fruit sec en forme de disque</li>
+                                <li><strong>Graine :</strong> graines petites et nombreuses</li>
+                            </ul>
+
+                            <h5>5. Partie consommée</h5>
+                            <p class="small"><strong>Les feuilles 🌿</strong> (Parfois les fleurs).</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>6. Phytochimie et valeur nutritionnelle</h5>
+                            <ul class="small">
+                                <li><strong>Métabolites primaires :</strong> fibres alimentaires, glucides, petites quantités de protéines</li>
+                                <li><strong>Métabolites secondaires :</strong> polyphénols, flavonoïdes, acides organiques</li>
+                                <li><strong>Vitamines :</strong> vitamine C, petites quantités de vitamines B</li>
+                                <li><strong>Minéraux :</strong> calcium, fer, magnésium, potassium</li>
+                            </ul>
+
+                            <h5>7. Bienfaits pour la santé</h5>
+                            <ul class="small">
+                                <li>✅ Antioxydant : flavonoïdes et polyphénols</li>
+                                <li>✅ Anti-inflammatoire</li>
+                                <li>✅ Digestif et nutritif</li>
+                            </ul>
+
+                            <h5>8. Valeur nutritionnelle (Cru vs Cuit)</h5>
+                            <ul class="small">
+                                <li><strong>Cru :</strong> Conservation vitamine C</li>
+                                <li><strong>Cuit :</strong> Plus facile à digérer</li>
+                                <li><strong>Méthode :</strong> Vapeur recommandée</li>
+                            </ul>
+                            <div class="highlight-box">
+                                👉 Pour conserver au mieux les bienfaits du Lahlah, il est recommandé d'utiliser des méthodes de cuisson douces comme la vapeur.
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -753,36 +924,72 @@
         <section class="slide" data-slide="8">
             <div class="slide-content">
                 <div class="section-header">
-                    <h2>🍃 Fiche : El H'midha</h2>
+                    <h2>🍃 Fiche : El H'midha (L'oseille)</h2>
                     <div class="divider"></div>
                     <span class="badge bg-warning text-dark">Rumex acetosa</span>
                 </div>
-                <img src="" alt="El H'midha" class="plant-img">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h5>Classification</h5>
-                        <ul class="small">
-                            <li>Famille: Polygonaceae</li>
-                            <li>Feuilles allongées, goût acide</li>
-                            <li>Zones humides</li>
-                        </ul>
-                        <h5>Bienfaits santé</h5>
-                        <ul class="small">
-                            <li>✅ Antioxydant (Vit C + polyphénols)</li>
-                            <li>✅ Digestif (acides organiques)</li>
-                            <li>✅ Minéraux essentiels</li>
-                            <li>✅ Renforcement immunitaire</li>
-                        </ul>
-                    </div>
-                    <div class="col-md-6">
-                        <h5>Particularités</h5>
-                        <ul class="small">
-                            <li>Potassium élevé</li>
-                            <li>Acides organiques (goût acidulé)</li>
-                            <li>Flavonoïdes cardioprotecteurs</li>
-                        </ul>
-                        <div class="highlight-box">
-                            👉 Cuisson rapide ou vapeur pour équilibrer acidité et nutriments.
+                <div class="scrollable-content">
+                    <img src="" alt="El H'midha" class="plant-img">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>1. Classification systématique</h5>
+                            <ul class="small">
+                                <li><strong>Règne :</strong> Plantae</li>
+                                <li><strong>Embranchement :</strong> Angiospermes</li>
+                                <li><strong>Classe :</strong> Dicotylédones</li>
+                                <li><strong>Ordre :</strong> Caryophyllales</li>
+                                <li><strong>Famille :</strong> Polygonaceae</li>
+                                <li><strong>Genre :</strong> Rumex</li>
+                                <li><strong>Espèce :</strong> Rumex acetosa</li>
+                            </ul>
+
+                            <h5>2. Description morphologique</h5>
+                            <p class="small">Plante herbacée sauvage connue pour son goût acide. Elle possède des feuilles vertes allongées et pousse dans les zones humides.</p>
+
+                            <h5>3. Système végétatif</h5>
+                            <ul class="small">
+                                <li><strong>Racine :</strong> racine pivotante</li>
+                                <li><strong>Tige :</strong> tige verte, fine et dressée</li>
+                                <li><strong>Feuilles :</strong> feuilles allongées, vertes avec un goût acide</li>
+                            </ul>
+
+                            <h5>4. Système reproducteur</h5>
+                            <ul class="small">
+                                <li><strong>Fleur :</strong> petites fleurs vertes ou rougeâtres</li>
+                                <li><strong>Fruit :</strong> petit fruit sec</li>
+                                <li><strong>Graine :</strong> graines fines</li>
+                            </ul>
+
+                            <h5>5. Partie consommée</h5>
+                            <p class="small"><strong>Les feuilles 🌿</strong>.</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>6. Phytochimie et valeur nutritionnelle</h5>
+                            <ul class="small">
+                                <li><strong>Métabolites primaires :</strong> fibres, glucides, petites quantités de protéines</li>
+                                <li><strong>Métabolites secondaires :</strong> acides organiques (goût acidulé), polyphénols, flavonoïdes</li>
+                                <li><strong>Vitamines :</strong> vitamine C, petites quantités de vitamines B</li>
+                                <li><strong>Minéraux :</strong> potassium élevé, calcium, fer, magnésium</li>
+                            </ul>
+
+                            <h5>7. Bienfaits pour la santé</h5>
+                            <ul class="small">
+                                <li>✅ Antioxydant (vitamine C + polyphénols)</li>
+                                <li>✅ Anti-inflammatoire</li>
+                                <li>✅ Digestif (acides organiques + fibres)</li>
+                                <li>✅ Minéraux essentiels</li>
+                                <li>✅ Renforcement immunitaire</li>
+                            </ul>
+
+                            <h5>8. Valeur nutritionnelle (Cru vs Cuit)</h5>
+                            <ul class="small">
+                                <li><strong>Cru :</strong> Conservation vitamine C et acides organiques</li>
+                                <li><strong>Cuit :</strong> Réduction acidité, meilleure digestibilité</li>
+                                <li><strong>Méthode :</strong> Vapeur ou cuisson rapide</li>
+                            </ul>
+                            <div class="highlight-box">
+                                👉 Pour préserver les bienfaits de la Hmida, il est préférable d'utiliser une cuisson douce comme la vapeur ou une cuisson rapide.
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -796,31 +1003,33 @@
                     <h2>🔴 Conclusion Générale</h2>
                     <div class="divider"></div>
                 </div>
-                <div class="card-journal">
-                    <p class="lead mb-3">Le plat traditionnel <strong>Arbiṭ</strong> illustre parfaitement la richesse de la nature et de la culture culinaire de Jijel.</p>
-                    <p>À travers <strong>el mejir, el lahlah et el hamida</strong>, nous découvrons une alimentation simple, naturelle et pleine de bienfaits.</p>
-                    <div class="highlight-box mt-3 border-primary" style="border-left-color: var(--primary-dark);">
-                        👉 <strong>Héritage :</strong> Plus qu'un plat, l'Arbiṭ est un héritage transmis de génération en génération, reflétant notre identité et notre lien avec la nature.
+                <div class="scrollable-content">
+                    <div class="card-journal">
+                        <p class="lead mb-3">En conclusion, le plat traditionnel <strong>Arbiṭ</strong> illustre parfaitement la richesse de la nature et de la culture culinaire de la région de Jijel. À travers l'utilisation de plantes comme <strong>el mejir, el lahlah et el hamida</strong>, nous découvrons une alimentation simple, naturelle et pleine de bienfaits.</p>
+                        <p>Ce projet nous a permis de comprendre que les plantes ne sont pas seulement des ingrédients, mais de véritables sources de santé, riches en nutriments essentiels et en composés protecteurs.</p>
+                        <div class="highlight-box mt-3 border-primary" style="border-left-color: var(--primary-dark);">
+                            👉 <strong>Héritage :</strong> Plus qu'un simple plat, l'Arbiṭ représente un héritage précieux transmis de génération en génération, qui reflète notre identité et notre lien profond avec la nature.
+                        </div>
+                        <p class="mb-0 mt-3">Ainsi, préserver les plantes et valoriser leur utilisation dans notre alimentation est une nécessité pour un avenir sain et durable.</p>
                     </div>
-                    <p class="mb-0 mt-3">Préserver les plantes et valoriser leur utilisation est une nécessité pour un avenir sain et durable.</p>
                 </div>
             </div>
         </section>
 
-        <!-- SLIDE 10: CLOSING (Animated) -->
+        <!-- SLIDE 10: CLOSING (Animated) - NEW COLOR SCHEME -->
         <section class="slide closing" data-slide="10">
             <div class="slide-content closing-content">
                 <h1 class="thank-you">🙏 Merci !</h1>
                 <p class="final-message">
-                    Cette présentation vous a permis de découvrir l'art nutritionnel du Harbit de Jijel.<br>
+                    Cette présentation vous a permis de découvrir l'art nutritionnel du <strong>Harbit de Jijel</strong>.<br>
                     Ensemble, valorisons notre patrimoine botanique pour une alimentation saine et durable.
                 </p>
                 <div class="signature">
-                    <i class="fas fa-leaf me-2"></i>Meroua Benabla | Saad Dahlab University<br>
+                    <i class="fas fa-leaf me-2"></i><strong style="color: var(--accent-gold-light);">Meroua Benabla</strong> | Saad Dahlab University<br>
                     <small>Projet de Recherche en Nutrition & Botanique</small>
                 </div>
-                <button class="btn btn-outline-light mt-4 rounded-0 px-4" onclick="goToSlide(1)">
-                    <i class="fas fa-redo me-2"></i>Recommencer
+                <button class="closing-btn" onclick="goToSlide(1)">
+                    <i class="fas fa-redo"></i>Recommencer la Présentation
                 </button>
             </div>
         </section>
