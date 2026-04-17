@@ -295,6 +295,7 @@
             background-color: white;
         }
 
+        /* --- NEW PLANT ANIMATION STYLES --- */
         .plant-img {
             width: 100%;
             height: 220px;
@@ -302,7 +303,37 @@
             border-radius: 8px;
             margin-bottom: 20px;
             border: 3px solid var(--accent-gold);
+            /* Apply animation only when slide is active */
+            opacity: 0; 
+            transform: scale(0.9);
         }
+
+        /* When the slide is active, trigger the plant reveal */
+        .slide.active .plant-img {
+            animation: plantReveal 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        /* Staggered animation for text content in plant slides */
+        .slide.active .scrollable-content .row {
+            animation: fadeInUp 0.8s ease 0.3s forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes plantReveal {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* ---------------------------------- */
 
         .section-header {
             text-align: center;
