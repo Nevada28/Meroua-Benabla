@@ -295,15 +295,15 @@
             background-color: white;
         }
 
-        /* --- UPDATED PLANT MEDIA STYLES (Image & Video) --- */
+        /* --- UPDATED PLANT MEDIA STYLES (NO FLOATING) --- */
         .plant-img, .plant-video {
             width: 100%;
-            max-width: 300px; /* Limits width so it's not too wide */
-            height: 180px;    /* Reduced height from 220px */
+            max-width: 300px; 
+            height: 180px;    
             object-fit: cover;
             border-radius: 8px;
-            margin: 0 auto 20px auto; /* Centered horizontally */
-            display: block;   /* Ensures margin auto works */
+            margin: 0 auto 20px auto; 
+            display: block;   
             border: 3px solid var(--accent-gold);
             
             /* Initial state for entrance animation */
@@ -311,11 +311,11 @@
             transform: scale(0.9);
         }
 
-        /* When the slide is active, trigger the reveal AND the floating animation for both images and videos */
+        /* UPDATED: Only play the entrance animation (plantReveal). 
+           The floating animation (floatInPlace) has been REMOVED. */
         .slide.active .plant-img,
         .slide.active .plant-video {
-            animation: plantReveal 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards, 
-                       floatInPlace 4s ease-in-out infinite 0.8s; /* Starts after reveal */
+            animation: plantReveal 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
         /* Staggered animation for text content in plant slides */
@@ -329,16 +329,6 @@
             to {
                 opacity: 1;
                 transform: scale(1);
-            }
-        }
-
-        /* The "Move in Place" Animation */
-        @keyframes floatInPlace {
-            0%, 100% {
-                transform: translateY(0) scale(1);
-            }
-            50% {
-                transform: translateY(-10px) scale(1.02);
             }
         }
 
@@ -759,7 +749,6 @@
                         </div>
                         <div class="col-md-6">
                             <div class="card-journal text-center p-3">
-                                <!-- VIDEO REPLACED IMAGE HERE -->
                                 <img src="halhal.jpg" alt="Lavandula stoechas" class="ingredient-img">
                                 <strong>Halhal</strong> (Lavandula stoechas)<br>
                                 <small class="text-muted">Composés bioactifs, propriétés médicinales</small>
@@ -829,7 +818,7 @@
             </div>
         </section>
 
-        <!-- SLIDE 6: FICHE EL MJIRE -->
+        <!-- SLIDE 6: FICHE EL MJIRE (NO FLOAT) -->
         <section class="slide" data-slide="6">
             <div class="slide-content">
                 <div class="section-header">
@@ -899,7 +888,7 @@
             </div>
         </section>
 
-        <!-- SLIDE 7: FICHE EL LAHLEH (WITH VIDEO) -->
+        <!-- SLIDE 7: FICHE EL HALHAL (WITH VIDEO - NO FLOAT) -->
         <section class="slide" data-slide="7">
             <div class="slide-content">
                 <div class="section-header">
@@ -908,7 +897,7 @@
                     <span class="badge bg-warning text-dark">Lavandula stoechas</span>
                 </div>
                 <div class="scrollable-content">
-                    <!-- VIDEO ELEMENT REPLACING IMAGE -->
+                    <!-- VIDEO ELEMENT (No floating animation applied via CSS) -->
                     <video src="YzH1ObjP.mp4" class="plant-video" autoplay muted loop playsinline></video>
                     
                     <div class="row">
@@ -918,56 +907,57 @@
                                 <li><strong>Règne :</strong> Plantae</li>
                                 <li><strong>Embranchement :</strong> Angiospermes</li>
                                 <li><strong>Classe :</strong> Dicotylédones</li>
-                                <li><strong>Ordre :</strong> Malvales</li>
-                                <li><strong>Famille :</strong> Malvaceae</li>
-                                <li><strong>Genre :</strong> Malva</li>
-                                <li><strong>Espèce :</strong> Malva sylvestris</li>
+                                <li><strong>Ordre :</strong> Lamiales</li>
+                                <li><strong>Famille :</strong> Lamiaceae</li>
+                                <li><strong>Genre :</strong> Lavandula</li>
+                                <li><strong>Espèce :</strong> Lavandula stoechas</li>
                             </ul>
 
                             <h5>2. Description morphologique</h5>
-                            <p class="small">Plante herbacée sauvage très connue. Elle possède des feuilles larges et douces, et des fleurs violettes. Elle pousse naturellement dans les champs et les jardins.</p>
+                            <p class="small">Plante aromatique vivace connue pour ses fleurs violettes distinctives surmontées de bractées. Elle pousse dans les zones ensoleillées et rocailleuses.</p>
 
                             <h5>3. Système végétatif</h5>
                             <ul class="small">
-                                <li><strong>Racine :</strong> racine pivotante</li>
-                                <li><strong>Tige :</strong> tige verte, droite et légèrement velue</li>
-                                <li><strong>Feuilles :</strong> grandes feuilles rondes, vertes et tendres</li>
+                                <li><strong>Racine :</strong> racine pivotante et ligneuse</li>
+                                <li><strong>Tige :</strong> tige ligneuse, droite et ramifiée</li>
+                                <li><strong>Feuilles :</strong> petites feuilles linéaires, gris-vert et aromatiques</li>
                             </ul>
 
                             <h5>4. Système reproducteur</h5>
                             <ul class="small">
-                                <li><strong>Fleur :</strong> fleurs violettes ou roses 🌸</li>
-                                <li><strong>Fruit :</strong> petit fruit sec en forme de disque</li>
-                                <li><strong>Graine :</strong> graines petites et nombreuses</li>
+                                <li><strong>Fleur :</strong> inflorescence en épi avec bractées violettes 🟣</li>
+                                <li><strong>Fruit :</strong> petits akènes</li>
+                                <li><strong>Graine :</strong> graines très petites</li>
                             </ul>
 
                             <h5>5. Partie consommée</h5>
-                            <p class="small"><strong>Les feuilles 🌿</strong> (Parfois les fleurs).</p>
+                            <p class="small"><strong>Les sommités fleuries 🌸</strong> (Parfois les feuilles pour les infusions).</p>
                         </div>
                         <div class="col-md-6">
                             <h5>6. Phytochimie et valeur nutritionnelle</h5>
                             <ul class="small">
-                                <li><strong>Métabolites primaires :</strong> fibres alimentaires, glucides, petites quantités de protéines</li>
-                                <li><strong>Métabolites secondaires :</strong> polyphénols, flavonoïdes, acides organiques</li>
-                                <li><strong>Vitamines :</strong> vitamine C, petites quantités de vitamines B</li>
-                                <li><strong>Minéraux :</strong> calcium, fer, magnésium, potassium</li>
+                                <li><strong>Métabolites primaires :</strong> fibres, traces de glucides</li>
+                                <li><strong>Métabolites secondaires :</strong> huiles essentielles (camphre, fenchone), polyphénols, flavonoïdes</li>
+                                <li><strong>Vitamines :</strong> petites quantités de vitamines B</li>
+                                <li><strong>Minéraux :</strong> calcium, fer, magnésium</li>
                             </ul>
 
                             <h5>7. Bienfaits pour la santé</h5>
                             <ul class="small">
-                                <li>✅ Antioxydant : flavonoïdes et polyphénols</li>
-                                <li>✅ Anti-inflammatoire</li>
-                                <li>✅ Digestif et nutritif</li>
+                                <li>✅ Antioxydant puissant</li>
+                                <li>✅ Relaxant et calmant (système nerveux)</li>
+                                <li>✅ Antispasmodique (digestion)</li>
+                                <li>✅ Antiseptique et cicatrisant</li>
                             </ul>
 
                             <h5>8. Valeur nutritionnelle (Cru vs Cuit)</h5>
                             <ul class="small">
-                                <li><strong>Cru :</strong> Conservation vitamine C</li>
-                                <li><strong>Cuit :</strong> Plus facile à digérer</li>
-                                <li><strong>Méthode :</strong> Vapeur recommandée</li>
+                                <li><strong>Cru (Infusion) :</strong> Préservation des huiles volatiles</li>
+                                <li><strong>Cuit :</strong> Rarement cuit, utilisé surtout en condiment ou infusion</li>
+                                <li><strong>Méthode :</strong> Infusion à l'eau chaude recommandée</li>
                             </ul>
                             <div class="highlight-box">
-                                👉 Pour conserver au mieux les bienfaits du Lahlah, il est recommandé d'utiliser des méthodes de cuisson douces comme la vapeur.
+                                👉 Pour conserver les arômes et les bienfaits du Halhal, il est recommandé de l'utiliser en infusion courte ou d'ajouter les fleurs en fin de cuisson.
                             </div>
                         </div>
                     </div>
@@ -975,7 +965,7 @@
             </div>
         </section>
 
-        <!-- SLIDE 8: FICHE EL H'MIDHA -->
+        <!-- SLIDE 8: FICHE EL H'MIDHA (NO FLOAT) -->
         <section class="slide" data-slide="8">
             <div class="slide-content">
                 <div class="section-header">
@@ -1060,7 +1050,7 @@
                 </div>
                 <div class="scrollable-content">
                     <div class="card-journal">
-                        <p class="lead mb-3">En conclusion, le plat traditionnel <strong>Arbiṭ</strong> illustre parfaitement la richesse de la nature et de la culture culinaire de la région de Jijel. À travers l'utilisation de plantes comme <strong>el mejir, el lahlah et el hamida</strong>, nous découvrons une alimentation simple, naturelle et pleine de bienfaits.</p>
+                        <p class="lead mb-3">En conclusion, le plat traditionnel <strong>Arbiṭ</strong> illustre parfaitement la richesse de la nature et de la culture culinaire de la région de Jijel. À travers l'utilisation de plantes comme <strong>el mejir, el halhal et el hamida</strong>, nous découvrons une alimentation simple, naturelle et pleine de bienfaits.</p>
                         <p>Ce projet nous a permis de comprendre que les plantes ne sont pas seulement des ingrédients, mais de véritables sources de santé, riches en nutriments essentiels et en composés protecteurs.</p>
                         <div class="highlight-box mt-3 border-primary" style="border-left-color: var(--primary-dark);">
                             👉 <strong>Héritage :</strong> Plus qu'un simple plat, l'Arbiṭ représente un héritage précieux transmis de génération en génération, qui reflète notre identité et notre lien profond avec la nature.
