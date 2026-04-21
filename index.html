@@ -5,12 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Harbit de Jijel - Patrimoine Botanique & Nutritionnel</title>
     
-    <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -19,27 +16,27 @@
             --accent-gold: #c5a065;
             --accent-gold-light: #e8d5b7;
             --bg-cream: #f9f7f2;
-            --bg-white: #ffffff;
             --text-main: #2c3e50;
             --text-muted: #6c757d;
             --border-light: #e0e0e0;
+            --glass: rgba(255,255,255,0.88);
+            --glass-border: rgba(255,255,255,0.6);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: #0d2b1f;
+            background-color: #0a1f17;
             color: var(--text-main);
-            font-family: 'Lato', sans-serif;
+            font-family: 'DM Sans', sans-serif;
             line-height: 1.8;
             overflow: hidden;
-            position: relative;
             height: 100vh;
             width: 100vw;
         }
 
         /* ============================================
-           ANIMATED BOTANICAL BACKGROUND
+           BOTANICAL BACKGROUND SYSTEM (Original)
            ============================================ */
         .bg-plant-layer {
             position: fixed;
@@ -89,35 +86,18 @@
         }
 
         @keyframes slowZoom {
-            0% { transform: scale(1) translate(0, 0); }
-            50% { transform: scale(1.08) translate(-2%, -1%); }
+            0%   { transform: scale(1) translate(0, 0); }
+            50%  { transform: scale(1.08) translate(-2%, -1%); }
             100% { transform: scale(1.12) translate(-3%, -2%); }
         }
 
         @keyframes slowZoomReverse {
-            0% { transform: scale(1.05) translate(1%, 0); }
-            50% { transform: scale(1.1) translate(0, -2%); }
+            0%   { transform: scale(1.05) translate(1%, 0); }
+            50%  { transform: scale(1.1) translate(0, -2%); }
             100% { transform: scale(1.15) translate(-1%, -1%); }
         }
 
-        .floating-leaf {
-            position: absolute;
-            z-index: 0;
-            opacity: 0;
-            animation: floatLeaf linear infinite;
-            pointer-events: none;
-        }
-
-        .floating-leaf svg { filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); }
-
-        @keyframes floatLeaf {
-            0% { transform: translateY(110vh) rotate(0deg) scale(0.8); opacity: 0; }
-            10% { opacity: 0.7; }
-            50% { opacity: 0.5; }
-            90% { opacity: 0.3; }
-            100% { transform: translateY(-20vh) rotate(360deg) scale(1.1); opacity: 0; }
-        }
-
+        /* Light spots (original) */
         .light-spot {
             position: absolute;
             border-radius: 50%;
@@ -128,407 +108,391 @@
 
         @keyframes breathe {
             0%, 100% { transform: scale(1); opacity: 0.3; }
-            50% { transform: scale(1.4); opacity: 0.6; }
+            50%       { transform: scale(1.4); opacity: 0.6; }
+        }
+
+        /* Ambient grid overlay for extra depth */
+        .ambient-grid {
+            position: fixed;
+            inset: 0;
+            z-index: -8;
+            background-image: radial-gradient(circle at 1px 1px, rgba(197,160,101,0.04) 1px, transparent 0);
+            background-size: 50px 50px;
+            pointer-events: none;
         }
 
         /* ============================================
-           POWERPOINT SLIDE SYSTEM
+           FLOATING PARTICLES & LEAVES
+           ============================================ */
+        .floating-leaf {
+            position: fixed;
+            z-index: -5;
+            opacity: 0;
+            animation: leafJourney linear infinite;
+            pointer-events: none;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+        }
+
+        @keyframes leafJourney {
+            0%   { transform: translateY(110vh) translateX(0) rotate(0deg) scale(0.6); opacity: 0; }
+            5%   { opacity: 0.65; }
+            25%  { transform: translateY(75vh) translateX(15px) rotate(90deg) scale(0.85); opacity: 0.5; }
+            50%  { transform: translateY(45vh) translateX(-10px) rotate(200deg) scale(1); opacity: 0.45; }
+            75%  { transform: translateY(20vh) translateX(20px) rotate(300deg) scale(0.9); opacity: 0.3; }
+            95%  { opacity: 0.1; }
+            100% { transform: translateY(-15vh) translateX(5px) rotate(400deg) scale(0.7); opacity: 0; }
+        }
+
+        /* ============================================
+           SLIDE TRANSITION ENGINE — MORPHIC FLOW
            ============================================ */
         .slides-container {
             position: relative;
             width: 100%;
             height: 100vh;
+            perspective: 2000px;
             overflow: hidden;
         }
 
         .slide {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            padding: 40px;
+            inset: 0;
+            padding: 30px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+            will-change: transform, opacity;
+
+            /* === DEFAULT: hidden below === */
             opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.6s ease, visibility 0s 0.6s;
-            overflow-y: auto;
+            transform: translateY(60px) scale(0.96) rotateX(6deg);
+            transition: 
+                transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity   0.75s cubic-bezier(0.16, 1, 0.3, 1);
             pointer-events: none;
+            visibility: hidden;
         }
 
         .slide.active {
             opacity: 1;
-            visibility: visible;
-            transition: opacity 0.6s ease, visibility 0s 0s;
+            transform: translateY(0) scale(1) rotateX(0deg);
             pointer-events: all;
+            visibility: visible;
             z-index: 10;
+            transition:
+                transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity   0.55s ease;
         }
 
-        .slide-content {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 1200px;
-            width: 95%;
-            max-height: 85vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.6);
-            animation: slideInUp 0.6s ease forwards;
-        }
-
-        .slide.active .slide-content {
-            animation: slideInUp 0.6s ease forwards;
-        }
-
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Cover Slide Animations */
-        .slide.cover .hero-title {
-            animation: titleEntrance 1s ease forwards;
+        .slide.exiting-up {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(-50px) scale(0.94) rotateX(-8deg);
+            pointer-events: none;
+            visibility: visible;
+            z-index: 9;
+            transition:
+                transform 0.6s cubic-bezier(0.55, 0, 1, 0.45),
+                opacity   0.45s ease;
+        }
+
+        .slide.exiting-down {
+            opacity: 0;
+            transform: translateY(80px) scale(0.94) rotateX(8deg);
+            pointer-events: none;
+            visibility: visible;
+            z-index: 9;
+            transition:
+                transform 0.6s cubic-bezier(0.55, 0, 1, 0.45),
+                opacity   0.45s ease;
+        }
+
+        /* ============================================
+           CONTENT GLASS CARD
+           ============================================ */
+        .slide-content {
+            background: var(--glass);
+            backdrop-filter: blur(20px) saturate(1.5);
+            -webkit-backdrop-filter: blur(20px) saturate(1.5);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 1180px;
+            width: 95%;
+            max-height: 86vh;
+            overflow-y: auto;
+            box-shadow: 
+                0 32px 80px rgba(0,0,0,0.35),
+                0 0 0 1px var(--glass-border),
+                inset 0 1px 0 rgba(255,255,255,0.9);
+            position: relative;
+        }
+
+        /* Shimmer top edge on entry */
+        .slide-content::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 10%; right: 10%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+            border-radius: 2px;
+            opacity: 0;
+            animation: shimmerEdge 0.8s ease 0.3s forwards;
+        }
+
+        @keyframes shimmerEdge {
+            from { opacity: 0; transform: scaleX(0.3); }
+            to   { opacity: 1; transform: scaleX(1); }
+        }
+
+        /* ============================================
+           STAGGERED CONTENT ENTRANCE (intelligent)
+           ============================================ */
+        .slide.active .reveal-item {
+            animation: revealUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(22px);
+        }
+
+        .slide.active .reveal-item:nth-child(1)  { animation-delay: 0.05s; }
+        .slide.active .reveal-item:nth-child(2)  { animation-delay: 0.12s; }
+        .slide.active .reveal-item:nth-child(3)  { animation-delay: 0.19s; }
+        .slide.active .reveal-item:nth-child(4)  { animation-delay: 0.26s; }
+        .slide.active .reveal-item:nth-child(5)  { animation-delay: 0.33s; }
+        .slide.active .reveal-item:nth-child(6)  { animation-delay: 0.40s; }
+        .slide.active .reveal-item:nth-child(7)  { animation-delay: 0.47s; }
+        .slide.active .reveal-item:nth-child(8)  { animation-delay: 0.54s; }
+
+        @keyframes revealUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Card reveals staggered inside rows */
+        .slide.active .stagger-row .card-journal {
+            animation: cardPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            opacity: 0;
+            transform: scale(0.94) translateY(15px);
+        }
+
+        .slide.active .stagger-row .card-journal:nth-child(1) { animation-delay: 0.15s; }
+        .slide.active .stagger-row .card-journal:nth-child(2) { animation-delay: 0.25s; }
+        .slide.active .stagger-row .card-journal:nth-child(3) { animation-delay: 0.35s; }
+        .slide.active .stagger-row .card-journal:nth-child(4) { animation-delay: 0.45s; }
+
+        @keyframes cardPop {
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* Step cards stagger */
+        .slide.active .step-card {
+            animation: stepSlide 0.5s ease forwards;
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .slide.active .step-card:nth-child(1) { animation-delay: 0.1s; }
+        .slide.active .step-card:nth-child(2) { animation-delay: 0.18s; }
+        .slide.active .step-card:nth-child(3) { animation-delay: 0.26s; }
+        .slide.active .step-card:nth-child(4) { animation-delay: 0.34s; }
+        .slide.active .step-card:nth-child(5) { animation-delay: 0.42s; }
+        .slide.active .step-card:nth-child(6) { animation-delay: 0.50s; }
+        .slide.active .step-card:nth-child(7) { animation-delay: 0.58s; }
+        .slide.active .step-card:nth-child(8) { animation-delay: 0.66s; }
+
+        @keyframes stepSlide {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Plant media reveal */
+        .plant-img, .plant-video {
+            width: 100%;
+            max-width: 320px;
+            height: 190px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin: 0 auto 24px auto;
+            display: block;
+            border: 3px solid var(--accent-gold);
+            opacity: 0;
+            transform: scale(0.88) translateY(10px);
+            transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+
+        .slide.active .plant-img,
+        .slide.active .plant-video {
+            animation: mediaBloom 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+        }
+
+        .plant-img:hover, .plant-video:hover {
+            box-shadow: 0 16px 50px rgba(197,160,101,0.35);
+            transform: scale(1.02) translateY(-2px) !important;
+        }
+
+        @keyframes mediaBloom {
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* ============================================
+           COVER SLIDE — HERO ANIMATIONS
+           ============================================ */
+        .slide.cover .hero-badge {
+            animation: fadeSlideDown 0.7s ease 0.1s forwards;
+            opacity: 0;
+            transform: translateY(-15px);
+        }
+
+        .slide.cover .hero-title {
+            animation: heroTitle 1s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
+            opacity: 0;
+            transform: translateY(35px);
+            letter-spacing: -0.5px;
         }
 
         .slide.cover .hero-subtitle {
-            animation: subtitleEntrance 1s ease 0.3s forwards;
+            animation: fadeSlideUp 0.7s ease 0.5s forwards;
             opacity: 0;
             transform: translateY(20px);
         }
 
-        .slide.cover .hero-img {
-            animation: imageEntrance 1s ease 0.6s forwards;
+        .slide.cover .hero-img-wrap {
+            animation: heroImageReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.65s forwards;
+            opacity: 0;
+            transform: scale(0.75) rotate(-3deg);
+        }
+
+        .slide.cover .hero-lead {
+            animation: fadeSlideUp 0.7s ease 0.85s forwards;
+            opacity: 0;
+            transform: translateY(15px);
+        }
+
+        .slide.cover .hero-cta {
+            animation: ctaBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1.05s forwards;
             opacity: 0;
             transform: scale(0.8);
         }
 
-        .slide.cover .btn-explore {
-            animation: btnEntrance 0.5s ease 0.9s forwards;
-            opacity: 0;
+        @keyframes fadeSlideDown {
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes titleEntrance {
+        @keyframes heroTitle {
             to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes subtitleEntrance {
+
+        @keyframes fadeSlideUp {
             to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes imageEntrance {
+
+        @keyframes heroImageReveal {
+            to { opacity: 1; transform: scale(1) rotate(0deg); }
+        }
+
+        @keyframes ctaBounce {
             to { opacity: 1; transform: scale(1); }
         }
-        @keyframes btnEntrance {
-            to { opacity: 1; }
+
+        /* Hero image orbit ring */
+        .hero-img-wrap {
+            position: relative;
+            width: fit-content;
+            margin: 0 auto;
         }
 
-        /* Closing Slide Animation */
-        .slide.closing .thank-you {
-            animation: thankYouPulse 2s ease infinite;
-        }
-
-        .slide.closing .final-message {
-            animation: messageSlideIn 1s ease 0.5s forwards;
-            opacity: 0;
-            transform: translateX(-30px);
-        }
-
-        @keyframes thankYouPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        @keyframes messageSlideIn {
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        /* Slide Content Styles */
-        h1, h2, h3, h4, h5, .brand-font {
-            font-family: 'Playfair Display', serif;
-            color: var(--primary-dark);
-        }
-
-        .hero-title {
-            font-size: 3rem;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            color: var(--primary-dark);
-        }
-
-        .hero-subtitle {
-            font-size: 1.3rem;
-            color: var(--primary-light);
-            font-style: italic;
-            margin-bottom: 2rem;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .hero-img {
-            width: 100%;
-            max-width: 350px;
-            height: auto;
+        .hero-img-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -12px;
             border-radius: 50%;
-            border: 8px solid rgba(255,255,255,0.9);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            object-fit: cover;
+            border: 2px solid transparent;
+            border-top-color: var(--accent-gold);
+            border-right-color: var(--accent-gold-light);
+            animation: orbitRing 4s linear infinite;
         }
 
-        .ingredient-img {
-            width: 70px;
-            height: 70px;
-            object-fit: cover;
+        .hero-img-wrap::after {
+            content: '';
+            position: absolute;
+            inset: -22px;
             border-radius: 50%;
-            border: 2px solid var(--border-light);
-            margin: 0 auto 10px;
-            display: block;
-            background-color: white;
+            border: 1px solid transparent;
+            border-bottom-color: rgba(197,160,101,0.4);
+            border-left-color: rgba(197,160,101,0.2);
+            animation: orbitRing 7s linear infinite reverse;
         }
 
-        /* --- UPDATED PLANT MEDIA STYLES (NO FLOATING) --- */
-        .plant-img, .plant-video {
-            width: 100%;
-            max-width: 300px; 
-            height: 180px;    
-            object-fit: cover;
-            border-radius: 8px;
-            margin: 0 auto 20px auto; 
-            display: block;   
-            border: 3px solid var(--accent-gold);
-            
-            /* Initial state for entrance animation */
-            opacity: 0; 
-            transform: scale(0.9);
-        }
-
-        /* UPDATED: Only play the entrance animation (plantReveal). 
-           The floating animation (floatInPlace) has been REMOVED. */
-        .slide.active .plant-img,
-        .slide.active .plant-video {
-            animation: plantReveal 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-        }
-
-        /* Staggered animation for text content in plant slides */
-        .slide.active .scrollable-content .row {
-            animation: fadeInUp 0.8s ease 0.3s forwards;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        @keyframes plantReveal {
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        /* ---------------------------------- */
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .section-header .divider {
-            width: 60px;
-            height: 3px;
-            background-color: var(--accent-gold);
-            margin: 10px auto;
-        }
-
-        .card-journal {
-            background: rgba(255, 255, 255, 0.95);
-            border: 1px solid var(--border-light);
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-        }
-
-        .plant-detail-box {
-            background: rgba(255, 255, 255, 0.95);
-            border: 1px solid var(--border-light);
-            border-radius: 12px;
-            margin-bottom: 25px;
-            overflow: hidden;
-        }
-
-        .plant-header {
-            background-color: var(--primary-dark);
-            color: white;
-            padding: 15px 20px;
-        }
-
-        .plant-header h3 { color: white; margin: 0; font-size: 1.4rem; }
-        .plant-header .sci-name { color: #a8d0c4; font-style: italic; font-size: 0.9rem; }
-
-        .plant-body { padding: 25px; }
-        .plant-body h4 {
-            font-size: 1.2rem;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
-        }
-
-        .highlight-box {
-            background-color: rgba(238, 242, 241, 0.9);
-            border-left: 4px solid var(--accent-gold);
-            padding: 12px 15px;
-            margin: 15px 0;
-            font-size: 0.95rem;
-            border-radius: 0 6px 6px 0;
-        }
-
-        .step-card {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 15px;
-            border-radius: 10px;
-            border-left: 4px solid var(--accent-gold);
-            margin-bottom: 12px;
-            font-size: 0.95rem;
-        }
-
-        /* Navigation Controls */
-        .slide-nav {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            z-index: 100;
-            background: rgba(26, 60, 52, 0.9);
-            padding: 12px 25px;
-            border-radius: 50px;
-            backdrop-filter: blur(10px);
-        }
-
-        .nav-btn {
-            background: var(--accent-gold);
-            border: none;
-            color: white;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            font-size: 1.1rem;
-        }
-
-        .nav-btn:hover {
-            background: #b08d55;
-            transform: scale(1.1);
-        }
-
-        .nav-btn:disabled {
-            background: #666;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .slide-counter {
-            color: white;
-            font-weight: 500;
-            font-size: 0.95rem;
-            min-width: 80px;
-            text-align: center;
-        }
-
-        .slide-dots {
-            display: flex;
-            gap: 8px;
-        }
-
-        .slide-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.4);
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .slide-dot.active {
-            background: var(--accent-gold);
-            transform: scale(1.3);
-        }
-
-        /* Progress Bar */
-        .progress-bar-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: rgba(255,255,255,0.2);
-            z-index: 101;
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: var(--accent-gold);
-            width: 0%;
-            transition: width 0.4s ease;
-        }
-
-        /* Section headers on dark bg */
-        .slide:not(.cover):not(.closing) .section-header h2 {
-            color: white;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
-        }
-
-        .slide:not(.cover):not(.closing) .text-muted {
-            color: rgba(255,255,255,0.8) !important;
+        @keyframes orbitRing {
+            to { transform: rotate(360deg); }
         }
 
         /* ============================================
-           CLOSING SLIDE - NEW COLOR SCHEME
+           CLOSING SLIDE
            ============================================ */
         .closing-content {
             text-align: center;
             padding: 60px 40px;
-            background: linear-gradient(135deg, rgba(26, 60, 52, 0.95), rgba(74, 124, 111, 0.9));
-            border-radius: 20px;
-            border: 2px solid var(--accent-gold-light);
+            background: linear-gradient(135deg, rgba(26,60,52,0.96), rgba(74,124,111,0.92));
+            border-radius: 24px;
+            border: 1px solid rgba(197,160,101,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .closing-content::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(197,160,101,0.15) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .slide.closing.active .thank-you {
+            animation: thankYouReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+            opacity: 0;
+            transform: translateY(30px) scale(0.9);
+        }
+
+        .slide.closing.active .final-message {
+            animation: fadeSlideUp 0.7s ease 0.45s forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .slide.closing.active .signature {
+            animation: fadeSlideUp 0.6s ease 0.7s forwards;
+            opacity: 0;
+            transform: translateY(15px);
+        }
+
+        .slide.closing.active .closing-btn {
+            animation: ctaBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.9s forwards;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        @keyframes thankYouReveal {
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .thank-you {
             font-size: 4rem;
             color: var(--accent-gold-light);
-            font-family: 'Playfair Display', serif;
+            font-family: 'Cormorant Garamond', serif;
             margin-bottom: 25px;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.4);
-            letter-spacing: 2px;
+            text-shadow: 0 4px 30px rgba(0,0,0,0.4);
+            letter-spacing: 3px;
+            display: block;
         }
 
         .final-message {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             color: #f0f9f4;
             max-width: 700px;
             margin: 0 auto 35px;
-            line-height: 1.7;
+            line-height: 1.8;
             font-weight: 300;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.2);
         }
 
         .final-message strong {
@@ -541,11 +505,7 @@
             font-style: italic;
             margin-top: 25px;
             padding-top: 20px;
-            border-top: 1px solid rgba(197, 160, 101, 0.4);
-        }
-
-        .signature i {
-            color: var(--accent-gold-light);
+            border-top: 1px solid rgba(197,160,101,0.3);
         }
 
         .signature small {
@@ -555,70 +515,343 @@
             font-size: 0.9rem;
         }
 
-        .closing-btn {
-            background: linear-gradient(135deg, var(--accent-gold), #b08d55);
-            border: 2px solid var(--accent-gold-light);
+        /* ============================================
+           TYPOGRAPHY
+           ============================================ */
+        h1, h2, h3, h4, h5, .brand-font {
+            font-family: 'Cormorant Garamond', serif;
             color: var(--primary-dark);
-            font-weight: 600;
-            padding: 12px 35px;
-            border-radius: 50px;
-            transition: all 0.3s;
-            margin-top: 30px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
         }
 
-        .closing-btn:hover {
-            background: linear-gradient(135deg, #b08d55, var(--accent-gold));
+        .hero-title {
+            font-size: 3rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--primary-light);
+            font-style: italic;
+            margin-bottom: 2rem;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .hero-img {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            border: 8px solid rgba(255,255,255,0.9);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+            object-fit: cover;
+        }
+
+        .ingredient-img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid var(--border-light);
+            margin: 0 auto 10px;
+            display: block;
+            background-color: white;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .ingredient-img:hover { transform: scale(1.12) rotate(3deg); }
+
+        /* ============================================
+           CARDS & COMPONENTS
+           ============================================ */
+        .section-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .section-header .divider {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+
+        .card-journal {
+            background: rgba(255,255,255,0.95);
+            border: 1px solid var(--border-light);
+            padding: 22px;
+            border-radius: 14px;
+            margin-bottom: 18px;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .card-journal:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(197, 160, 101, 0.4);
+        }
+
+        .plant-detail-box {
+            background: rgba(255,255,255,0.95);
+            border: 1px solid var(--border-light);
+            border-radius: 14px;
+            margin-bottom: 22px;
+            overflow: hidden;
+        }
+
+        .plant-header {
+            background-color: var(--primary-dark);
             color: white;
+            padding: 14px 20px;
         }
 
-        .closing-btn i {
-            margin-right: 8px;
+        .plant-header h3 { color: white; margin: 0; font-size: 1.35rem; }
+        .plant-header .sci-name { color: #a8d0c4; font-style: italic; font-size: 0.85rem; }
+
+        .plant-body { padding: 22px; }
+
+        .plant-body h4 {
+            font-size: 1.15rem;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
         }
 
-        /* Scrollable content for detailed slides */
+        .highlight-box {
+            background-color: rgba(238,242,241,0.95);
+            border-left: 4px solid var(--accent-gold);
+            padding: 12px 15px;
+            margin: 14px 0;
+            font-size: 0.93rem;
+            border-radius: 0 8px 8px 0;
+            transition: border-left-color 0.3s ease;
+        }
+
+        .highlight-box:hover { border-left-color: var(--primary-light); }
+
+        .step-card {
+            background: rgba(255,255,255,0.95);
+            padding: 14px;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-gold);
+            margin-bottom: 10px;
+            font-size: 0.92rem;
+            transition: border-left-color 0.3s, transform 0.3s ease;
+        }
+
+        .step-card:hover {
+            border-left-color: var(--primary-light);
+            transform: translateX(4px);
+        }
+
+        /* ============================================
+           NAVIGATION — MORPHIC PILL
+           ============================================ */
+        .slide-nav {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            z-index: 100;
+            background: rgba(15, 45, 35, 0.92);
+            padding: 10px 22px;
+            border-radius: 60px;
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(197,160,101,0.25);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+            animation: navEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+            opacity: 0;
+            transform: translateX(-50%) translateY(20px);
+        }
+
+        @keyframes navEntrance {
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, var(--accent-gold), #b08d55);
+            border: none;
+            color: white;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s;
+            font-size: 1rem;
+            box-shadow: 0 4px 12px rgba(197,160,101,0.4);
+        }
+
+        .nav-btn:hover { transform: scale(1.15); }
+        .nav-btn:active { transform: scale(0.95); }
+
+        .nav-btn:disabled {
+            background: rgba(255,255,255,0.15);
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none;
+            opacity: 0.5;
+        }
+
+        .slide-counter {
+            color: white;
+            font-weight: 500;
+            font-size: 0.88rem;
+            min-width: 55px;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .slide-dots {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .slide-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1px solid transparent;
+        }
+
+        .slide-dot:hover { background: rgba(255,255,255,0.6); transform: scale(1.2); }
+
+        .slide-dot.active {
+            background: var(--accent-gold);
+            transform: scale(1.4);
+            border-color: rgba(255,255,255,0.3);
+            box-shadow: 0 0 8px rgba(197,160,101,0.6);
+        }
+
+        /* ============================================
+           PROGRESS BAR — INTELLIGENT GLOW
+           ============================================ */
+        .progress-bar-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(255,255,255,0.1);
+            z-index: 101;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-light), var(--accent-gold));
+            width: 0%;
+            transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 0 12px rgba(197,160,101,0.7);
+            position: relative;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -2px;
+            width: 8px;
+            height: 7px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-gold);
+        }
+
+        /* ============================================
+           SCROLLABLE
+           ============================================ */
         .scrollable-content {
             max-height: 65vh;
             overflow-y: auto;
-            padding-right: 15px;
+            padding-right: 12px;
         }
 
-        .scrollable-content::-webkit-scrollbar {
-            width: 8px;
+        .scrollable-content::-webkit-scrollbar { width: 5px; }
+        .scrollable-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.06); border-radius: 3px; }
+        .scrollable-content::-webkit-scrollbar-thumb { background: var(--accent-gold); border-radius: 3px; }
+
+        /* ============================================
+           BUTTONS
+           ============================================ */
+        .btn-explore {
+            background: transparent;
+            border: 1.5px solid var(--primary-dark);
+            color: var(--primary-dark);
+            border-radius: 60px;
+            padding: 11px 40px;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
         }
 
-        .scrollable-content::-webkit-scrollbar-track {
-            background: rgba(0,0,0,0.1);
-            border-radius: 4px;
+        .btn-explore:hover {
+            background: var(--primary-dark);
+            color: white;
+            transform: scale(1.03) translateY(-1px);
+            box-shadow: 0 8px 24px rgba(26,60,52,0.25);
         }
 
-        .scrollable-content::-webkit-scrollbar-thumb {
-            background: var(--accent-gold);
-            border-radius: 4px;
+        .closing-btn {
+            background: linear-gradient(135deg, var(--accent-gold), #b08d55);
+            border: 1.5px solid var(--accent-gold-light);
+            color: var(--primary-dark);
+            font-weight: 600;
+            padding: 12px 35px;
+            border-radius: 60px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.88rem;
+            cursor: pointer;
+            display: inline-block;
         }
 
-        /* Responsive */
+        .closing-btn:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 12px 32px rgba(197,160,101,0.45);
+            color: white;
+        }
+
+        /* ============================================
+           SLIDE SPECIFIC OVERRIDES
+           ============================================ */
+        .slide:not(.cover):not(.closing) .section-header h2 {
+            color: white;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+        }
+
+        .slide:not(.cover):not(.closing) .text-muted {
+            color: rgba(255,255,255,0.85) !important;
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
         @media (max-width: 768px) {
-            .slide { padding: 20px; }
-            .slide-content { padding: 25px; width: 98%; max-height: 80vh; }
+            .slide { padding: 15px; }
+            .slide-content { padding: 22px; width: 98%; max-height: 82vh; }
             .hero-title { font-size: 2rem; }
-            .hero-subtitle { font-size: 1.1rem; }
-            .thank-you { font-size: 2.5rem; }
-            .final-message { font-size: 1.1rem; }
-            .slide-nav { bottom: 15px; padding: 10px 20px; }
-            .nav-btn { width: 40px; height: 40px; }
-            .scrollable-content { max-height: 60vh; }
-            .closing-content { padding: 40px 25px; }
-            
-            /* Make plant media slightly smaller on mobile too */
-            .plant-img, .plant-video {
-                max-width: 250px;
-                height: 150px;
-            }
+            .hero-subtitle { font-size: 1rem; }
+            .hero-img { width: 200px; height: 200px; }
+            .thank-you { font-size: 2.6rem; }
+            .final-message { font-size: 1rem; }
+            .slide-nav { bottom: 12px; padding: 8px 16px; gap: 10px; }
+            .nav-btn { width: 36px; height: 36px; font-size: 0.9rem; }
+            .scrollable-content { max-height: 58vh; }
+            .closing-content { padding: 35px 20px; }
+            .plant-img, .plant-video { max-width: 260px; height: 155px; }
         }
     </style>
 </head>
@@ -630,7 +863,11 @@
         <div class="bg-layer-2"></div>
         <div class="bg-layer-overlay"></div>
     </div>
-    <div id="floating-leaves-container"></div>
+
+    <!-- Floating leaves container -->
+    <div id="floating-leaves-container" style="position:fixed;inset:0;z-index:-5;pointer-events:none;overflow:hidden;"></div>
+
+    <!-- Light spots (original) -->
     <div class="bg-plant-layer" style="z-index: -9;">
         <div class="light-spot" style="width: 300px; height: 300px; top: 10%; left: 20%; animation-duration: 8s;"></div>
         <div class="light-spot" style="width: 400px; height: 400px; top: 50%; left: 60%; animation-duration: 12s; animation-delay: 2s;"></div>
@@ -639,27 +876,30 @@
         <div class="light-spot" style="width: 200px; height: 200px; top: 85%; left: 50%; animation-duration: 9s; animation-delay: 3s;"></div>
     </div>
 
+    <!-- Ambient grid for depth -->
+    <div class="ambient-grid"></div>
+
     <!-- Progress Bar -->
     <div class="progress-bar-container">
         <div class="progress-bar" id="progressBar"></div>
     </div>
 
-    <!-- Slides Container -->
+    <!-- ============ SLIDES ============ -->
     <div class="slides-container">
 
-        <!-- SLIDE 1: COVER (Animated) -->
+        <!-- SLIDE 1: COVER -->
         <section class="slide cover active" data-slide="1">
             <div class="slide-content text-center">
-                <span class="text-uppercase text-muted mb-3 d-block" style="letter-spacing: 3px; font-size: 0.9rem;">Patrimoine Botanique & Culinaire</span>
-                <h1 class="hero-title">L'Art Nutritionnel du <span class="fst-italic" style="color: var(--primary-light);">Harbit</span></h1>
+                <span class="hero-badge text-uppercase text-muted d-block mb-3" style="letter-spacing:3px;font-size:0.82rem;">Patrimoine Botanique &amp; Culinaire</span>
+                <h1 class="hero-title">L'Art Nutritionnel du <span class="fst-italic" style="color:var(--primary-light);">Harbit</span></h1>
                 <p class="hero-subtitle">Une exploration complète des ressources végétales spontanées de la région de Jijel</p>
-                <div class="d-flex justify-content-center mb-4">
-                    <img src="plat.png" alt="Plat traditionnel Harbit de Jijel" class="hero-img">
+                <div class="hero-img-wrap mb-4">
+                    <img src="plat.png" alt="Harbit" class="hero-img">
                 </div>
-                <p class="lead text-muted mb-4" style="max-width: 700px; margin: 0 auto 2rem;">
+                <p class="hero-lead lead text-muted mb-4" style="max-width:680px;margin:0 auto 2rem;">
                     Découvrez comment la biodiversité végétale algérienne se transforme en un plat traditionnel équilibré, riche en histoire et en bienfaits pour la santé.
                 </p>
-                <button class="btn btn-explore btn-outline-dark rounded-0 px-5 py-2" onclick="goToSlide(2)">
+                <button class="btn-explore hero-cta" onclick="goToSlide(2)">
                     Commencer la Présentation <i class="fas fa-arrow-right ms-2"></i>
                 </button>
             </div>
@@ -668,11 +908,11 @@
         <!-- SLIDE 2: INTRODUCTION -->
         <section class="slide" data-slide="2">
             <div class="slide-content">
-                <div class="section-header">
+                <div class="section-header reveal-item">
                     <h2><i class="fas fa-book-open me-2"></i>1. Introduction</h2>
                     <div class="divider"></div>
                 </div>
-                <div class="card-journal">
+                <div class="card-journal reveal-item">
                     <p>Les plantes constituent la base de l'alimentation humaine depuis des millénaires. Elles fournissent les macronutriments essentiels (glucides, protéines, lipides) ainsi que des micronutriments indispensables (vitamines, minéraux et composés bioactifs).</p>
                     <p>La biodiversité végétale joue un rôle fondamental dans l'équilibre nutritionnel et la prévention de nombreuses maladies. Dans ce contexte, les plats traditionnels algériens reflètent une utilisation intelligente et variée des ressources végétales locales.</p>
                     <div class="highlight-box">
@@ -685,12 +925,12 @@
         <!-- SLIDE 3: REGION JIJEL -->
         <section class="slide" data-slide="3">
             <div class="slide-content">
-                <div class="section-header">
+                <div class="section-header reveal-item">
                     <h2>2. La Région : Jijel</h2>
                     <div class="divider"></div>
                 </div>
                 <div class="scrollable-content">
-                    <div class="row g-3">
+                    <div class="row g-3 stagger-row">
                         <div class="col-md-12">
                             <div class="card-journal">
                                 <h5><i class="fas fa-map-marker-alt me-2 text-danger"></i>Contexte géographique et climatique</h5>
@@ -724,15 +964,14 @@
         <!-- SLIDE 4: PRESENTATION DU PLAT -->
         <section class="slide" data-slide="4">
             <div class="slide-content">
-                <div class="section-header">
+                <div class="section-header reveal-item">
                     <h2>3. Le Plat « Harbit »</h2>
                     <div class="divider"></div>
                 </div>
                 <div class="scrollable-content">
-                    <p class="lead mb-4">Le « Harbit » est un plat traditionnel végétarien originaire de la région de Jijel, caractérisé par l'utilisation de plantes sauvages comestibles locales. Il reflète un savoir-faire culinaire ancien basé sur l'exploitation des ressources végétales spontanées.</p>
-                    
-                    <h5 class="mb-3">Constituants principaux :</h5>
-                    <div class="row g-2 mb-4">
+                    <p class="lead mb-4 reveal-item">Le « Harbit » est un plat traditionnel végétarien originaire de la région de Jijel, caractérisé par l'utilisation de plantes sauvages comestibles locales. Il reflète un savoir-faire culinaire ancien basé sur l'exploitation des ressources végétales spontanées.</p>
+                    <h5 class="mb-3 reveal-item">Constituants principaux :</h5>
+                    <div class="row g-2 mb-4 stagger-row">
                         <div class="col-md-6">
                             <div class="card-journal text-center p-3">
                                 <img src="hamida.jpg" alt="Oseille" class="ingredient-img">
@@ -742,28 +981,27 @@
                         </div>
                         <div class="col-md-6">
                             <div class="card-journal text-center p-3">
-                                <img src="mejir.jpg" alt="Mejir" class="ingredient-img">
+                                <img src="mejir.jpg" alt="Mjir" class="ingredient-img">
                                 <strong>Mjir</strong> (Chenopodium sp.)<br>
                                 <small class="text-muted">Fibres, micronutriments</small>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="card-journal text-center p-3">
-                                <img src="halhal.jpg" alt="Lavandula stoechas" class="ingredient-img">
+                                <img src="halhal.jpg" alt="Lavandula" class="ingredient-img">
                                 <strong>Halhal</strong> (Lavandula stoechas)<br>
                                 <small class="text-muted">Composés bioactifs, propriétés médicinales</small>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="card-journal text-center p-3">
-                                <img src="oil.png" alt="Ail & Huile" class="ingredient-img">
-                                <strong>Ail & Huile d'olive</strong><br>
+                                <img src="oil.png" alt="Ail Huile" class="ingredient-img">
+                                <strong>Oil &amp; Huile d'olive</strong><br>
                                 <small class="text-muted">Antimicrobien, cardioprotecteur</small>
                             </div>
                         </div>
                     </div>
-
-                    <div class="card-journal">
+                    <div class="card-journal reveal-item">
                         <h5>Analyse des méthodes de cuisson</h5>
                         <div class="row">
                             <div class="col-md-6">
@@ -791,12 +1029,12 @@
         <!-- SLIDE 5: METHODE DE PREPARATION -->
         <section class="slide" data-slide="5">
             <div class="slide-content">
-                <div class="section-header">
+                <div class="section-header reveal-item">
                     <h2>🔴 Méthode de Préparation</h2>
                     <div class="divider"></div>
                 </div>
                 <div class="scrollable-content">
-                    <p class="text-muted mb-3">La préparation de l'Arbiṭ demande de la patience et du soin pour préserver les qualités nutritionnelles des plantes.</p>
+                    <p class="text-muted mb-3 reveal-item">La préparation de l'Arbiṭ demande de la patience et du soin pour préserver les qualités nutritionnelles des plantes.</p>
                     <div class="row g-2">
                         <div class="col-md-6">
                             <div class="step-card"><strong>1 - Nettoyage des plantes :</strong><br>Les feuilles de mejir, lahlah et hamida sont soigneusement lavées plusieurs fois pour éliminer toute impureté.</div>
@@ -811,23 +1049,23 @@
                             <div class="step-card"><strong>8 - Cuisson finale :</strong><br>Le mélange est remis à feu doux pendant quelques minutes pour bien mélanger les saveurs.</div>
                         </div>
                     </div>
-                    <div class="highlight-box mt-3 mb-0">
+                    <div class="highlight-box mt-3 mb-0 reveal-item">
                         💡 <strong>Conseil :</strong> Privilégier une cuisson douce comme la vapeur pour préserver les nutriments.
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SLIDE 6: FICHE EL MJIRE (NO FLOAT) -->
+        <!-- SLIDE 6: FICHE EL MJIRE -->
         <section class="slide" data-slide="6">
             <div class="slide-content">
-                <div class="section-header">
+                <div class="section-header reveal-item">
                     <h2>🌿 Fiche : El Mjire</h2>
                     <div class="divider"></div>
                     <span class="badge bg-warning text-dark">Chenopodium sp.</span>
                 </div>
                 <div class="scrollable-content">
-                    <video src="mj.mp4" alt="El Mjire" class="plant-video" autoplay muted loop playsinline></video>
+                    <video src="mj.mp4" class="plant-video" autoplay muted loop playsinline></video>
                     <div class="row">
                         <div class="col-md-6">
                             <h5>1. Classification systématique</h5>
@@ -839,24 +1077,20 @@
                                 <li><strong>Famille :</strong> Amaranthaceae</li>
                                 <li><strong>Genre :</strong> Chenopodium</li>
                             </ul>
-
                             <h5>2. Description morphologique</h5>
                             <p class="small">Plante herbacée sauvage, de couleur verte, avec des feuilles tendres et une tige fine. Elle pousse naturellement sans culture.</p>
-
                             <h5>3. Système végétatif</h5>
                             <ul class="small">
                                 <li><strong>Racine :</strong> racine fine et ramifiée</li>
                                 <li><strong>Tige :</strong> tige verte, souple et dressée</li>
                                 <li><strong>Feuilles :</strong> feuilles vertes, molles et comestibles</li>
                             </ul>
-
                             <h5>4. Système reproducteur</h5>
                             <ul class="small">
                                 <li><strong>Fleur :</strong> petites fleurs vertes peu visibles</li>
                                 <li><strong>Fruit :</strong> petit et sec</li>
                                 <li><strong>Graine :</strong> graines très fines</li>
                             </ul>
-
                             <h5>5. Partie consommée</h5>
                             <p class="small"><strong>Les feuilles 🌿</strong> (Parfois les jeunes tiges).</p>
                         </div>
@@ -864,7 +1098,6 @@
                             <h5>6. Phytochimie et valeur nutritionnelle</h5>
                             <p class="small"><strong>Métabolites primaires :</strong> Glucides, Fibres alimentaires, Protéines, Lipides (traces)</p>
                             <p class="small"><strong>Métabolites secondaires :</strong> Polyphénols, Flavonoïdes, Acides organiques, Composés bioactifs divers</p>
-
                             <h5>7. Bienfaits pour la santé</h5>
                             <ul class="small">
                                 <li>✅ Antioxydants</li>
@@ -872,7 +1105,6 @@
                                 <li>✅ Digestif</li>
                                 <li>✅ Renforcement immunitaire</li>
                             </ul>
-
                             <h5>8. Valeur nutritionnelle (Cru vs Cuit)</h5>
                             <ul class="small">
                                 <li><strong>Cru :</strong> Meilleure conservation vitamine C</li>
@@ -888,93 +1120,84 @@
             </div>
         </section>
 
-        <!-- SLIDE 7: FICHE EL HALHAL (WITH VIDEO - NO FLOAT) -->
+        <!-- SLIDE 7: FICHE EL HALHAL -->
         <section class="slide" data-slide="7">
-            <div class="slide-content">
-                <div class="section-header">
-                    <h2>🌸 Fiche : El Halhal (Lavandula stoechas)</h2>
-                    <div class="divider"></div>
-                    <span class="badge bg-warning text-dark">Lavandula stoechas</span>
+    <div class="slide-content">
+        <div class="section-header reveal-item">
+            <h2>🌿 Fiche : El Halhal (Origanum vulgare)</h2>
+            <div class="divider"></div>
+            <span class="badge bg-success text-white">Origanum vulgare</span>
+        </div>
+        <div class="scrollable-content">
+            <!-- Ensure you have a video named origanum.mp4 or update the src -->
+            <video src="hlh.mp4" class="plant-video" autoplay muted loop playsinline></video>
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>1. Classification systématique</h5>
+                    <ul class="small">
+                        <li><strong>Règne :</strong> Plantae</li>
+                        <li><strong>Embranchement :</strong> Angiospermes</li>
+                        <li><strong>Classe :</strong> Dicotylédones</li>
+                        <li><strong>Ordre :</strong> Lamiales</li> <!-- Corrected from Caryophyllales to Lamiales for Lamiaceae -->
+                        <li><strong>Famille :</strong> Lamiaceae 🌿</li>
+                        <li><strong>Genre :</strong> Origanum</li>
+                        <li><strong>Espèce :</strong> Origanum vulgare</li>
+                    </ul>
+                    <h5>2. Description morphologique</h5>
+                    <p class="small">Plante herbacée vivace à tige fine et feuilles vertes tendres. Les feuilles sont douces, comestibles et aromatiques. Système racinaire simple.</p>
+                    <h5>3. Système végétatif</h5>
+                    <ul class="small">
+                        <li><strong>Racine :</strong> système racinaire simple</li>
+                        <li><strong>Tige :</strong> tige fine, souvent ramifiée</li>
+                        <li><strong>Feuilles :</strong> feuilles vertes, tendres et douces</li>
+                    </ul>
+                    <h5>4. Système reproducteur</h5>
+                    <ul class="small">
+                        <li><strong>Fleur :</strong> petites fleurs typiques des plantes herbacées sauvages</li>
+                        <li><strong>Fruit/Graine :</strong> produit des graines</li>
+                    </ul>
+                    <h5>5. Partie consommée</h5>
+                    <p class="small"><strong>Les feuilles 🍃</strong> et parfois les jeunes tiges.</p>
                 </div>
-                <div class="scrollable-content">
-                    <!-- VIDEO ELEMENT (No floating animation applied via CSS) -->
-                    <video src="hlh.mp4" class="plant-video" autoplay muted loop playsinline></video>
-                    
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h5>1. Classification systématique</h5>
-                            <ul class="small">
-                                <li><strong>Règne :</strong> Plantae</li>
-                                <li><strong>Embranchement :</strong> Angiospermes</li>
-                                <li><strong>Classe :</strong> Dicotylédones</li>
-                                <li><strong>Ordre :</strong> Lamiales</li>
-                                <li><strong>Famille :</strong> Lamiaceae</li>
-                                <li><strong>Genre :</strong> Lavandula</li>
-                                <li><strong>Espèce :</strong> Lavandula stoechas</li>
-                            </ul>
-
-                            <h5>2. Description morphologique</h5>
-                            <p class="small">Plante aromatique vivace connue pour ses fleurs violettes distinctives surmontées de bractées. Elle pousse dans les zones ensoleillées et rocailleuses.</p>
-
-                            <h5>3. Système végétatif</h5>
-                            <ul class="small">
-                                <li><strong>Racine :</strong> racine pivotante et ligneuse</li>
-                                <li><strong>Tige :</strong> tige ligneuse, droite et ramifiée</li>
-                                <li><strong>Feuilles :</strong> petites feuilles linéaires, gris-vert et aromatiques</li>
-                            </ul>
-
-                            <h5>4. Système reproducteur</h5>
-                            <ul class="small">
-                                <li><strong>Fleur :</strong> inflorescence en épi avec bractées violettes 🟣</li>
-                                <li><strong>Fruit :</strong> petits akènes</li>
-                                <li><strong>Graine :</strong> graines très petites</li>
-                            </ul>
-
-                            <h5>5. Partie consommée</h5>
-                            <p class="small"><strong>Les sommités fleuries 🌸</strong> (Parfois les feuilles pour les infusions).</p>
-                        </div>
-                        <div class="col-md-6">
-                            <h5>6. Phytochimie et valeur nutritionnelle</h5>
-                            <ul class="small">
-                                <li><strong>Métabolites primaires :</strong> fibres, traces de glucides</li>
-                                <li><strong>Métabolites secondaires :</strong> huiles essentielles (camphre, fenchone), polyphénols, flavonoïdes</li>
-                                <li><strong>Vitamines :</strong> petites quantités de vitamines B</li>
-                                <li><strong>Minéraux :</strong> calcium, fer, magnésium</li>
-                            </ul>
-
-                            <h5>7. Bienfaits pour la santé</h5>
-                            <ul class="small">
-                                <li>✅ Antioxydant puissant</li>
-                                <li>✅ Relaxant et calmant (système nerveux)</li>
-                                <li>✅ Antispasmodique (digestion)</li>
-                                <li>✅ Antiseptique et cicatrisant</li>
-                            </ul>
-
-                            <h5>8. Valeur nutritionnelle (Cru vs Cuit)</h5>
-                            <ul class="small">
-                                <li><strong>Cru (Infusion) :</strong> Préservation des huiles volatiles</li>
-                                <li><strong>Cuit :</strong> Rarement cuit, utilisé surtout en condiment ou infusion</li>
-                                <li><strong>Méthode :</strong> Infusion à l'eau chaude recommandée</li>
-                            </ul>
-                            <div class="highlight-box">
-                                👉 Pour conserver les arômes et les bienfaits du Halhal, il est recommandé de l'utiliser en infusion courte ou d'ajouter les fleurs en fin de cuisson.
-                            </div>
-                        </div>
+                <div class="col-md-6">
+                    <h5>6. Phytochimie et valeur nutritionnelle</h5>
+                    <ul class="small">
+                        <li><strong>Métabolites primaires :</strong> glucides, traces de protéines, très peu de lipides</li>
+                        <li><strong>Métabolites secondaires :</strong> polyphénols, flavonoïdes (puissants antioxydants)</li>
+                        <li><strong>Vitamines :</strong> Riche en Vitamine C, vitamines B</li>
+                        <li><strong>Minéraux :</strong> Fer, Calcium, Potassium</li>
+                    </ul>
+                    <h5>7. Bienfaits pour la santé</h5>
+                    <ul class="small">
+                        <li>✅ Antioxydant puissant (protection cellulaire)</li>
+                        <li>✅ Anti-inflammatoire</li>
+                        <li>✅ Soutien immunitaire (Vitamine C)</li>
+                        <li>✅ Aide digestive et régulation intestinale</li>
+                    </ul>
+                    <h5>8. Valeur nutritionnelle (Cru vs Cuit)</h5>
+                    <ul class="small">
+                        <li><strong>Cru :</strong> Conserve la Vitamine C et les antioxydants, mais moins digeste.</li>
+                        <li><strong>Cuit (Vapeur) :</strong> Recommandé pour préserver les nutriments tout en améliorant la digestibilité.</li>
+                        <li><strong>Ébullition/Friture :</strong> À éviter car perte de vitamines ou ajout de graisses.</li>
+                    </ul>
+                    <div class="highlight-box">
+                        👉 Pour conserver au mieux les bienfaits du Halhal, il est recommandé d’utiliser des méthodes de cuisson douces comme la vapeur, ou de l'ajouter cru en fin de préparation.
                     </div>
                 </div>
             </div>
-        </section>
-
-        <!-- SLIDE 8: FICHE EL H'MIDHA (NO FLOAT) -->
+        </div>
+    </div>
+</section>
+        <!-- SLIDE 8: FICHE EL H'MIDHA -->
         <section class="slide" data-slide="8">
             <div class="slide-content">
-                <div class="section-header">
+                <div class="section-header reveal-item">
                     <h2>🍃 Fiche : El Hmidha (Oseille)</h2>
                     <div class="divider"></div>
-                    <span class="badge bg-warning text-dark"> Oseille </span>
+                    <span class="badge bg-warning text-dark">Oseille</span>
                 </div>
                 <div class="scrollable-content">
-                    <video src="new.mp4" alt="El Mjire" class="plant-video" autoplay muted loop playsinline></video>
+                    <video src="hlh.mp4" class="plant-video" autoplay muted loop playsinline></video>
                     <div class="row">
                         <div class="col-md-6">
                             <h5>1. Classification systématique</h5>
@@ -987,24 +1210,20 @@
                                 <li><strong>Genre :</strong> Rumex</li>
                                 <li><strong>Espèce :</strong> Rumex acetosa</li>
                             </ul>
-
                             <h5>2. Description morphologique</h5>
                             <p class="small">Plante herbacée sauvage connue pour son goût acide. Elle possède des feuilles vertes allongées et pousse dans les zones humides.</p>
-
                             <h5>3. Système végétatif</h5>
                             <ul class="small">
                                 <li><strong>Racine :</strong> racine pivotante</li>
                                 <li><strong>Tige :</strong> tige verte, fine et dressée</li>
                                 <li><strong>Feuilles :</strong> feuilles allongées, vertes avec un goût acide</li>
                             </ul>
-
                             <h5>4. Système reproducteur</h5>
                             <ul class="small">
                                 <li><strong>Fleur :</strong> petites fleurs vertes ou rougeâtres</li>
                                 <li><strong>Fruit :</strong> petit fruit sec</li>
                                 <li><strong>Graine :</strong> graines fines</li>
                             </ul>
-
                             <h5>5. Partie consommée</h5>
                             <p class="small"><strong>Les feuilles 🌿</strong>.</p>
                         </div>
@@ -1016,7 +1235,6 @@
                                 <li><strong>Vitamines :</strong> vitamine C, petites quantités de vitamines B</li>
                                 <li><strong>Minéraux :</strong> potassium élevé, calcium, fer, magnésium</li>
                             </ul>
-
                             <h5>7. Bienfaits pour la santé</h5>
                             <ul class="small">
                                 <li>✅ Antioxydant (vitamine C + polyphénols)</li>
@@ -1025,7 +1243,6 @@
                                 <li>✅ Minéraux essentiels</li>
                                 <li>✅ Renforcement immunitaire</li>
                             </ul>
-
                             <h5>8. Valeur nutritionnelle (Cru vs Cuit)</h5>
                             <ul class="small">
                                 <li><strong>Cru :</strong> Conservation vitamine C et acides organiques</li>
@@ -1044,15 +1261,15 @@
         <!-- SLIDE 9: CONCLUSION -->
         <section class="slide" data-slide="9">
             <div class="slide-content">
-                <div class="section-header">
+                <div class="section-header reveal-item">
                     <h2>🔴 Conclusion Générale</h2>
                     <div class="divider"></div>
                 </div>
                 <div class="scrollable-content">
-                    <div class="card-journal">
+                    <div class="card-journal reveal-item">
                         <p class="lead mb-3">En conclusion, le plat traditionnel <strong>Arbiṭ</strong> illustre parfaitement la richesse de la nature et de la culture culinaire de la région de Jijel. À travers l'utilisation de plantes comme <strong>el mejir, el halhal et el hamida</strong>, nous découvrons une alimentation simple, naturelle et pleine de bienfaits.</p>
                         <p>Ce projet nous a permis de comprendre que les plantes ne sont pas seulement des ingrédients, mais de véritables sources de santé, riches en nutriments essentiels et en composés protecteurs.</p>
-                        <div class="highlight-box mt-3 border-primary" style="border-left-color: var(--primary-dark);">
+                        <div class="highlight-box mt-3" style="border-left-color:var(--primary-dark);">
                             👉 <strong>Héritage :</strong> Plus qu'un simple plat, l'Arbiṭ représente un héritage précieux transmis de génération en génération, qui reflète notre identité et notre lien profond avec la nature.
                         </div>
                         <p class="mb-0 mt-3">Ainsi, préserver les plantes et valoriser leur utilisation dans notre alimentation est une nécessité pour un avenir sain et durable.</p>
@@ -1061,53 +1278,49 @@
             </div>
         </section>
 
-        <!-- SLIDE 10: CLOSING (Animated) - NEW COLOR SCHEME -->
+        <!-- SLIDE 10: CLOSING -->
         <section class="slide closing" data-slide="10">
             <div class="slide-content closing-content">
-                <h1 class="thank-you">🙏 Merci !</h1>
+                <span class="thank-you">🙏 Merci !</span>
                 <p class="final-message">
                     Cette présentation vous a permis de découvrir l'art nutritionnel du <strong>Harbit de Jijel</strong>.<br>
                     Ensemble, valorisons notre patrimoine botanique pour une alimentation saine et durable.
                 </p>
                 <div class="signature">
-                    <i class="fas fa-leaf me-2"></i><strong style="color: var(--accent-gold-light);">Meroua Benabla</strong> | Saad Dahlab University<br>
-                    <small>Projet de Recherche en Nutrition & Botanique</small>
+                    <i class="fas fa-leaf me-2"></i><strong style="color:var(--accent-gold-light);">Meroua Benabla</strong> | Saad Dahlab University<br>
+                    <small>Projet de Recherche en Nutrition &amp; Botanique</small>
                 </div>
                 <button class="closing-btn" onclick="goToSlide(1)">
-                    <i class="fas fa-redo"></i>Recommencer la Présentation
+                    <i class="fas fa-redo me-2"></i>Recommencer la Présentation
                 </button>
             </div>
         </section>
 
-    </div>
+    </div><!-- /slides-container -->
 
-    <!-- Navigation Controls -->
+    <!-- Navigation -->
     <div class="slide-nav">
         <button class="nav-btn" id="prevBtn" onclick="prevSlide()" title="Précédent">
             <i class="fas fa-chevron-left"></i>
         </button>
-        
         <div class="slide-counter" id="slideCounter">1 / 10</div>
-        
         <div class="slide-dots" id="slideDots"></div>
-        
         <button class="nav-btn" id="nextBtn" onclick="nextSlide()" title="Suivant">
             <i class="fas fa-chevron-right"></i>
         </button>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <script>
         // ============================================
-        // POWERPOINT SLIDE NAVIGATION SYSTEM
+        // INTELLIGENT SLIDE ENGINE
         // ============================================
         let currentSlide = 1;
         const totalSlides = 10;
+        let isTransitioning = false;
 
         function initSlides() {
-            // Create slide dots
             const dotsContainer = document.getElementById('slideDots');
             for (let i = 1; i <= totalSlides; i++) {
                 const dot = document.createElement('div');
@@ -1116,109 +1329,139 @@
                 dot.title = `Diapositive ${i}`;
                 dotsContainer.appendChild(dot);
             }
-            updateSlide();
+            updateUI();
         }
 
         function goToSlide(slideNum) {
-            if (slideNum < 1 || slideNum > totalSlides) return;
-            
-            // Hide current slide
-            document.querySelector(`.slide[data-slide="${currentSlide}"]`).classList.remove('active');
-            
-            // Show new slide
-            currentSlide = slideNum;
-            document.querySelector(`.slide[data-slide="${currentSlide}"]`).classList.add('active');
-            
-            // Reset animations for cover/closing slides
-            if (currentSlide === 1 || currentSlide === totalSlides) {
-                const slide = document.querySelector(`.slide[data-slide="${currentSlide}"]`);
-                slide.style.animation = 'none';
-                setTimeout(() => slide.style.animation = '', 10);
-            }
-            
-            updateSlide();
-        }
+            if (slideNum < 1 || slideNum > totalSlides || isTransitioning || slideNum === currentSlide) return;
+            isTransitioning = true;
 
-        function nextSlide() {
-            if (currentSlide < totalSlides) {
-                goToSlide(currentSlide + 1);
-            }
-        }
+            const direction = slideNum > currentSlide ? 'up' : 'down';
+            const prevEl = document.querySelector(`.slide[data-slide="${currentSlide}"]`);
+            const nextEl = document.querySelector(`.slide[data-slide="${slideNum}"]`);
 
-        function prevSlide() {
-            if (currentSlide > 1) {
-                goToSlide(currentSlide - 1);
-            }
-        }
+            // Remove all state classes
+            prevEl.classList.remove('active');
+            prevEl.classList.add(direction === 'up' ? 'exiting-up' : 'exiting-down');
 
-        function updateSlide() {
-            // Update counter
-            document.getElementById('slideCounter').textContent = `${currentSlide} / ${totalSlides}`;
-            
-            // Update dots
-            document.querySelectorAll('.slide-dot').forEach((dot, index) => {
-                dot.classList.toggle('active', index + 1 === currentSlide);
+            // Small delay before showing next for clean overlap
+            requestAnimationFrame(() => {
+                nextEl.classList.add('active');
             });
-            
-            // Update buttons
+
+            currentSlide = slideNum;
+            updateUI();
+
+            // Clean up exiting class after transition
+            setTimeout(() => {
+                prevEl.classList.remove('exiting-up', 'exiting-down');
+                isTransitioning = false;
+            }, 750);
+        }
+
+        function nextSlide() { if (currentSlide < totalSlides) goToSlide(currentSlide + 1); }
+        function prevSlide() { if (currentSlide > 1) goToSlide(currentSlide - 1); }
+
+        function updateUI() {
+            document.getElementById('slideCounter').textContent = `${currentSlide} / ${totalSlides}`;
+
+            document.querySelectorAll('.slide-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i + 1 === currentSlide);
+            });
+
             document.getElementById('prevBtn').disabled = currentSlide === 1;
             document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
-            
-            // Update progress bar
+
             const progress = (currentSlide / totalSlides) * 100;
             document.getElementById('progressBar').style.width = `${progress}%`;
-            
-            // Keyboard navigation
-            document.onkeydown = function(e) {
-                if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
-                if (e.key === 'ArrowLeft') prevSlide();
-                if (e.key >= '1' && e.key <= '9') goToSlide(parseInt(e.key));
-                if (e.key === '0') goToSlide(10);
-            };
         }
 
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+            if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+            if (e.key >= '1' && e.key <= '9') goToSlide(parseInt(e.key));
+            if (e.key === '0') goToSlide(10);
+        });
+
+        // Touch/swipe support
+        let touchStartY = 0;
+        document.addEventListener('touchstart', e => { touchStartY = e.touches[0].clientY; }, { passive: true });
+        document.addEventListener('touchend', e => {
+            const diff = touchStartY - e.changedTouches[0].clientY;
+            if (Math.abs(diff) > 50) { diff > 0 ? nextSlide() : prevSlide(); }
+        }, { passive: true });
+
         // ============================================
-        // FLOATING LEAVES ANIMATION
+        // ORGANIC FLOATING LEAVES
         // ============================================
         function createFloatingLeaves() {
             const container = document.getElementById('floating-leaves-container');
             if (!container) return;
 
             const leafShapes = [
-                `<svg viewBox="0 0 60 100" xmlns="http://www.w3.org/2000/svg"><path d="M30 5 C30 5, 55 20, 55 50 C55 80, 30 95, 30 95 C30 95, 5 80, 5 50 C5 20, 30 5, 30 5Z" fill="#2d6b4a" opacity="0.6"/><line x1="30" y1="5" x2="30" y2="95" stroke="#1a4a2e" stroke-width="1.5" opacity="0.5"/></svg>`,
-                `<svg viewBox="0 0 50 90" xmlns="http://www.w3.org/2000/svg"><path d="M25 0 C25 0, 45 15, 40 45 C35 75, 25 90, 25 90 C25 90, 15 75, 10 45 C5 15, 25 0, 25 0Z" fill="#3a8a5c" opacity="0.5"/><line x1="25" y1="2" x2="25" y2="88" stroke="#2a6a42" stroke-width="1" opacity="0.4"/></svg>`,
-                `<svg viewBox="0 0 70 80" xmlns="http://www.w3.org/2000/svg"><ellipse cx="35" cy="40" rx="30" ry="35" fill="#1a5c3a" opacity="0.5"/><line x1="35" y1="5" x2="35" y2="75" stroke="#0d4028" stroke-width="1.5" opacity="0.4"/></svg>`,
-                `<svg viewBox="0 0 40 50" xmlns="http://www.w3.org/2000/svg"><ellipse cx="20" cy="25" rx="18" ry="22" fill="#4a9a6a" opacity="0.4"/><line x1="20" y1="3" x2="20" y2="47" stroke="#2a6a42" stroke-width="1" opacity="0.3"/></svg>`,
-                `<svg viewBox="0 0 60 80" xmlns="http://www.w3.org/2000/svg"><ellipse cx="30" cy="40" rx="25" ry="35" fill="#2a7a4a" opacity="0.45"/><ellipse cx="20" cy="30" rx="12" ry="20" fill="#3a8a5c" opacity="0.35"/><ellipse cx="40" cy="50" rx="12" ry="20" fill="#3a8a5c" opacity="0.35"/><line x1="30" y1="5" x2="30" y2="75" stroke="#1a5a3a" stroke-width="1.5" opacity="0.4"/></svg>`
+                `<svg viewBox="0 0 60 100" xmlns="http://www.w3.org/2000/svg"><path d="M30 5 C30 5, 55 20, 55 50 C55 80, 30 95, 30 95 C30 95, 5 80, 5 50 C5 20, 30 5, 30 5Z" fill="FILL" opacity="0.55"/><line x1="30" y1="8" x2="30" y2="92" stroke="STROKE" stroke-width="1.5" opacity="0.4"/></svg>`,
+                `<svg viewBox="0 0 50 90" xmlns="http://www.w3.org/2000/svg"><path d="M25 0 C25 0, 45 15, 40 45 C35 75, 25 90, 25 90 C25 90, 15 75, 10 45 C5 15, 25 0, 25 0Z" fill="FILL" opacity="0.5"/><line x1="25" y1="4" x2="25" y2="86" stroke="STROKE" stroke-width="1" opacity="0.35"/></svg>`,
+                `<svg viewBox="0 0 70 60" xmlns="http://www.w3.org/2000/svg"><ellipse cx="35" cy="30" rx="32" ry="27" fill="FILL" opacity="0.45"/><line x1="8" y1="30" x2="62" y2="30" stroke="STROKE" stroke-width="1.5" opacity="0.35"/></svg>`,
+                `<svg viewBox="0 0 80 50" xmlns="http://www.w3.org/2000/svg"><path d="M5 25 Q20 5 40 10 Q60 5 75 25 Q60 45 40 40 Q20 45 5 25Z" fill="FILL" opacity="0.5"/><line x1="5" y1="25" x2="75" y2="25" stroke="STROKE" stroke-width="1" opacity="0.3"/></svg>`,
             ];
 
-            const colors = ['#2d6b4a', '#3a8a5c', '#1a5c3a', '#4a9a6a', '#2a7a4a', '#357a52', '#1a6a42'];
+            const palettes = [
+                { fill: '#2d7a4a', stroke: '#1a5a30' },
+                { fill: '#3a9a5c', stroke: '#2a7a42' },
+                { fill: '#1a5c3a', stroke: '#0d4028' },
+                { fill: '#4aaa6a', stroke: '#2a8a48' },
+                { fill: '#c5a065', stroke: '#a07845' }, // occasional gold leaf
+            ];
 
-            for (let i = 0; i < 15; i++) {
+            for (let i = 0; i < 18; i++) {
                 const leaf = document.createElement('div');
                 leaf.className = 'floating-leaf';
-                
-                const shapeIndex = Math.floor(Math.random() * leafShapes.length);
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                const size = 30 + Math.random() * 50;
-                const leftPos = Math.random() * 100;
-                const duration = 20 + Math.random() * 30;
-                const delay = Math.random() * 25;
 
-                leaf.style.left = leftPos + '%';
-                leaf.style.width = size + 'px';
-                leaf.style.animationDuration = duration + 's';
-                leaf.style.animationDelay = delay + 's';
-                
-                let svgContent = leafShapes[shapeIndex].replace(/#2d6b4a|#3a8a5c|#1a5c3a|#4a9a6a|#2a7a4a|#357a52|#1a6a42/g, color);
-                leaf.innerHTML = svgContent;
-                
+                const shape = leafShapes[Math.floor(Math.random() * leafShapes.length)];
+                const pal = palettes[Math.floor(Math.random() * palettes.length)];
+                const size = 28 + Math.random() * 55;
+                const leftPos = Math.random() * 100;
+                const duration = 22 + Math.random() * 35;
+                const delay = Math.random() * 30;
+                // Random horizontal drift per leaf
+                const drift = (Math.random() - 0.5) * 80;
+
+                leaf.style.cssText = `
+                    left: ${leftPos}%;
+                    width: ${size}px;
+                    animation-duration: ${duration}s;
+                    animation-delay: -${delay}s;
+                    --drift: ${drift}px;
+                `;
+
+                leaf.innerHTML = shape
+                    .replace(/FILL/g, pal.fill)
+                    .replace(/STROKE/g, pal.stroke);
+
                 container.appendChild(leaf);
             }
         }
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
+        // Override leaf journey to use drift
+        const leafStyle = document.createElement('style');
+        leafStyle.textContent = `
+            @keyframes leafJourney {
+                0%   { transform: translateY(110vh) translateX(0) rotate(0deg) scale(0.6); opacity: 0; }
+                5%   { opacity: 0.65; }
+                25%  { transform: translateY(75vh) translateX(calc(var(--drift) * 0.3)) rotate(95deg) scale(0.85); opacity: 0.52; }
+                50%  { transform: translateY(45vh) translateX(calc(var(--drift) * 0.6)) rotate(210deg) scale(1); opacity: 0.42; }
+                75%  { transform: translateY(18vh) translateX(calc(var(--drift) * 0.85)) rotate(305deg) scale(0.9); opacity: 0.28; }
+                95%  { opacity: 0.08; }
+                100% { transform: translateY(-18vh) translateX(var(--drift)) rotate(420deg) scale(0.7); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(leafStyle);
+
+        // ============================================
+        // INIT
+        // ============================================
+        document.addEventListener('DOMContentLoaded', () => {
             initSlides();
             createFloatingLeaves();
         });
