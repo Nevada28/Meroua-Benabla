@@ -33,6 +33,8 @@
             overflow: hidden;
             height: 100vh;
             width: 100vw;
+            /* IMPORTANT: Allows vertical scroll (for content) but captures horizontal swipe for JS */
+            touch-action: pan-y; 
         }
 
         /* ============================================
@@ -1197,7 +1199,7 @@
                     <span class="badge bg-warning text-dark">Oseille</span>
                 </div>
                 <div class="scrollable-content">
-                    <video src="new.mp4" class="plant-video" autoplay muted loop playsinline></video>
+                    <video src="hlh.mp4" class="plant-video" autoplay muted loop playsinline></video>
                     <div class="row">
                         <div class="col-md-6">
                             <h5>1. Classification systématique</h5>
@@ -1384,13 +1386,37 @@
             if (e.key === '0') goToSlide(10);
         });
 
-        // Touch/swipe support
-        let touchStartY = 0;
-        document.addEventListener('touchstart', e => { touchStartY = e.touches[0].clientY; }, { passive: true });
-        document.addEventListener('touchend', e => {
-            const diff = touchStartY - e.changedTouches[0].clientY;
-            if (Math.abs(diff) > 50) { diff > 0 ? nextSlide() : prevSlide(); }
+        // ============================================
+        // UPDATED TOUCH SUPPORT (LEFT/RIGHT SWIPE)
+        // ============================================
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        // Detect start of touch
+        document.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
         }, { passive: true });
+
+        // Detect end of touch
+        document.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const threshold = 50; // Minimum distance for a swipe
+            const diff = touchStartX - touchEndX;
+
+            if (Math.abs(diff) > threshold) {
+                if (diff > 0) {
+                    // Swiped Left -> Next Slide
+                    nextSlide();
+                } else {
+                    // Swiped Right -> Prev Slide
+                    prevSlide();
+                }
+            }
+        }
 
         // ============================================
         // ORGANIC FLOATING LEAVES
