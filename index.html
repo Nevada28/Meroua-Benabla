@@ -869,16 +869,16 @@
               <p class="small">Le halhal est une plante aromatique de la famille des Lamiaceae, utilisée traditionnellement pour ses effets digestifs et calmants. Il fait partie de la richesse des plantes médicinales locales qu'il faut préserver.</p>
             </div>
             <div class="col-md-6">
-              <div style="border-radius:12px;overflow:hidden;height:350px;border:2px solid var(--accent-gold);">
-                <iframe
-                  title="Lavandula dentata 3D"
-                  width="100%" height="100%"
-                  src="https://sketchfab.com/models/39c64907e40548a3b99d4d6a192ef4fc/embed?autostart=1&ui_controls=0&ui_infos=0&ui_inspector=0&ui_watermark=0&ui_watermark_link=0&ui_stop=0&ui_theatre=0"
-                  frameborder="0"
-                  allow="autoplay; fullscreen; xr-spatial-tracking"
-                  allowfullscreen>
-                </iframe>
-              </div>
+            <iframe
+                title="Lavandula dentata 3D"
+                width="100%"
+                height="350"
+                src="https://sketchfab.com/models/39c64907e40548a3b99d4d6a192ef4fc/embed?autostart=1&transparent=1&ui_controls=0&ui_infos=0&ui_inspector=0&ui_watermark=0&ui_watermark_link=0&ui_stop=0&ui_theatre=0"
+                frameborder="0"
+                allow="autoplay; fullscreen; xr-spatial-tracking"
+                allowfullscreen
+                style="border-radius:12px; display:block; background:transparent;">
+            </iframe>
             </div>
           </div>
         </div>
@@ -1060,7 +1060,19 @@
     </section>
 
     <!-- SLIDE 20 · FINAL 3D MODEL -->
-  
+    <section class="slide" data-slide="20" style="justify-content:center;align-items:center;">
+      <div class="sketchfab-slide-content">
+        <iframe
+          src="https://sketchfab.com/models/9758c9f1bb464b7388c442ae8ffe57a1/embed?autostart=1&internal=1&tracking=0&ui_ar=0&ui_infos=0&ui_snapshots=1&ui_stop=0&ui_theatre=1&ui_watermark=0&transparent=1"
+          allow="autoplay; fullscreen; xr-spatial-tracking"
+          xr-spatial-tracking="true"
+          execution-while-out-of-viewport="true"
+          execution-while-not-rendered="true"
+          web-share="true"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </section>
 
   </div><!-- /slides-container -->
 
@@ -1069,7 +1081,7 @@
     <button class="nav-btn" id="prevBtn" onclick="prevSlide()" title="Précédent">
       <i class="fas fa-chevron-left"></i>
     </button>
-    <div class="slide-counter" id="slideCounter">1 / 19</div>
+    <div class="slide-counter" id="slideCounter">1 / 20</div>
     <div class="slide-dots" id="slideDots"></div>
     <button class="nav-btn" id="nextBtn" onclick="nextSlide()" title="Suivant">
       <i class="fas fa-chevron-right"></i>
@@ -1080,7 +1092,7 @@
   <script>
     /* ── State ── */
     let currentSlide   = 1;
-    const totalSlides  = 19;
+    const totalSlides  = 20;
     let isTransitioning = false;
 
     /* ── Core navigation ── */
