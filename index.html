@@ -871,7 +871,7 @@
                 <div class="section-header reveal-item">
                     <h2>🌿 Fiche : El Mjire</h2>
                     <div class="divider"></div>
-                    <span class="badge bg-warning text-dark">Chenopodium sp.</span>
+                    <span class="badge bg-warning text-dark">Malva</span>
                 </div>
                 <div class="scrollable-content">
                     
@@ -963,7 +963,7 @@
                         </div>
                          <div class="col-md-6">
                             <video src="hlh.mp4" class="plant-video" autoplay muted loop playsinline></video>
-                         </div>
+                          </div>
                     </div>
                 </div>
             </div>
@@ -989,9 +989,9 @@
         <section class="slide" data-slide="12">
             <div class="slide-content">
                 <div class="section-header reveal-item">
-                    <h2>🌸 Fiche : El Halhal (Origanum vulgare)</h2>
+                    <h2>🌸 Fiche : El Halhal (lavandula dentata)</h2>
                     <div class="divider"></div>
-                    <span class="badge bg-warning text-dark">Origanum vulgare</span>
+                    <span class="badge bg-warning text-dark">lavandula dentata</span>
                 </div>
                 <div class="scrollable-content">
                    
@@ -1024,9 +1024,23 @@
                             <h5 class="mt-3">9. Conclusion</h5>
                             <p class="small">En conclusion, le halhal est une plante aromatique de la famille des Lamiacées, utilisée traditionnellement pour ses effets digestifs et calmants. Il fait partie de la richesse des plantes médicinales locales qu'il faut préserver.</p>
                         </div>
-                         <div class="col-md-6">
-                            <video src="hlh.mp4" class="plant-video" autoplay muted loop playsinline></video>
-                          </div>
+                          <div class="col-md-6">
+                            <!-- Added inline style to remove border/shadow for this specific smaller embed so it blends with background -->
+                            <div class="sketchfab-slide-content" style="border: none; box-shadow: none; background: transparent;">
+                             <iframe 
+                                title="A 3D Model"
+                                width="800" 
+                                height="600" 
+                                src="https://sketchfab.com/models/39c64907e40548a3b99d4d6a192ef4fc/embed?autostart=1&ui_controls=0&ui_infos=0&ui_inspector=0&ui_watermark=0&ui_watermark_link=0&ui_stop=0&ui_theatre=0"
+                                frameborder="0"
+                                allow="autoplay; fullscreen; xr-spatial-tracking"
+                                allowfullscreen
+                                mozallowfullscreen="true" 
+                                webkitallowfullscreen="true">
+                                
+                            </iframe>
+                            </div>                        
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1211,7 +1225,23 @@
             </div>
         </section>
 
-        
+        <!-- SLIDE 20: 3D MODEL -->
+               <!-- SLIDE 7: 3D MODEL — ui_watermark=0 & transparent=1 FIXED -->
+        <section class="slide" data-slide="20" style="justify-content:center;align-items:center;">
+            <div class="sketchfab-slide-content">
+                <iframe
+                    class="c-viewer__iframe"
+                    src="https://sketchfab.com/models/9758c9f1bb464b7388c442ae8ffe57a1/embed?autostart=1&internal=1&tracking=0&ui_ar=0&ui_infos=0&ui_snapshots=1&ui_stop=0&ui_theatre=1&ui_watermark=0&transparent=1"
+                    allow="autoplay; fullscreen; xr-spatial-tracking"
+                    xr-spatial-tracking="true"
+                    execution-while-out-of-viewport="true"
+                    execution-while-not-rendered="true"
+                    web-share="true"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+
 
 
     </div><!-- /slides-container -->
@@ -1221,7 +1251,7 @@
         <button class="nav-btn" id="prevBtn" onclick="prevSlide()" title="Précédent">
             <i class="fas fa-chevron-left"></i>
         </button>
-        <div class="slide-counter" id="slideCounter">1 / 19</div>
+        <div class="slide-counter" id="slideCounter">1 / 20</div>
         <div class="slide-dots" id="slideDots"></div>
         <button class="nav-btn" id="nextBtn" onclick="nextSlide()" title="Suivant">
             <i class="fas fa-chevron-right"></i>
@@ -1232,7 +1262,7 @@
 
     <script>
         let currentSlide = 1;
-        const totalSlides = 19;
+        const totalSlides = 20;
         let isTransitioning = false;
 
         function initSlides() {
