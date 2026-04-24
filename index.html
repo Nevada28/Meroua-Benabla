@@ -8,10 +8,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@300;500;700&display=swap');
-
   :root {
     --bg: #1a1a1f;
     --bg2: #22222a;
@@ -24,1094 +23,613 @@
     --text: #e0d8d0;
     --muted: #888;
     --panel: rgba(255,255,255,0.03);
+
+    --primary-dark: #1a3c34;
+    --primary-light: #4a7c6f;
+    --accent-gold: #c5a065;
+    --accent-gold-light: #e8d5b7;
+    --bg-cream: #f9f7f2;
+    --text-main: #2c3e50;
+    --text-muted: #6c757d;
+    --border-light: #e0e0e0;
+    --glass: rgba(255,255,255,0.88);
+    --glass-border: rgba(255,255,255,0.6);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    background: radial-gradient(ellipse at 40% 40%, #2a2020 0%, #1a1a1f 50%, #0d0d10 100%);
-    min-height: 100vh;
-    font-family: 'Rajdhani', sans-serif;
-    color: var(--text);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    background-color: #0a1f17;
+    color: var(--text-main);
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1.8;
     overflow: hidden;
+    height: 100vh;
+    width: 100vw;
   }
 
-  /* TITLE */
-  .title-block {
-    position: fixed;
-    top: 24px;
-    left: 32px;
-    z-index: 10;
-  }
-  .title-block h1 {
-    font-size: 1.05rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent);
-  }
-  .title-block p {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-    margin-top: 2px;
+  .bg-plant-layer {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -10; overflow: hidden;
   }
 
-  /* FORMULA PANEL */
-  .info-panel {
-    position: fixed;
-    top: 24px;
-    right: 32px;
-    z-index: 10;
-    text-align: right;
-  }
-  .info-panel .formula {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.8rem;
-    color: var(--accent);
-    letter-spacing: 0.05em;
-  }
-  .info-panel .mw {
-    font-size: 0.65rem;
-    color: var(--muted);
-    margin-top: 4px;
-    font-family: 'Share Tech Mono', monospace;
+  .bg-layer-1 {
+    position: absolute; top: -10%; left: -10%;
+    width: 120%; height: 120%;
+    background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2851&auto=format&fit=crop');
+    background-size: cover; background-position: center;
+    animation: slowZoom 25s ease-in-out infinite alternate;
+    filter: saturate(1.2) brightness(0.7);
   }
 
-  /* LEGEND */
-  .legend {
-    position: fixed;
-    bottom: 24px;
-    left: 32px;
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.7rem;
-    color: var(--muted);
-    font-family: 'Share Tech Mono', monospace;
-    letter-spacing: 0.08em;
-  }
-  .legend-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-  }
-  .legend-dot.c { background: radial-gradient(circle at 35% 35%, #555, #1a1a1a); border: 1px solid #444; }
-  .legend-dot.o { background: radial-gradient(circle at 35% 35%, #ff6644, #991100); border: 1px solid #cc3300; }
-
-  /* HINT */
-  .hint {
-    position: fixed;
-    bottom: 24px;
-    right: 32px;
-    font-size: 0.62rem;
-    color: var(--muted);
-    font-family: 'Share Tech Mono', monospace;
-    letter-spacing: 0.06em;
-    text-align: right;
-    line-height: 1.7;
+  .bg-layer-2 {
+    position: absolute; top: -15%; left: -15%;
+    width: 130%; height: 130%;
+    background-image: url('https://images.unsplash.com/photo-1518531933037-9a84725b5fa1?q=80&w=2787&auto=format&fit=crop');
+    background-size: cover; background-position: center;
+    animation: slowZoomReverse 30s ease-in-out infinite alternate;
+    opacity: 0.6; mix-blend-mode: overlay;
   }
 
-  /* SCENE */
-  .scene-wrapper {
-    width: 700px;
-    height: 700px;
-    perspective: 1100px;
+  .bg-layer-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, rgba(13,43,31,0.75) 0%, rgba(26,60,52,0.6) 30%, rgba(74,124,111,0.5) 60%, rgba(13,43,31,0.8) 100%);
+    z-index: 1;
+  }
+
+  @keyframes slowZoom {
+    0%   { transform: scale(1) translate(0, 0); }
+    50%  { transform: scale(1.08) translate(-2%, -1%); }
+    100% { transform: scale(1.12) translate(-3%, -2%); }
+  }
+  @keyframes slowZoomReverse {
+    0%   { transform: scale(1.05) translate(1%, 0); }
+    50%  { transform: scale(1.1) translate(0, -2%); }
+    100% { transform: scale(1.15) translate(-1%, -1%); }
+  }
+
+  .light-spot {
+    position: absolute; border-radius: 50%;
+    background: radial-gradient(circle, rgba(180,220,180,0.15) 0%, transparent 70%);
+    z-index: 0; animation: breathe ease-in-out infinite;
+  }
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 0.3; }
+    50%       { transform: scale(1.4); opacity: 0.6; }
+  }
+
+  .ambient-grid {
+    position: fixed; inset: 0; z-index: -8;
+    background-image: radial-gradient(circle at 1px 1px, rgba(197,160,101,0.04) 1px, transparent 0);
+    background-size: 50px 50px; pointer-events: none;
+  }
+
+  .floating-leaf {
+    position: fixed; z-index: -5; opacity: 0;
+    animation: leafJourney linear infinite;
+    pointer-events: none;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+  }
+
+  .slides-container {
+    position: relative; width: 100%; height: 100vh;
+    perspective: 2000px; overflow: hidden;
+  }
+
+  .slide {
+    position: absolute; inset: 0; padding: 30px;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    transform-style: preserve-3d; backface-visibility: hidden;
+    will-change: transform, opacity;
+    opacity: 0;
+    transform: translateY(60px) scale(0.96) rotateX(6deg);
+    transition:
+      transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity   0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none; visibility: hidden;
+  }
+
+  .slide.active {
+    opacity: 1; transform: translateY(0) scale(1) rotateX(0deg);
+    pointer-events: all; visibility: visible; z-index: 10;
+    transition:
+      transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity   0.55s ease;
+  }
+
+  .slide.exiting-up {
+    opacity: 0; transform: translateY(-50px) scale(0.94) rotateX(-8deg);
+    pointer-events: none; visibility: visible; z-index: 9;
+    transition:
+      transform 0.6s cubic-bezier(0.55, 0, 1, 0.45),
+      opacity   0.45s ease;
+  }
+
+  .slide.exiting-down {
+    opacity: 0; transform: translateY(80px) scale(0.94) rotateX(8deg);
+    pointer-events: none; visibility: visible; z-index: 9;
+    transition:
+      transform 0.6s cubic-bezier(0.55, 0, 1, 0.45),
+      opacity   0.45s ease;
+  }
+
+  .slide-content {
+    background: var(--glass);
+    backdrop-filter: blur(20px) saturate(1.5);
+    -webkit-backdrop-filter: blur(20px) saturate(1.5);
+    border-radius: 24px; padding: 40px;
+    max-width: 1180px; width: 95%; max-height: 86vh;
+    overflow-y: auto;
+    box-shadow:
+      0 32px 80px rgba(0,0,0,0.35),
+      0 0 0 1px var(--glass-border),
+      inset 0 1px 0 rgba(255,255,255,0.9);
     position: relative;
   }
 
-  .molecule {
-    width: 100%;
+  .slide-content::before {
+    content: ''; position: absolute; top: 0; left: 10%; right: 10%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+    border-radius: 2px; opacity: 0;
+    animation: shimmerEdge 0.8s ease 0.3s forwards;
+  }
+  @keyframes shimmerEdge {
+    from { opacity: 0; transform: scaleX(0.3); }
+    to   { opacity: 1; transform: scaleX(1); }
+  }
+
+  .slide.active .reveal-item {
+    animation: revealUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0; transform: translateY(22px);
+  }
+  .slide.active .reveal-item:nth-child(1) { animation-delay: 0.05s; }
+  .slide.active .reveal-item:nth-child(2) { animation-delay: 0.12s; }
+  .slide.active .reveal-item:nth-child(3) { animation-delay: 0.19s; }
+  .slide.active .reveal-item:nth-child(4) { animation-delay: 0.26s; }
+  .slide.active .reveal-item:nth-child(5) { animation-delay: 0.33s; }
+  .slide.active .reveal-item:nth-child(6) { animation-delay: 0.40s; }
+  .slide.active .reveal-item:nth-child(7) { animation-delay: 0.47s; }
+  .slide.active .reveal-item:nth-child(8) { animation-delay: 0.54s; }
+  @keyframes revealUp { to { opacity: 1; transform: translateY(0); } }
+
+  .slide.active .stagger-row .card-journal {
+    animation: cardPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    opacity: 0; transform: scale(0.94) translateY(15px);
+  }
+  .slide.active .stagger-row .card-journal:nth-child(1) { animation-delay: 0.15s; }
+  .slide.active .stagger-row .card-journal:nth-child(2) { animation-delay: 0.25s; }
+  .slide.active .stagger-row .card-journal:nth-child(3) { animation-delay: 0.35s; }
+  .slide.active .stagger-row .card-journal:nth-child(4) { animation-delay: 0.45s; }
+  @keyframes cardPop { to { opacity: 1; transform: scale(1) translateY(0); } }
+
+  .slide.active .step-card {
+    animation: stepSlide 0.5s ease forwards;
+    opacity: 0; transform: translateX(-20px);
+  }
+  .slide.active .step-card:nth-child(1) { animation-delay: 0.10s; }
+  .slide.active .step-card:nth-child(2) { animation-delay: 0.18s; }
+  .slide.active .step-card:nth-child(3) { animation-delay: 0.26s; }
+  .slide.active .step-card:nth-child(4) { animation-delay: 0.34s; }
+  .slide.active .step-card:nth-child(5) { animation-delay: 0.42s; }
+  .slide.active .step-card:nth-child(6) { animation-delay: 0.50s; }
+  .slide.active .step-card:nth-child(7) { animation-delay: 0.58s; }
+  .slide.active .step-card:nth-child(8) { animation-delay: 0.66s; }
+  @keyframes stepSlide { to { opacity: 1; transform: translateX(0); } }
+
+  .plant-img, .plant-video {
+    width: 100%; max-width: 320px; height: 190px;
+    object-fit: cover; border-radius: 12px;
+    margin: 0 auto 24px auto; display: block;
+    border: 3px solid var(--accent-gold);
+    opacity: 0; transform: scale(0.88) translateY(10px);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  }
+  .slide.active .plant-img,
+  .slide.active .plant-video {
+    animation: mediaBloom 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s forwards;
+  }
+  .plant-img:hover, .plant-video:hover {
+    box-shadow: 0 16px 50px rgba(197,160,101,0.35);
+    transform: scale(1.02) translateY(-2px) !important;
+  }
+  @keyframes mediaBloom { to { opacity: 1; transform: scale(1) translateY(0); } }
+
+  .slide.cover .hero-badge {
+    animation: fadeSlideDown 0.7s ease 0.1s forwards;
+    opacity: 0; transform: translateY(-15px);
+  }
+  .slide.cover .hero-title {
+    animation: heroTitle 1s cubic-bezier(0.16,1,0.3,1) 0.25s forwards;
+    opacity: 0; transform: translateY(35px); letter-spacing: -0.5px;
+  }
+  .slide.cover .hero-subtitle {
+    animation: fadeSlideUp 0.7s ease 0.5s forwards;
+    opacity: 0; transform: translateY(20px);
+  }
+  .slide.cover .hero-img-wrap {
+    animation: heroImageReveal 1s cubic-bezier(0.16,1,0.3,1) 0.65s forwards;
+    opacity: 0; transform: scale(0.75) rotate(-3deg);
+  }
+  .slide.cover .hero-lead {
+    animation: fadeSlideUp 0.7s ease 0.85s forwards;
+    opacity: 0; transform: translateY(15px);
+  }
+  .slide.cover .hero-cta {
+    animation: ctaBounce 0.6s cubic-bezier(0.34,1.56,0.64,1) 1.05s forwards;
+    opacity: 0; transform: scale(0.8);
+  }
+  @keyframes fadeSlideDown { to { opacity: 1; transform: translateY(0); } }
+  @keyframes heroTitle { to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeSlideUp { to { opacity: 1; transform: translateY(0); } }
+  @keyframes heroImageReveal { to { opacity: 1; transform: scale(1) rotate(0deg); } }
+  @keyframes ctaBounce { to { opacity: 1; transform: scale(1); } }
+
+  .hero-img-wrap {
+    position: relative; width: fit-content; margin: 0 auto;
+  }
+  .hero-img-wrap::before {
+    content: ''; position: absolute; inset: -12px; border-radius: 50%;
+    border: 2px solid transparent;
+    border-top-color: var(--accent-gold);
+    border-right-color: var(--accent-gold-light);
+    animation: orbitRing 4s linear infinite;
+  }
+  .hero-img-wrap::after {
+    content: ''; position: absolute; inset: -22px; border-radius: 50%;
+    border: 1px solid transparent;
+    border-bottom-color: rgba(197,160,101,0.4);
+    border-left-color: rgba(197,160,101,0.2);
+    animation: orbitRing 7s linear infinite reverse;
+  }
+  @keyframes orbitRing { to { transform: rotate(360deg); } }
+
+  .closing-content {
+    text-align: center; padding: 60px 40px;
+    background: linear-gradient(135deg, rgba(26,60,52,0.96), rgba(74,124,111,0.92));
+    border-radius: 24px; border: 1px solid rgba(197,160,101,0.4);
+    position: relative; overflow: hidden;
+  }
+  .closing-content::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(197,160,101,0.15) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .slide.closing.active .thank-you {
+    animation: thankYouReveal 1s cubic-bezier(0.16,1,0.3,1) 0.1s forwards;
+    opacity: 0; transform: translateY(30px) scale(0.9);
+  }
+  .slide.closing.active .final-message {
+    animation: fadeSlideUp 0.7s ease 0.45s forwards;
+    opacity: 0; transform: translateY(20px);
+  }
+  .slide.closing.active .signature {
+    animation: fadeSlideUp 0.6s ease 0.7s forwards;
+    opacity: 0; transform: translateY(15px);
+  }
+  .slide.closing.active .closing-btn {
+    animation: ctaBounce 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.9s forwards;
+    opacity: 0; transform: scale(0.8);
+  }
+  @keyframes thankYouReveal { to { opacity: 1; transform: translateY(0) scale(1); } }
+
+  .thank-you {
+    font-size: 4rem; color: var(--accent-gold-light);
+    font-family: 'Cormorant Garamond', serif;
+    margin-bottom: 25px; text-shadow: 0 4px 30px rgba(0,0,0,0.4);
+    letter-spacing: 3px; display: block;
+  }
+  .final-message {
+    font-size: 1.25rem; color: #f0f9f4;
+    max-width: 700px; margin: 0 auto 35px;
+    line-height: 1.8; font-weight: 300;
+  }
+  .final-message strong { color: var(--accent-gold-light); font-weight: 500; }
+  .signature {
+    color: #c8e6d9; font-style: italic;
+    margin-top: 25px; padding-top: 20px;
+    border-top: 1px solid rgba(197,160,101,0.3);
+  }
+  .signature small { display: block; margin-top: 8px; color: #a8d0c4; font-size: 0.9rem; }
+
+  h1, h2, h3, h4, h5, .brand-font {
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--primary-dark);
+  }
+  .hero-title {
+    font-size: 3rem; line-height: 1.1;
+    margin-bottom: 1.5rem; color: var(--primary-dark);
+  }
+  .hero-subtitle {
+    font-size: 1.25rem; color: var(--primary-light);
+    font-style: italic; margin-bottom: 2rem;
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .hero-img {
+    width: 280px; height: 280px; border-radius: 50%;
+    border: 8px solid rgba(255,255,255,0.9);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25); object-fit: cover;
+  }
+  .ingredient-img {
+    width: 70px; height: 70px; object-fit: cover;
+    border-radius: 50%; border: 2px solid var(--border-light);
+    margin: 0 auto 10px; display: block; background-color: white;
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .ingredient-img:hover { transform: scale(1.12) rotate(3deg); }
+
+  .section-header { text-align: center; margin-bottom: 28px; }
+  .section-header .divider {
+    width: 60px; height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+    margin: 10px auto; border-radius: 2px;
+  }
+  .card-journal {
+    background: rgba(255,255,255,0.95); border: 1px solid var(--border-light);
+    padding: 22px; border-radius: 14px; margin-bottom: 18px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .card-journal:hover {
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1); transform: translateY(-2px);
+  }
+  .plant-detail-box {
+    background: rgba(255,255,255,0.95); border: 1px solid var(--border-light);
+    border-radius: 14px; margin-bottom: 22px; overflow: hidden;
+  }
+  .plant-header { background-color: var(--primary-dark); color: white; padding: 14px 20px; }
+  .plant-header h3 { color: white; margin: 0; font-size: 1.35rem; }
+  .plant-header .sci-name { color: #a8d0c4; font-style: italic; font-size: 0.85rem; }
+  .plant-body { padding: 22px; }
+  .plant-body h4 {
+    font-size: 1.15rem; margin-top: 18px; margin-bottom: 8px;
+    border-bottom: 1px solid #eee; padding-bottom: 5px;
+  }
+  .highlight-box {
+    background-color: rgba(238,242,241,0.95);
+    border-left: 4px solid var(--accent-gold);
+    padding: 12px 15px; margin: 14px 0; font-size: 0.93rem;
+    border-radius: 0 8px 8px 0;
+    transition: border-left-color 0.3s ease;
+  }
+  .highlight-box:hover { border-left-color: var(--primary-light); }
+  .step-card {
+    background: rgba(255,255,255,0.95); padding: 14px; border-radius: 10px;
+    border-left: 4px solid var(--accent-gold); margin-bottom: 10px;
+    font-size: 0.92rem; transition: border-left-color 0.3s, transform 0.3s ease;
+  }
+  .step-card:hover { border-left-color: var(--primary-light); transform: translateX(4px); }
+
+  .chem-slide-wrapper {
+    display: flex; flex-direction: column; gap: 12px;
     height: 100%;
-    transform-style: preserve-3d;
-    animation: autoRotate 28s linear infinite;
+  }
+  .chem-top-bar {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    flex-wrap: wrap; gap: 10px;
+    background: rgba(26,26,31,0.9); border-radius: 12px;
+    padding: 12px 20px; border: 1px solid rgba(255,85,34,0.25);
+  }
+  .chem-title-block h2 {
+    font-family: 'Rajdhani', sans-serif; font-size: 1.1rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: #ff5522; margin: 0;
+  }
+  .chem-title-block p {
+    font-family: 'Share Tech Mono', monospace; font-size: 0.65rem;
+    color: #888; letter-spacing: 0.1em; margin-top: 2px; margin-bottom: 0;
+  }
+  .chem-info-block { text-align: right; }
+  .chem-formula {
+    font-family: 'Share Tech Mono', monospace; font-size: 0.85rem;
+    color: #ff5522; letter-spacing: 0.05em;
+  }
+  .chem-mw {
+    font-family: 'Share Tech Mono', monospace; font-size: 0.65rem;
+    color: #888; margin-top: 4px;
+  }
+  .chem-legend {
+    display: flex; gap: 18px; align-items: center; flex-wrap: wrap;
+  }
+  .chem-legend-item {
+    display: flex; align-items: center; gap: 7px;
+    font-family: 'Share Tech Mono', monospace; font-size: 0.68rem;
+    color: #888; letter-spacing: 0.08em;
+  }
+  .chem-legend-dot {
+    width: 12px; height: 12px; border-radius: 50%;
+  }
+  .chem-legend-dot.c {
+    background: radial-gradient(circle at 35% 35%, #555, #1a1a1a);
+    border: 1px solid #444;
+  }
+  .chem-legend-dot.o {
+    background: radial-gradient(circle at 35% 35%, #ff6644, #991100);
+    border: 1px solid #cc3300;
+  }
+  .mol-iframe-container {
+    flex: 1; min-height: 0; border-radius: 16px; overflow: hidden;
+    border: 2px solid rgba(255,85,34,0.3);
+    box-shadow: 0 0 40px rgba(255,85,34,0.12), 0 8px 32px rgba(0,0,0,0.5);
+    background: #1a1a1f;
     position: relative;
   }
-
-  .molecule:hover { animation-play-state: paused; }
-
-  @keyframes autoRotate {
-    from { transform: rotateX(15deg) rotateY(0deg); }
-    to   { transform: rotateX(15deg) rotateY(360deg); }
+  .mol-iframe-container iframe {
+    width: 100%; height: 100%; border: none; display: block;
+  }
+  .chem-hint {
+    font-family: 'Share Tech Mono', monospace; font-size: 0.62rem;
+    color: #666; letter-spacing: 0.06em; text-align: center;
+    padding: 4px 0;
   }
 
-  /* SVG CANVAS */
-  .mol-svg {
-    position: absolute;
-    width: 100%;
+  .slide.chem-slide .slide-content {
+    background: rgba(20,20,26,0.97);
+    border: 1px solid rgba(255,85,34,0.2);
+    box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,85,34,0.15);
+    max-height: 90vh;
+    display: flex; flex-direction: column;
+    padding: 20px 24px;
+  }
+  .slide.chem-slide .slide-content::before {
+    background: linear-gradient(90deg, transparent, #ff5522, transparent);
+  }
+
+  .sketchfab-slide-content {
+    width: 95%; max-width: 1180px; height: 88vh;
+    border-radius: 20px; overflow: hidden;
+    border: 2px solid rgba(197,160,101,0.4);
+    box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+  }
+  .sketchfab-slide-content iframe {
+    width: 100%; height: 100%; border: none; display: block;
+  }
+
+  .slide-nav {
+    position: fixed; bottom: 28px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; align-items: center; gap: 16px;
+    z-index: 100;
+    background: rgba(15,45,35,0.92); padding: 10px 22px;
+    border-radius: 60px; backdrop-filter: blur(14px);
+    border: 1px solid rgba(197,160,101,0.25);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+    animation: navEntrance 0.8s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;
+    opacity: 0;
+  }
+  @keyframes navEntrance { to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+
+  .nav-btn {
+    background: linear-gradient(135deg, var(--accent-gold), #b08d55);
+    border: none; color: white; width: 42px; height: 42px;
+    border-radius: 50%; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), opacity 0.2s;
+    font-size: 1rem; box-shadow: 0 4px 12px rgba(197,160,101,0.4);
+  }
+  .nav-btn:hover { transform: scale(1.15); }
+  .nav-btn:active { transform: scale(0.95); }
+  .nav-btn:disabled {
+    background: rgba(255,255,255,0.15); cursor: not-allowed;
+    transform: none !important; box-shadow: none; opacity: 0.5;
+  }
+  .slide-counter {
+    color: white; font-weight: 500; font-size: 0.88rem;
+    min-width: 55px; text-align: center; letter-spacing: 0.5px;
+  }
+  .slide-dots { display: flex; gap: 6px; align-items: center; }
+  .slide-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(255,255,255,0.3); cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    border: 1px solid transparent;
+  }
+  .slide-dot:hover { background: rgba(255,255,255,0.6); transform: scale(1.2); }
+  .slide-dot.active {
+    background: var(--accent-gold); transform: scale(1.4);
+    border-color: rgba(255,255,255,0.3);
+    box-shadow: 0 0 8px rgba(197,160,101,0.6);
+  }
+
+  .progress-bar-container {
+    position: fixed; top: 0; left: 0; width: 100%; height: 3px;
+    background: rgba(255,255,255,0.1); z-index: 101;
+  }
+  .progress-bar {
     height: 100%;
-    top: 0; left: 0;
-    overflow: visible;
+    background: linear-gradient(90deg, var(--primary-light), var(--accent-gold));
+    width: 0%; transition: width 0.5s cubic-bezier(0.16,1,0.3,1);
+    box-shadow: 0 0 12px rgba(197,160,101,0.7); position: relative;
+  }
+  .progress-bar::after {
+    content: ''; position: absolute; right: 0; top: -2px;
+    width: 8px; height: 7px; background: var(--accent-gold);
+    border-radius: 50%; box-shadow: 0 0 10px var(--accent-gold);
   }
 
-  /* BONDS */
-  .bond {
-    stroke: #3a3a3a;
-    stroke-width: 5;
-    stroke-linecap: round;
-    filter: drop-shadow(0 0 3px rgba(0,0,0,0.8));
-  }
-  .bond-aromatic {
-    stroke: #3d3020;
-    stroke-width: 3;
-    stroke-dasharray: 6 3;
-    stroke-linecap: round;
-    opacity: 0.6;
-  }
-  .bond-ester {
-    stroke: #552200;
-    stroke-width: 5;
-    stroke-linecap: round;
-  }
+  .scrollable-content { max-height: 65vh; overflow-y: auto; padding-right: 12px; }
+  .scrollable-content::-webkit-scrollbar { width: 5px; }
+  .scrollable-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.06); border-radius: 3px; }
+  .scrollable-content::-webkit-scrollbar-thumb { background: var(--accent-gold); border-radius: 3px; }
 
-  /* ATOMS — carbon */
-  .atom-C {
-    fill: url(#grad-carbon);
-    stroke: #555;
-    stroke-width: 1.5;
-    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.7));
-    r: 11;
+  .btn-explore {
+    background: transparent; border: 1.5px solid var(--primary-dark);
+    color: var(--primary-dark); border-radius: 60px; padding: 11px 40px;
+    font-family: 'DM Sans', sans-serif; font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1); cursor: pointer;
   }
-  /* ATOMS — oxygen */
-  .atom-O {
-    fill: url(#grad-oxygen);
-    stroke: #aa2200;
-    stroke-width: 1.5;
-    filter: drop-shadow(0 0 10px rgba(204,51,0,0.6));
-    r: 13;
+  .btn-explore:hover {
+    background: var(--primary-dark); color: white;
+    transform: scale(1.03) translateY(-1px);
+    box-shadow: 0 8px 24px rgba(26,60,52,0.25);
   }
-  /* hydrogen (small) */
-  .atom-H {
-    fill: url(#grad-hydrogen);
-    stroke: #ccc;
-    stroke-width: 1;
-    r: 7;
+  .closing-btn {
+    background: linear-gradient(135deg, var(--accent-gold), #b08d55);
+    border: 1.5px solid var(--accent-gold-light);
+    color: var(--primary-dark); font-weight: 600;
+    padding: 12px 35px; border-radius: 60px;
+    transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    text-transform: uppercase; letter-spacing: 1px;
+    font-size: 0.88rem; cursor: pointer; display: inline-block;
+  }
+  .closing-btn:hover {
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 12px 32px rgba(197,160,101,0.45); color: white;
   }
 
-  /* ATOM LABELS */
-  .atom-label {
-    fill: #ddd;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 9px;
-    font-weight: bold;
-    text-anchor: middle;
-    dominant-baseline: central;
-    pointer-events: none;
-    text-shadow: 0 0 4px #000;
+  .slide:not(.cover):not(.closing):not(.chem-slide) .section-header h2 {
+    color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.4);
   }
-  .atom-label-O { fill: #ffccbb; font-size: 10px; }
-  .atom-label-H { fill: #bbb; font-size: 7px; }
-
-  /* OH labels (floating) */
-  .oh-label {
-    fill: #ff7755;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 11px;
-    font-weight: bold;
-    text-anchor: middle;
-    dominant-baseline: central;
-    filter: drop-shadow(0 0 6px rgba(255,80,30,0.5));
+  .slide:not(.cover):not(.closing):not(.chem-slide) .text-muted {
+    color: rgba(255,255,255,0.85) !important;
   }
 
-  /* AXIS ARROWS */
-  .axis { stroke-width: 2.5; stroke-linecap: round; marker-end: url(#arr); }
-  .axis-x { stroke: #3355ff; }
-  .axis-y { stroke: #44cc44; }
-  .axis-z { stroke: #cc1111; }
-
-  /* GLOW RINGS around aromatic rings */
-  .ring-glow {
-    fill: none;
-    stroke: rgba(255,80,20,0.08);
-    stroke-width: 28;
-    pointer-events: none;
+  @media (max-width: 768px) {
+    .slide { padding: 15px; }
+    .slide-content { padding: 22px; width: 98%; max-height: 82vh; }
+    .hero-title { font-size: 2rem; }
+    .hero-subtitle { font-size: 1rem; }
+    .hero-img { width: 200px; height: 200px; }
+    .thank-you { font-size: 2.6rem; }
+    .final-message { font-size: 1rem; }
+    .slide-nav { bottom: 12px; padding: 8px 16px; gap: 10px; }
+    .nav-btn { width: 36px; height: 36px; font-size: 0.9rem; }
+    .scrollable-content { max-height: 58vh; }
+    .closing-content { padding: 35px 20px; }
+    .plant-img, .plant-video { max-width: 260px; height: 155px; }
+    .chem-top-bar { flex-direction: column; }
+    .mol-iframe-container { min-height: 300px; }
+    .sketchfab-slide-content { height: 80vh; }
   }
-        :root {
-            --primary-dark: #1a3c34;
-            --primary-light: #4a7c6f;
-            --accent-gold: #c5a065;
-            --accent-gold-light: #e8d5b7;
-            --bg-cream: #f9f7f2;
-            --text-main: #2c3e50;
-            --text-muted: #6c757d;
-            --border-light: #e0e0e0;
-            --glass: rgba(255,255,255,0.88);
-            --glass-border: rgba(255,255,255,0.6);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            background-color: #0a1f17;
-            color: var(--text-main);
-            font-family: 'DM Sans', sans-serif;
-            line-height: 1.8;
-            overflow: hidden;
-            height: 100vh;
-            width: 100vw;
-        }
-
-        /* ============================================
-           BOTANICAL BACKGROUND SYSTEM (Original)
-           ============================================ */
-        .bg-plant-layer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -10;
-            overflow: hidden;
-        }
-
-        .bg-layer-1 {
-            position: absolute;
-            top: -10%;
-            left: -10%;
-            width: 120%;
-            height: 120%;
-            background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2851&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            animation: slowZoom 25s ease-in-out infinite alternate;
-            filter: saturate(1.2) brightness(0.7);
-        }
-
-        .bg-layer-2 {
-            position: absolute;
-            top: -15%;
-            left: -15%;
-            width: 130%;
-            height: 130%;
-            background-image: url('https://images.unsplash.com/photo-1518531933037-9a84725b5fa1?q=80&w=2787&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            animation: slowZoomReverse 30s ease-in-out infinite alternate;
-            opacity: 0.6;
-            mix-blend-mode: overlay;
-        }
-
-        .bg-layer-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(13, 43, 31, 0.75) 0%, rgba(26, 60, 52, 0.6) 30%, rgba(74, 124, 111, 0.5) 60%, rgba(13, 43, 31, 0.8) 100%);
-            z-index: 1;
-        }
-
-        @keyframes slowZoom {
-            0%   { transform: scale(1) translate(0, 0); }
-            50%  { transform: scale(1.08) translate(-2%, -1%); }
-            100% { transform: scale(1.12) translate(-3%, -2%); }
-        }
-
-        @keyframes slowZoomReverse {
-            0%   { transform: scale(1.05) translate(1%, 0); }
-            50%  { transform: scale(1.1) translate(0, -2%); }
-            100% { transform: scale(1.15) translate(-1%, -1%); }
-        }
-
-        /* Light spots (original) */
-        .light-spot {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(180, 220, 180, 0.15) 0%, transparent 70%);
-            z-index: 0;
-            animation: breathe ease-in-out infinite;
-        }
-
-        @keyframes breathe {
-            0%, 100% { transform: scale(1); opacity: 0.3; }
-            50%       { transform: scale(1.4); opacity: 0.6; }
-        }
-
-        /* Ambient grid overlay for extra depth */
-        .ambient-grid {
-            position: fixed;
-            inset: 0;
-            z-index: -8;
-            background-image: radial-gradient(circle at 1px 1px, rgba(197,160,101,0.04) 1px, transparent 0);
-            background-size: 50px 50px;
-            pointer-events: none;
-        }
-
-        /* ============================================
-           FLOATING PARTICLES & LEAVES
-           ============================================ */
-        .floating-leaf {
-            position: fixed;
-            z-index: -5;
-            opacity: 0;
-            animation: leafJourney linear infinite;
-            pointer-events: none;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
-        }
-
-        @keyframes leafJourney {
-            0%   { transform: translateY(110vh) translateX(0) rotate(0deg) scale(0.6); opacity: 0; }
-            5%   { opacity: 0.65; }
-            25%  { transform: translateY(75vh) translateX(15px) rotate(90deg) scale(0.85); opacity: 0.5; }
-            50%  { transform: translateY(45vh) translateX(-10px) rotate(200deg) scale(1); opacity: 0.45; }
-            75%  { transform: translateY(20vh) translateX(20px) rotate(300deg) scale(0.9); opacity: 0.3; }
-            95%  { opacity: 0.1; }
-            100% { transform: translateY(-15vh) translateX(5px) rotate(400deg) scale(0.7); opacity: 0; }
-        }
-
-        /* ============================================
-           SLIDE TRANSITION ENGINE — MORPHIC FLOW
-           ============================================ */
-        .slides-container {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            perspective: 2000px;
-            overflow: hidden;
-        }
-
-        .slide {
-            position: absolute;
-            inset: 0;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transform-style: preserve-3d;
-            backface-visibility: hidden;
-            will-change: transform, opacity;
-
-            /* === DEFAULT: hidden below === */
-            opacity: 0;
-            transform: translateY(60px) scale(0.96) rotateX(6deg);
-            transition: 
-                transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
-                opacity   0.75s cubic-bezier(0.16, 1, 0.3, 1);
-            pointer-events: none;
-            visibility: hidden;
-        }
-
-        .slide.active {
-            opacity: 1;
-            transform: translateY(0) scale(1) rotateX(0deg);
-            pointer-events: all;
-            visibility: visible;
-            z-index: 10;
-            transition:
-                transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
-                opacity   0.55s ease;
-        }
-
-        .slide.exiting-up {
-            opacity: 0;
-            transform: translateY(-50px) scale(0.94) rotateX(-8deg);
-            pointer-events: none;
-            visibility: visible;
-            z-index: 9;
-            transition:
-                transform 0.6s cubic-bezier(0.55, 0, 1, 0.45),
-                opacity   0.45s ease;
-        }
-
-        .slide.exiting-down {
-            opacity: 0;
-            transform: translateY(80px) scale(0.94) rotateX(8deg);
-            pointer-events: none;
-            visibility: visible;
-            z-index: 9;
-            transition:
-                transform 0.6s cubic-bezier(0.55, 0, 1, 0.45),
-                opacity   0.45s ease;
-        }
-
-        /* ============================================
-           CONTENT GLASS CARD
-           ============================================ */
-        .slide-content {
-            background: var(--glass);
-            backdrop-filter: blur(20px) saturate(1.5);
-            -webkit-backdrop-filter: blur(20px) saturate(1.5);
-            border-radius: 24px;
-            padding: 40px;
-            max-width: 1180px;
-            width: 95%;
-            max-height: 86vh;
-            overflow-y: auto;
-            box-shadow: 
-                0 32px 80px rgba(0,0,0,0.35),
-                0 0 0 1px var(--glass-border),
-                inset 0 1px 0 rgba(255,255,255,0.9);
-            position: relative;
-        }
-
-        /* Shimmer top edge on entry */
-        .slide-content::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 10%; right: 10%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
-            border-radius: 2px;
-            opacity: 0;
-            animation: shimmerEdge 0.8s ease 0.3s forwards;
-        }
-
-        @keyframes shimmerEdge {
-            from { opacity: 0; transform: scaleX(0.3); }
-            to   { opacity: 1; transform: scaleX(1); }
-        }
-
-        /* ============================================
-           STAGGERED CONTENT ENTRANCE (intelligent)
-           ============================================ */
-        .slide.active .reveal-item {
-            animation: revealUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            opacity: 0;
-            transform: translateY(22px);
-        }
-
-        .slide.active .reveal-item:nth-child(1)  { animation-delay: 0.05s; }
-        .slide.active .reveal-item:nth-child(2)  { animation-delay: 0.12s; }
-        .slide.active .reveal-item:nth-child(3)  { animation-delay: 0.19s; }
-        .slide.active .reveal-item:nth-child(4)  { animation-delay: 0.26s; }
-        .slide.active .reveal-item:nth-child(5)  { animation-delay: 0.33s; }
-        .slide.active .reveal-item:nth-child(6)  { animation-delay: 0.40s; }
-        .slide.active .reveal-item:nth-child(7)  { animation-delay: 0.47s; }
-        .slide.active .reveal-item:nth-child(8)  { animation-delay: 0.54s; }
-
-        @keyframes revealUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Card reveals staggered inside rows */
-        .slide.active .stagger-row .card-journal {
-            animation: cardPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-            opacity: 0;
-            transform: scale(0.94) translateY(15px);
-        }
-
-        .slide.active .stagger-row .card-journal:nth-child(1) { animation-delay: 0.15s; }
-        .slide.active .stagger-row .card-journal:nth-child(2) { animation-delay: 0.25s; }
-        .slide.active .stagger-row .card-journal:nth-child(3) { animation-delay: 0.35s; }
-        .slide.active .stagger-row .card-journal:nth-child(4) { animation-delay: 0.45s; }
-
-        @keyframes cardPop {
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        /* Step cards stagger */
-        .slide.active .step-card {
-            animation: stepSlide 0.5s ease forwards;
-            opacity: 0;
-            transform: translateX(-20px);
-        }
-
-        .slide.active .step-card:nth-child(1) { animation-delay: 0.1s; }
-        .slide.active .step-card:nth-child(2) { animation-delay: 0.18s; }
-        .slide.active .step-card:nth-child(3) { animation-delay: 0.26s; }
-        .slide.active .step-card:nth-child(4) { animation-delay: 0.34s; }
-        .slide.active .step-card:nth-child(5) { animation-delay: 0.42s; }
-        .slide.active .step-card:nth-child(6) { animation-delay: 0.50s; }
-        .slide.active .step-card:nth-child(7) { animation-delay: 0.58s; }
-        .slide.active .step-card:nth-child(8) { animation-delay: 0.66s; }
-
-        @keyframes stepSlide {
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        /* Plant media reveal */
-        .plant-img, .plant-video {
-            width: 100%;
-            max-width: 320px;
-            height: 190px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin: 0 auto 24px auto;
-            display: block;
-            border: 3px solid var(--accent-gold);
-            opacity: 0;
-            transform: scale(0.88) translateY(10px);
-            transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-        }
-
-        .slide.active .plant-img,
-        .slide.active .plant-video {
-            animation: mediaBloom 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
-        }
-
-        .plant-img:hover, .plant-video:hover {
-            box-shadow: 0 16px 50px rgba(197,160,101,0.35);
-            transform: scale(1.02) translateY(-2px) !important;
-        }
-
-        @keyframes mediaBloom {
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        /* ============================================
-           COVER SLIDE — HERO ANIMATIONS
-           ============================================ */
-        .slide.cover .hero-badge {
-            animation: fadeSlideDown 0.7s ease 0.1s forwards;
-            opacity: 0;
-            transform: translateY(-15px);
-        }
-
-        .slide.cover .hero-title {
-            animation: heroTitle 1s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
-            opacity: 0;
-            transform: translateY(35px);
-            letter-spacing: -0.5px;
-        }
-
-        .slide.cover .hero-subtitle {
-            animation: fadeSlideUp 0.7s ease 0.5s forwards;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        .slide.cover .hero-img-wrap {
-            animation: heroImageReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.65s forwards;
-            opacity: 0;
-            transform: scale(0.75) rotate(-3deg);
-        }
-
-        .slide.cover .hero-lead {
-            animation: fadeSlideUp 0.7s ease 0.85s forwards;
-            opacity: 0;
-            transform: translateY(15px);
-        }
-
-        .slide.cover .hero-cta {
-            animation: ctaBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1.05s forwards;
-            opacity: 0;
-            transform: scale(0.8);
-        }
-
-        @keyframes fadeSlideDown {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes heroTitle {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeSlideUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes heroImageReveal {
-            to { opacity: 1; transform: scale(1) rotate(0deg); }
-        }
-
-        @keyframes ctaBounce {
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        /* Hero image orbit ring */
-        .hero-img-wrap {
-            position: relative;
-            width: fit-content;
-            margin: 0 auto;
-        }
-
-        .hero-img-wrap::before {
-            content: '';
-            position: absolute;
-            inset: -12px;
-            border-radius: 50%;
-            border: 2px solid transparent;
-            border-top-color: var(--accent-gold);
-            border-right-color: var(--accent-gold-light);
-            animation: orbitRing 4s linear infinite;
-        }
-
-        .hero-img-wrap::after {
-            content: '';
-            position: absolute;
-            inset: -22px;
-            border-radius: 50%;
-            border: 1px solid transparent;
-            border-bottom-color: rgba(197,160,101,0.4);
-            border-left-color: rgba(197,160,101,0.2);
-            animation: orbitRing 7s linear infinite reverse;
-        }
-
-        @keyframes orbitRing {
-            to { transform: rotate(360deg); }
-        }
-
-        /* ============================================
-           CLOSING SLIDE
-           ============================================ */
-        .closing-content {
-            text-align: center;
-            padding: 60px 40px;
-            background: linear-gradient(135deg, rgba(26,60,52,0.96), rgba(74,124,111,0.92));
-            border-radius: 24px;
-            border: 1px solid rgba(197,160,101,0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .closing-content::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 50% 0%, rgba(197,160,101,0.15) 0%, transparent 60%);
-            pointer-events: none;
-        }
-
-        .slide.closing.active .thank-you {
-            animation: thankYouReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
-            opacity: 0;
-            transform: translateY(30px) scale(0.9);
-        }
-
-        .slide.closing.active .final-message {
-            animation: fadeSlideUp 0.7s ease 0.45s forwards;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        .slide.closing.active .signature {
-            animation: fadeSlideUp 0.6s ease 0.7s forwards;
-            opacity: 0;
-            transform: translateY(15px);
-        }
-
-        .slide.closing.active .closing-btn {
-            animation: ctaBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.9s forwards;
-            opacity: 0;
-            transform: scale(0.8);
-        }
-
-        @keyframes thankYouReveal {
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        .thank-you {
-            font-size: 4rem;
-            color: var(--accent-gold-light);
-            font-family: 'Cormorant Garamond', serif;
-            margin-bottom: 25px;
-            text-shadow: 0 4px 30px rgba(0,0,0,0.4);
-            letter-spacing: 3px;
-            display: block;
-        }
-
-        .final-message {
-            font-size: 1.25rem;
-            color: #f0f9f4;
-            max-width: 700px;
-            margin: 0 auto 35px;
-            line-height: 1.8;
-            font-weight: 300;
-        }
-
-        .final-message strong {
-            color: var(--accent-gold-light);
-            font-weight: 500;
-        }
-
-        .signature {
-            color: #c8e6d9;
-            font-style: italic;
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(197,160,101,0.3);
-        }
-
-        .signature small {
-            display: block;
-            margin-top: 8px;
-            color: #a8d0c4;
-            font-size: 0.9rem;
-        }
-
-        /* ============================================
-           TYPOGRAPHY
-           ============================================ */
-        h1, h2, h3, h4, h5, .brand-font {
-            font-family: 'Cormorant Garamond', serif;
-            color: var(--primary-dark);
-        }
-
-        .hero-title {
-            font-size: 3rem;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            color: var(--primary-dark);
-        }
-
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: var(--primary-light);
-            font-style: italic;
-            margin-bottom: 2rem;
-            font-family: 'Cormorant Garamond', serif;
-        }
-
-        .hero-img {
-            width: 280px;
-            height: 280px;
-            border-radius: 50%;
-            border: 8px solid rgba(255,255,255,0.9);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-            object-fit: cover;
-        }
-
-        .ingredient-img {
-            width: 70px;
-            height: 70px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 2px solid var(--border-light);
-            margin: 0 auto 10px;
-            display: block;
-            background-color: white;
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .ingredient-img:hover { transform: scale(1.12) rotate(3deg); }
-
-        /* ============================================
-           CARDS & COMPONENTS
-           ============================================ */
-        .section-header {
-            text-align: center;
-            margin-bottom: 28px;
-        }
-
-        .section-header .divider {
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
-            margin: 10px auto;
-            border-radius: 2px;
-        }
-
-        .card-journal {
-            background: rgba(255,255,255,0.95);
-            border: 1px solid var(--border-light);
-            padding: 22px;
-            border-radius: 14px;
-            margin-bottom: 18px;
-            transition: box-shadow 0.3s ease, transform 0.3s ease;
-        }
-
-        .card-journal:hover {
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            transform: translateY(-2px);
-        }
-
-        .plant-detail-box {
-            background: rgba(255,255,255,0.95);
-            border: 1px solid var(--border-light);
-            border-radius: 14px;
-            margin-bottom: 22px;
-            overflow: hidden;
-        }
-
-        .plant-header {
-            background-color: var(--primary-dark);
-            color: white;
-            padding: 14px 20px;
-        }
-
-        .plant-header h3 { color: white; margin: 0; font-size: 1.35rem; }
-        .plant-header .sci-name { color: #a8d0c4; font-style: italic; font-size: 0.85rem; }
-
-        .plant-body { padding: 22px; }
-
-        .plant-body h4 {
-            font-size: 1.15rem;
-            margin-top: 18px;
-            margin-bottom: 8px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
-        }
-
-        .highlight-box {
-            background-color: rgba(238,242,241,0.95);
-            border-left: 4px solid var(--accent-gold);
-            padding: 12px 15px;
-            margin: 14px 0;
-            font-size: 0.93rem;
-            border-radius: 0 8px 8px 0;
-            transition: border-left-color 0.3s ease;
-        }
-
-        .highlight-box:hover { border-left-color: var(--primary-light); }
-
-        .step-card {
-            background: rgba(255,255,255,0.95);
-            padding: 14px;
-            border-radius: 10px;
-            border-left: 4px solid var(--accent-gold);
-            margin-bottom: 10px;
-            font-size: 0.92rem;
-            transition: border-left-color 0.3s, transform 0.3s ease;
-        }
-
-        .step-card:hover {
-            border-left-color: var(--primary-light);
-            transform: translateX(4px);
-        }
-
-        /* ============================================
-           NAVIGATION — MORPHIC PILL
-           ============================================ */
-        .slide-nav {
-            position: fixed;
-            bottom: 28px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            z-index: 100;
-            background: rgba(15, 45, 35, 0.92);
-            padding: 10px 22px;
-            border-radius: 60px;
-            backdrop-filter: blur(14px);
-            border: 1px solid rgba(197,160,101,0.25);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.35);
-            animation: navEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
-            opacity: 0;
-            transform: translateX(-50%) translateY(20px);
-        }
-
-        @keyframes navEntrance {
-            to { opacity: 1; transform: translateX(-50%) translateY(0); }
-        }
-
-        .nav-btn {
-            background: linear-gradient(135deg, var(--accent-gold), #b08d55);
-            border: none;
-            color: white;
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s;
-            font-size: 1rem;
-            box-shadow: 0 4px 12px rgba(197,160,101,0.4);
-        }
-
-        .nav-btn:hover { transform: scale(1.15); }
-        .nav-btn:active { transform: scale(0.95); }
-
-        .nav-btn:disabled {
-            background: rgba(255,255,255,0.15);
-            cursor: not-allowed;
-            transform: none !important;
-            box-shadow: none;
-            opacity: 0.5;
-        }
-
-        .slide-counter {
-            color: white;
-            font-weight: 500;
-            font-size: 0.88rem;
-            min-width: 55px;
-            text-align: center;
-            letter-spacing: 0.5px;
-        }
-
-        .slide-dots {
-            display: flex;
-            gap: 6px;
-            align-items: center;
-        }
-
-        .slide-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.3);
-            cursor: pointer;
-            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-            border: 1px solid transparent;
-        }
-
-        .slide-dot:hover { background: rgba(255,255,255,0.6); transform: scale(1.2); }
-
-        .slide-dot.active {
-            background: var(--accent-gold);
-            transform: scale(1.4);
-            border-color: rgba(255,255,255,0.3);
-            box-shadow: 0 0 8px rgba(197,160,101,0.6);
-        }
-
-        /* ============================================
-           PROGRESS BAR — INTELLIGENT GLOW
-           ============================================ */
-        .progress-bar-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: rgba(255,255,255,0.1);
-            z-index: 101;
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary-light), var(--accent-gold));
-            width: 0%;
-            transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 0 12px rgba(197,160,101,0.7);
-            position: relative;
-        }
-
-        .progress-bar::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: -2px;
-            width: 8px;
-            height: 7px;
-            background: var(--accent-gold);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent-gold);
-        }
-
-        /* ============================================
-           SCROLLABLE
-           ============================================ */
-        .scrollable-content {
-            max-height: 65vh;
-            overflow-y: auto;
-            padding-right: 12px;
-        }
-
-        .scrollable-content::-webkit-scrollbar { width: 5px; }
-        .scrollable-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.06); border-radius: 3px; }
-        .scrollable-content::-webkit-scrollbar-thumb { background: var(--accent-gold); border-radius: 3px; }
-
-        /* ============================================
-           BUTTONS
-           ============================================ */
-        .btn-explore {
-            background: transparent;
-            border: 1.5px solid var(--primary-dark);
-            color: var(--primary-dark);
-            border-radius: 60px;
-            padding: 11px 40px;
-            font-family: 'DM Sans', sans-serif;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            cursor: pointer;
-        }
-
-        .btn-explore:hover {
-            background: var(--primary-dark);
-            color: white;
-            transform: scale(1.03) translateY(-1px);
-            box-shadow: 0 8px 24px rgba(26,60,52,0.25);
-        }
-
-        .closing-btn {
-            background: linear-gradient(135deg, var(--accent-gold), #b08d55);
-            border: 1.5px solid var(--accent-gold-light);
-            color: var(--primary-dark);
-            font-weight: 600;
-            padding: 12px 35px;
-            border-radius: 60px;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.88rem;
-            cursor: pointer;
-            display: inline-block;
-        }
-
-        .closing-btn:hover {
-            transform: scale(1.05) translateY(-2px);
-            box-shadow: 0 12px 32px rgba(197,160,101,0.45);
-            color: white;
-        }
-
-        /* ============================================
-           SLIDE SPECIFIC OVERRIDES
-           ============================================ */
-        .slide:not(.cover):not(.closing) .section-header h2 {
-            color: white;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.4);
-        }
-
-        .slide:not(.cover):not(.closing) .text-muted {
-            color: rgba(255,255,255,0.85) !important;
-        }
-
-        /* ============================================
-           RESPONSIVE
-           ============================================ */
-        @media (max-width: 768px) {
-            .slide { padding: 15px; }
-            .slide-content { padding: 22px; width: 98%; max-height: 82vh; }
-            .hero-title { font-size: 2rem; }
-            .hero-subtitle { font-size: 1rem; }
-            .hero-img { width: 200px; height: 200px; }
-            .thank-you { font-size: 2.6rem; }
-            .final-message { font-size: 1rem; }
-            .slide-nav { bottom: 12px; padding: 8px 16px; gap: 10px; }
-            .nav-btn { width: 36px; height: 36px; font-size: 0.9rem; }
-            .scrollable-content { max-height: 58vh; }
-            .closing-content { padding: 35px 20px; }
-            .plant-img, .plant-video { max-width: 260px; height: 155px; }
-        }
     </style>
 </head>
 <body>
 
-    <!-- Animated Botanical Background -->
     <div class="bg-plant-layer">
         <div class="bg-layer-1"></div>
         <div class="bg-layer-2"></div>
         <div class="bg-layer-overlay"></div>
     </div>
 
-    <!-- Floating leaves container -->
     <div id="floating-leaves-container" style="position:fixed;inset:0;z-index:-5;pointer-events:none;overflow:hidden;"></div>
 
-    <!-- Light spots (original) -->
-    <div class="bg-plant-layer" style="z-index: -9;">
-        <div class="light-spot" style="width: 300px; height: 300px; top: 10%; left: 20%; animation-duration: 8s;"></div>
-        <div class="light-spot" style="width: 400px; height: 400px; top: 50%; left: 60%; animation-duration: 12s; animation-delay: 2s;"></div>
-        <div class="light-spot" style="width: 250px; height: 250px; top: 70%; left: 10%; animation-duration: 10s; animation-delay: 4s;"></div>
-        <div class="light-spot" style="width: 350px; height: 350px; top: 30%; left: 80%; animation-duration: 14s; animation-delay: 1s;"></div>
-        <div class="light-spot" style="width: 200px; height: 200px; top: 85%; left: 50%; animation-duration: 9s; animation-delay: 3s;"></div>
+    <div class="bg-plant-layer" style="z-index:-9;">
+        <div class="light-spot" style="width:300px;height:300px;top:10%;left:20%;animation-duration:8s;"></div>
+        <div class="light-spot" style="width:400px;height:400px;top:50%;left:60%;animation-duration:12s;animation-delay:2s;"></div>
+        <div class="light-spot" style="width:250px;height:250px;top:70%;left:10%;animation-duration:10s;animation-delay:4s;"></div>
+        <div class="light-spot" style="width:350px;height:350px;top:30%;left:80%;animation-duration:14s;animation-delay:1s;"></div>
+        <div class="light-spot" style="width:200px;height:200px;top:85%;left:50%;animation-duration:9s;animation-delay:3s;"></div>
     </div>
 
-    <!-- Ambient grid for depth -->
     <div class="ambient-grid"></div>
 
-    <!-- Progress Bar -->
     <div class="progress-bar-container">
         <div class="progress-bar" id="progressBar"></div>
     </div>
 
-    <!-- ============ SLIDES ============ -->
     <div class="slides-container">
 
         <!-- SLIDE 1: COVER -->
@@ -1284,7 +802,8 @@
         </section>
 
         <!-- SLIDE 6: FICHE EL MJIRE -->
-        <section class="slide" data-slide="6">
+     
+           <section class="slide" data-slide="6">
             <div class="slide-content">
                 <div class="section-header reveal-item">
                     <h2>🌿 Fiche : El Mjire</h2>
@@ -1292,7 +811,7 @@
                     <span class="badge bg-warning text-dark">Chenopodium sp.</span>
                 </div>
                 <div class="scrollable-content">
-                    <video src="mj.mp4" class="plant-video" autoplay muted loop playsinline></video>
+                    
                     <div class="row">
                         <div class="col-md-6">
                             <h5>1. Classification systématique</h5>
@@ -1322,6 +841,42 @@
                             <p class="small"><strong>Les feuilles 🌿</strong> (Parfois les jeunes tiges).</p>
                         </div>
                         <div class="col-md-6">
+                            <video src="mj.mp4" class="plant-video" autoplay muted loop playsinline></video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 7: 3D MODEL — ui_watermark=0 FIXED -->
+        <section class="slide" data-slide="7" style="justify-content:center;align-items:center;">
+            <div class="sketchfab-slide-content">
+               <iframe
+                    class="c-viewer__iframe"
+                    src="https://sketchfab.com/models/9758c9f1bb464b7388c442ae8ffe57a1/embed?autostart=1&internal=1&tracking=0&ui_ar=0&ui_infos=0&ui_snapshots=1&ui_stop=0&ui_theatre=1&ui_watermark=0&transparent=1"
+                    allow="autoplay; fullscreen; xr-spatial-tracking"
+                    xr-spatial-tracking="true"
+                    execution-while-out-of-viewport="true"
+                    execution-while-not-rendered="true"
+                    web-share="true"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+
+        <!-- SLIDE 8: FICHE EL MJIRE (suite) -->
+        <section class="slide" data-slide="8">
+            <div class="slide-content">
+                 
+                <div class="section-header reveal-item">
+                    <h2>🌿 Fiche : El Mjire</h2>
+                    <div class="divider"></div>
+                    <span class="badge bg-warning text-dark">Chenopodium sp.</span>
+                </div>
+                <div class="scrollable-content">
+                    
+                    <div class="row">
+                        <div class="col-md-6">
                             <h5>6. Phytochimie et valeur nutritionnelle</h5>
                             <p class="small"><strong>Métabolites primaires :</strong> Glucides, Fibres alimentaires, Protéines, Lipides (traces)</p>
                             <p class="small"><strong>Métabolites secondaires :</strong> Polyphénols, Flavonoïdes, Acides organiques, Composés bioactifs divers</p>
@@ -1340,652 +895,161 @@
                             </ul>
                             <div class="highlight-box">
                                 👉 Pour préserver au maximum les bienfaits de l'El Mjire, il est préférable de privilégier une cuisson douce comme la vapeur.
-                            </div>
+                            </div> les jeunes tiges).</p>
+                        </div>
+                        <div class="col-md-6">
+                            <video src="mj.mp4" class="plant-video" autoplay muted loop playsinline></video>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-          <section class="slide" data-slide="7">
-            <div class="slide-content">
-               
-<div class="title-block">
-  <h1>Epigallocatechin Gallate</h1>
-  <p>EGCG · Polyphenol · Green Tea Extract</p>
-</div>
+        
 
-<div class="info-panel">
-  <div class="formula">C₂₂H₁₈O₁₁</div>
-  <div class="mw">MW: 458.37 g/mol<br>8 × –OH groups</div>
-</div>
-
-<div class="legend">
-  <div class="legend-item"><div class="legend-dot c"></div>Carbon (C)</div>
-  <div class="legend-item"><div class="legend-dot o"></div>Oxygen (O)</div>
-</div>
-
-<div class="hint">
-  Hover to pause rotation<br>
-  Auto-rotating 3D model
-</div>
-
-<div class="scene-wrapper">
-  <div class="molecule" id="mol">
-    <svg class="mol-svg" viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <!-- Carbon sphere gradient -->
-        <radialGradient id="grad-carbon" cx="35%" cy="30%" r="65%">
-          <stop offset="0%" stop-color="#666"/>
-          <stop offset="60%" stop-color="#2a2a2a"/>
-          <stop offset="100%" stop-color="#111"/>
-        </radialGradient>
-        <!-- Oxygen sphere gradient -->
-        <radialGradient id="grad-oxygen" cx="35%" cy="30%" r="65%">
-          <stop offset="0%" stop-color="#ff7755"/>
-          <stop offset="55%" stop-color="#cc3300"/>
-          <stop offset="100%" stop-color="#661100"/>
-        </radialGradient>
-        <!-- Hydrogen sphere gradient -->
-        <radialGradient id="grad-hydrogen" cx="35%" cy="30%" r="65%">
-          <stop offset="0%" stop-color="#eee"/>
-          <stop offset="70%" stop-color="#aaa"/>
-          <stop offset="100%" stop-color="#666"/>
-        </radialGradient>
-
-        <!-- Arrow marker -->
-        <marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
-          <path d="M0,1 L6,4 L0,7 Z" fill="inherit"/>
-        </marker>
-
-        <!-- Ambient glow filter -->
-        <filter id="glow">
-          <feGaussianBlur stdDeviation="3" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-        <filter id="glow-soft">
-          <feGaussianBlur stdDeviation="1.5" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-      </defs>
-
-      <!-- ============================================================
-           MOLECULE LAYOUT — EGCG (Epigallocatechin Gallate)
-           Three rings:
-           A = Pyranochromane ring (right, chroman core)
-           B = Galloyl ring (top-left, trihydroxyphenyl)
-           G = Gallate ester ring (bottom-left, trihydroxybenzoyl)
-           + Ester linkage O-C=O between C3 and gallate
-           ============================================================ -->
-
-      <!-- ── RING A: Chroman/Pyran core (right side) ──
-           Atoms: O1(pyran), C2, C3, C4, C4a, C5, C6, C7, C8, C8a
-           Center ~(440,320) -->
-
-      <!-- Ring glow -->
-      <ellipse class="ring-glow" cx="460" cy="315" rx="55" ry="42"/>
-
-      <!-- Bonds — Chroman core ring -->
-      <!-- O1-C2 -->  <line class="bond" x1="375" y1="290" x2="415" y2="270"/>
-      <!-- C2-C3 -->  <line class="bond" x1="415" y1="270" x2="445" y2="300"/>
-      <!-- C3-C4 -->  <line class="bond" x1="445" y1="300" x2="435" y2="340"/>
-      <!-- C4-C4a --> <line class="bond" x1="435" y1="340" x2="395" y2="360"/>
-      <!-- C4a-O1 --> <!-- fused, handled below -->
-      <!-- C4a-C8a-O1 aromatic benzo -->
-      <!-- Benzo fused ring: C4a,C5,C6,C7,C8,C8a -->
-      <line class="bond" x1="395" y1="360" x2="360" y2="390"/>
-      <line class="bond" x1="360" y1="390" x2="325" y2="375"/>
-      <line class="bond" x1="325" y1="375" x2="320" y2="340"/>
-      <line class="bond" x1="320" y1="340" x2="350" y2="315"/>
-      <line class="bond" x1="350" y1="315" x2="375" y2="290"/>
-
-      <!-- C4a to C8a shortcut of fused -->
-      <line class="bond" x1="395" y1="360" x2="350" y2="315"/>
-
-      <!-- Aromatic inner lines benzo ring -->
-      <line class="bond-aromatic" x1="362" y1="385" x2="330" y2="372"/>
-      <line class="bond-aromatic" x1="330" y1="372" x2="326" y2="344"/>
-      <line class="bond-aromatic" x1="355" y1="320" x2="375" y2="300"/>
-
-      <!-- ── RING B: Galloyl B ring (top, attached at C2) ──
-           3,4,5-trihydroxyphenyl
-           Center ~(310, 185) -->
-      <ellipse class="ring-glow" cx="290" cy="175" rx="52" ry="52"/>
-
-      <!-- C2 to C1' -->
-      <line class="bond" x1="415" y1="270" x2="360" y2="225"/>
-
-      <!-- B ring hexagon -->
-      <line class="bond" x1="360" y1="225" x2="325" y2="200"/>
-      <line class="bond" x1="325" y1="200" x2="285" y2="150"/>
-      <line class="bond" x1="285" y1="150" x2="250" y2="155"/>
-      <line class="bond" x1="250" y1="155" x2="238" y2="200"/>
-      <line class="bond" x1="238" y1="200" x2="265" y2="230"/>
-      <line class="bond" x1="265" y1="230" x2="325" y2="200"/>
-      <!-- close to C1' -->
-      <line class="bond" x1="265" y1="230" x2="360" y2="225"/>
-
-      <!-- B ring aromatic inner -->
-      <line class="bond-aromatic" x1="328" y1="202" x2="288" y2="155"/>
-      <line class="bond-aromatic" x1="288" y1="155" x2="253" y2="160"/>
-      <line class="bond-aromatic" x1="241" y1="202" x2="268" y2="226"/>
-
-      <!-- ── RING G: Gallate ester (bottom-left) ──
-           3,4,5-trihydroxybenzoate
-           Center ~(235, 530) -->
-      <ellipse class="ring-glow" cx="215" cy="525" rx="52" ry="52"/>
-
-      <!-- C3 ester linkage: C3-O-C=O-C1'' -->
-      <!-- Ester O bridge -->
-      <line class="bond-ester" x1="445" y1="300" x2="400" y2="380"/>
-      <line class="bond-ester" x1="400" y1="380" x2="355" y2="430"/>
-      <!-- C=O double bond indicator -->
-      <line class="bond-ester" x1="355" y1="430" x2="320" y2="430"/>
-      <line style="stroke:#661100;stroke-width:3;stroke-linecap:round;" x1="350" y1="435" x2="318" y2="435"/>
-
-      <!-- C1'' to gallate ring -->
-      <line class="bond" x1="320" y1="430" x2="285" y2="460"/>
-      <line class="bond" x1="285" y1="460" x2="265" y2="500"/>
-      <line class="bond" x1="265" y1="500" x2="230" y2="525"/>
-      <line class="bond" x1="230" y1="525" x2="195" y2="510"/>
-      <line class="bond" x1="195" y1="510" x2="170" y2="470"/>
-      <line class="bond" x1="170" y1="470" x2="190" y2="440"/>
-      <line class="bond" x1="190" y1="440" x2="245" y2="445"/>
-      <line class="bond" x1="245" y1="445" x2="285" y2="460"/>
-
-      <!-- G ring aromatic inner -->
-      <line class="bond-aromatic" x1="268" y1="497" x2="233" y2="523"/>
-      <line class="bond-aromatic" x1="197" y1="510" x2="173" y2="473"/>
-      <line class="bond-aromatic" x1="193" y1="443" x2="247" y2="447"/>
-
-      <!-- ====================================================
-           ATOMS — draw in order (back to front)
-           ==================================================== -->
-
-      <!-- ── B ring carbons ── -->
-      <circle class="atom-C" cx="285" cy="150" r="10"/>  <!-- C3' -->
-      <circle class="atom-C" cx="250" cy="155" r="10"/>  <!-- C4' -->
-      <circle class="atom-C" cx="238" cy="200" r="10"/>  <!-- C5' -->
-      <circle class="atom-C" cx="265" cy="230" r="10"/>  <!-- C6' -->
-      <circle class="atom-C" cx="325" cy="200" r="10"/>  <!-- C2' -->
-      <circle class="atom-C" cx="360" cy="225" r="10"/>  <!-- C1' -->
-
-      <!-- ── Chroman core ── -->
-      <circle class="atom-O" cx="375" cy="290" r="12"/>  <!-- O1 pyran -->
-      <circle class="atom-C" cx="415" cy="270" r="10"/>  <!-- C2 -->
-      <circle class="atom-C" cx="445" cy="300" r="10"/>  <!-- C3 -->
-      <circle class="atom-C" cx="435" cy="340" r="10"/>  <!-- C4 -->
-      <circle class="atom-C" cx="395" cy="360" r="10"/>  <!-- C4a -->
-      <circle class="atom-C" cx="360" cy="390" r="10"/>  <!-- C5 -->
-      <circle class="atom-C" cx="325" cy="375" r="10"/>  <!-- C6 -->
-      <circle class="atom-C" cx="320" cy="340" r="10"/>  <!-- C7 -->
-      <circle class="atom-C" cx="350" cy="315" r="10"/>  <!-- C8a -->
-
-      <!-- ── Ester linkage ── -->
-      <circle class="atom-O" cx="400" cy="380" r="12"/>  <!-- O-ester -->
-      <circle class="atom-O" cx="320" cy="430" r="12"/>  <!-- C=O -->
-
-      <!-- ── G ring ── -->
-      <circle class="atom-C" cx="285" cy="460" r="10"/>
-      <circle class="atom-C" cx="265" cy="500" r="10"/>
-      <circle class="atom-C" cx="230" cy="525" r="10"/>
-      <circle class="atom-C" cx="195" cy="510" r="10"/>
-      <circle class="atom-C" cx="170" cy="470" r="10"/>
-      <circle class="atom-C" cx="190" cy="440" r="10"/>
-      <circle class="atom-C" cx="245" cy="445" r="10"/>
-
-      <!-- ====================================================
-           –OH GROUPS  (Oxygen atoms + H)
-           ==================================================== -->
-
-      <!-- B ring OHs: C3'→top, C4'→left, C5'→left -->
-      <!-- OH on C3' (top of B ring) -->
-      <line class="bond" x1="285" y1="150" x2="285" y2="105"/>
-      <circle class="atom-O" cx="285" cy="98" r="12"/>
-      <line style="stroke:#888;stroke-width:2;" x1="285" y1="86" x2="285" y2="78"/>
-      <circle class="atom-H" cx="285" cy="73" r="7"/>
-
-      <!-- OH on C4' (left upper of B ring) -->
-      <line class="bond" x1="250" y1="155" x2="213" y2="132"/>
-      <circle class="atom-O" cx="207" cy="128" r="12"/>
-      <line style="stroke:#888;stroke-width:2;" x1="196" y1="120" x2="188" y2="113"/>
-      <circle class="atom-H" cx="184" cy="109" r="7"/>
-
-      <!-- OH on C5' (left lower of B ring) -->
-      <line class="bond" x1="238" y1="200" x2="196" y2="208"/>
-      <circle class="atom-O" cx="188" cy="210" r="12"/>
-      <line style="stroke:#888;stroke-width:2;" x1="177" y1="210" x2="166" y2="210"/>
-      <circle class="atom-H" cx="160" cy="210" r="7"/>
-
-      <!-- Chroman OHs: C5→bottom, C7→left -->
-      <!-- OH on C5 (bottom of benzo) -->
-      <line class="bond" x1="360" y1="390" x2="360" y2="430"/>
-      <circle class="atom-O" cx="360" cy="437" r="12"/>
-      <line style="stroke:#888;stroke-width:2;" x1="360" y1="449" x2="360" y2="458"/>
-      <circle class="atom-H" cx="360" cy="464" r="7"/>
-
-      <!-- OH on C7 (left of benzo) -->
-      <line class="bond" x1="320" y1="340" x2="280" y2="332"/>
-      <circle class="atom-O" cx="272" cy="330" r="12"/>
-      <line style="stroke:#888;stroke-width:2;" x1="261" y1="322" x2="252" y2="315"/>
-      <circle class="atom-H" cx="247" cy="310" r="7"/>
-
-      <!-- G ring OHs: 3'', 4'', 5'' -->
-      <!-- OH on top-right of G ring -->
-      <line class="bond" x1="265" y1="500" x2="275" y2="545"/>
-      <circle class="atom-O" cx="277" cy="553" r="12"/>
-      <line style="stroke:#888;stroke-width:2;" x1="282" y1="565" x2="285" y2="574"/>
-      <circle class="atom-H" cx="287" cy="580" r="7"/>
-
-      <!-- OH on bottom of G ring -->
-      <line class="bond" x1="230" y1="525" x2="225" y2="568"/>
-      <circle class="atom-O" cx="224" cy="576" r="12"/>
-      <line style="stroke:#888;stroke-width:2;" x1="223" y1="588" x2="222" y2="597"/>
-      <circle class="atom-H" cx="221" cy="603" r="7"/>
-
-      <!-- OH on left of G ring -->
-      <line class="bond" x1="170" y1="470" x2="132" y2="478"/>
-      <circle class="atom-O" cx="124" cy="480" r="12"/>
-      <line style="stroke:#888;stroke-width:2;" x1="113" y1="480" x2="103" y2="480"/>
-      <circle class="atom-H" cx="97" cy="480" r="7"/>
-
-      <!-- ====================================================
-           AXIS ARROWS (like in the 3D viewer)
-           ==================================================== -->
-      <g filter="url(#glow)">
-        <!-- X axis (blue, left) -->
-        <line class="axis axis-x" x1="470" y1="290" x2="510" y2="290"/>
-        <polygon points="510,286 520,290 510,294" fill="#3355ff"/>
-        <!-- Y axis (green, up) -->
-        <line class="axis axis-y" x1="470" y1="290" x2="470" y2="248"/>
-        <polygon points="466,248 470,238 474,248" fill="#44cc44"/>
-        <!-- Z axis (red, diagonal) -->
-        <line class="axis axis-z" x1="470" y1="290" x2="443" y2="317"/>
-        <polygon points="440,321 438,312 447,314" fill="#cc1111"/>
-      </g>
-
-      <!-- ====================================================
-           ATOM LABELS
-           ==================================================== -->
-      <!-- O labels -->
-      <text class="atom-label atom-label-O" x="375" y="291">O</text>
-      <text class="atom-label atom-label-O" x="400" y="381">O</text>
-      <text class="atom-label atom-label-O" x="320" y="431">O</text>
-
-      <!-- OH labels floating near oxygens -->
-      <text class="oh-label" x="285" y="75">H</text>
-      <text class="oh-label" x="184" y="111">H</text>
-      <text class="oh-label" x="160" y="212">H</text>
-      <text class="oh-label" x="360" y="466">H</text>
-      <text class="oh-label" x="247" y="312">H</text>
-      <text class="oh-label" x="287" y="582">H</text>
-      <text class="oh-label" x="221" y="605">H</text>
-      <text class="oh-label" x="97" y="482">H</text>
-
-      <!-- C=O label -->
-      <text style="fill:#ff9977;font-family:'Share Tech Mono',monospace;font-size:10px;font-weight:bold;" x="290" y="420">C=O</text>
-
-    </svg>
-  </div>
-</div>
+        <!-- SLIDE 9: 3D MODEL — ui_watermark=0 FIXED -->
+        <section class="slide" data-slide="9" style="justify-content:center;align-items:center;">
+            <div class="sketchfab-slide-content">
+              <iframe
+                    class="c-viewer__iframe"
+                    src="https://sketchfab.com/models/9758c9f1bb464b7388c442ae8ffe57a1/embed?autostart=1&internal=1&tracking=0&ui_ar=0&ui_infos=0&ui_snapshots=1&ui_stop=0&ui_theatre=1&ui_watermark=0&transparent=1"
+                    allow="autoplay; fullscreen; xr-spatial-tracking"
+                    xr-spatial-tracking="true"
+                    execution-while-out-of-viewport="true"
+                    execution-while-not-rendered="true"
+                    web-share="true"
+                    allowfullscreen>
+                </iframe>
             </div>
         </section>
 
-        <!-- SLIDE 7: FICHE EL HALHAL -->
-        <section class="slide" data-slide="8">
-    <div class="slide-content">
-        <div class="section-header reveal-item">
-            <h2>🌸 Fiche : El Halhal (Origanum vulgare)</h2>
-            <div class="divider"></div>
-            <span class="badge bg-warning text-dark">Origanum vulgare</span>
-        </div>
-        <div class="scrollable-content">
-            <video src="hlh.mp4" class="plant-video" autoplay muted loop playsinline></video>
-            <div class="row">
-                <div class="col-md-6">
-                    <h5>1. Classification systématique</h5>
-                    <ul class="small">
-                        <li><strong>Règne :</strong> Plantae</li>
-                        <li><strong>Embranchement :</strong> Angiospermes</li>
-                        <li><strong>Classe :</strong> Dicotylédones</li>
-                        <li><strong>Ordre :</strong> Caryophyllales</li>
-                        <li><strong>Famille :</strong> Lamiaceae 🌿</li>
-                        <li><strong>Genre :</strong> Origanum</li>
-                        <li><strong>Espèce :</strong> Origanum vulgare</li>
-                    </ul>
-                    <h5>2. Description morphologique</h5>
-                    <p class="small">Plante herbacée sauvage à tige fine, feuilles vertes tendres et système racinaire simple. Les feuilles sont molles et comestibles.</p>
-                    <h5>3. Système végétatif</h5>
-                    <ul class="small">
-                        <li><strong>Racine :</strong> système racinaire simple</li>
-                        <li><strong>Tige :</strong> tige fine et herbacée</li>
-                        <li><strong>Feuilles :</strong> vertes, tendres, molles et comestibles</li>
-                    </ul>
-                    <h5>4. Système reproducteur</h5>
-                    <ul class="small">
-                        <li><strong>Fleur :</strong> petites fleurs typiques des plantes herbacées sauvages</li>
-                        <li><strong>Fruit :</strong> petits fruits contenant des graines</li>
-                        <li><strong>Graine :</strong> graines fines</li>
-                    </ul>
-                    <h5>5. Partie consommée</h5>
-                    <p class="small"><strong>Les feuilles 🍃</strong> et parfois les jeunes tiges.</p>
-                </div>
-                <div class="col-md-6">
-                    <h5>6. Phytochimie et valeur nutritionnelle</h5>
-                    <ul class="small">
-                        <li><strong>Métabolites primaires :</strong> glucides, faibles quantités de protéines, lipides très bas</li>
-                        <li><strong>Métabolites secondaires :</strong> polyphénols, flavonoïdes (forte activité antioxydante)</li>
-                        <li><strong>Vitamines :</strong> riche en vitamine C</li>
-                        <li><strong>Minéraux :</strong> fer, calcium, potassium</li>
-                    </ul>
-                    <h5>7. Bienfaits pour la santé</h5>
-                    <ul class="small">
-                        <li>✅ Antioxydant puissant (protège contre le stress oxydatif)</li>
-                        <li>✅ Anti-inflammatoire naturel</li>
-                        <li>✅ Soutien du système immunitaire (vitamine C)</li>
-                        <li>✅ Améliore la digestion et régule le transit intestinal</li>
-                        <li>✅ Apporte des minéraux essentiels (fer, calcium)</li>
-                    </ul>
-                    <h5>8. Valeur nutritionnelle (Cru vs Cuit)</h5>
-                    <ul class="small">
-                        <li><strong>Cru :</strong> préserve la vitamine C et les antioxydants, mais peut être moins digeste</li>
-                        <li><strong>Cuit :</strong> plus facile à digérer, mais perte de vitamines sensibles à la chaleur</li>
-                        <li><strong>Méthodes :</strong> vapeur (préserve les nutriments) ; ébullition (perte d’éléments dans l’eau) ; friture (diminue la qualité nutritionnelle)</li>
-                    </ul>
-                    <div class="highlight-box">
-                        👉 Pour conserver au mieux les bienfaits du Halhal, il est recommandé d’utiliser des méthodes de cuisson douces comme la <strong>vapeur</strong>.
-                    </div>
-                    <h5 class="mt-3">9. Conclusion</h5>
-                    <p class="small">En conclusion, le halhal est une plante aromatique de la famille des Lamiacées, utilisée traditionnellement pour ses effets digestifs et calmants. Il fait partie de la richesse des plantes médicinales locales qu’il faut préserver.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-        <section class="slide" data-slide="9">
-            <div class="slide-content">
-               
-<div class="title-block">
-  <h1>Epigallocatechin Gallate</h1>
-  <p>EGCG · Polyphenol · Green Tea Extract</p>
-</div>
-
-<div class="info-panel">
-  <div class="formula">C₂₂H₁₈O₁₁</div>
-  <div class="mw">MW: 458.37 g/mol<br>8 × –OH groups</div>
-</div>
-
-<div class="legend">
-  <div class="legend-item"><div class="legend-dot c"></div>Carbon (C)</div>
-  <div class="legend-item"><div class="legend-dot o"></div>Oxygen (O)</div>
-</div>
-
-<div class="hint">
-  Hover to pause rotation<br>
-  Auto-rotating 3D model
-</div>
-
-<div class="scene-wrapper">
-  <div class="molecule" id="mol">
-    <svg class="mol-svg" viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <!-- Carbon sphere gradient -->
-        <radialGradient id="grad-carbon" cx="35%" cy="30%" r="65%">
-          <stop offset="0%" stop-color="#666"/>
-          <stop offset="60%" stop-color="#2a2a2a"/>
-          <stop offset="100%" stop-color="#111"/>
-        </radialGradient>
-        <!-- Oxygen sphere gradient -->
-        <radialGradient id="grad-oxygen" cx="35%" cy="30%" r="65%">
-          <stop offset="0%" stop-color="#ff7755"/>
-          <stop offset="55%" stop-color="#cc3300"/>
-          <stop offset="100%" stop-color="#661100"/>
-        </radialGradient>
-        <!-- Hydrogen sphere gradient -->
-        <radialGradient id="grad-hydrogen" cx="35%" cy="30%" r="65%">
-          <stop offset="0%" stop-color="#eee"/>
-          <stop offset="70%" stop-color="#aaa"/>
-          <stop offset="100%" stop-color="#666"/>
-        </radialGradient>
-
-        <!-- Arrow marker -->
-        <marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
-          <path d="M0,1 L6,4 L0,7 Z" fill="inherit"/>
-        </marker>
-
-        <!-- Ambient glow filter -->
-        <filter id="glow">
-          <feGaussianBlur stdDeviation="3" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-        <filter id="glow-soft">
-          <feGaussianBlur stdDeviation="1.5" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-      </defs>
-
-      <!-- ============================================================
-           MOLECULE LAYOUT — EGCG (Epigallocatechin Gallate)
-           Three rings:
-           A = Pyranochromane ring (right, chroman core)
-           B = Galloyl ring (top-left, trihydroxyphenyl)
-           G = Gallate ester ring (bottom-left, trihydroxybenzoyl)
-           + Ester linkage O-C=O between C3 and gallate
-           ============================================================ -->
-
-      <!-- ── RING A: Chroman/Pyran core (right side) ──
-           Atoms: O1(pyran), C2, C3, C4, C4a, C5, C6, C7, C8, C8a
-           Center ~(440,320) -->
-
-      <!-- Ring glow -->
-      <ellipse class="ring-glow" cx="460" cy="315" rx="55" ry="42"/>
-
-      <!-- Bonds — Chroman core ring -->
-      <!-- O1-C2 -->  <line class="bond" x1="375" y1="290" x2="415" y2="270"/>
-      <!-- C2-C3 -->  <line class="bond" x1="415" y1="270" x2="445" y2="300"/>
-      <!-- C3-C4 -->  <line class="bond" x1="445" y1="300" x2="435" y2="340"/>
-      <!-- C4-C4a --> <line class="bond" x1="435" y1="340" x2="395" y2="360"/>
-      <!-- C4a-O1 --> <!-- fused, handled below -->
-      <!-- C4a-C8a-O1 aromatic benzo -->
-      <!-- Benzo fused ring: C4a,C5,C6,C7,C8,C8a -->
-      <line class="bond" x1="395" y1="360" x2="360" y2="390"/>
-      <line class="bond" x1="360" y1="390" x2="325" y2="375"/>
-      <line class="bond" x1="325" y1="375" x2="320" y2="340"/>
-      <line class="bond" x1="320" y1="340" x2="350" y2="315"/>
-      <line class="bond" x1="350" y1="315" x2="375" y2="290"/>
-
-      <!-- C4a to C8a shortcut of fused -->
-      <line class="bond" x1="395" y1="360" x2="350" y2="315"/>
-
-      <!-- Aromatic inner lines benzo ring -->
-      <line class="bond-aromatic" x1="362" y1="385" x2="330" y2="372"/>
-      <line class="bond-aromatic" x1="330" y1="372" x2="326" y2="344"/>
-      <line class="bond-aromatic" x1="355" y1="320" x2="375" y2="300"/>
-
-      <!-- ── RING B: Galloyl B ring (top, attached at C2) ──
-           3,4,5-trihydroxyphenyl
-           Center ~(310, 185) -->
-      <ellipse class="ring-glow" cx="290" cy="175" rx="52" ry="52"/>
-
-      <!-- C2 to C1' -->
-      <line class="bond" x1="415" y1="270" x2="360" y2="225"/>
-
-      <!-- B ring hexagon -->
-      <line class="bond" x1="360" y1="225" x2="325" y2="200"/>
-      <line class="bond" x1="325" y1="200" x2="285" y2="150"/>
-      <line class="bond" x1="285" y1="150" x2="250" y2="155"/>
-      <line class="bond" x1="250" y1="155" x2="238" y2="200"/>
-      <line class="bond" x1="238" y1="200" x2="265" y2="230"/>
-      <line class="bond" x1="265" y1="230" x2="325" y2="200"/>
-      <!-- close to C1' -->
-      <line class="bond" x1="265" y1="230" x2="360" y2="225"/>
-
-      <!-- B ring aromatic inner -->
-      <line class="bond-aromatic" x1="328" y1="202" x2="288" y2="155"/>
-      <line class="bond-aromatic" x1="288" y1="155" x2="253" y2="160"/>
-      <line class="bond-aromatic" x1="241" y1="202" x2="268" y2="226"/>
-
-      <!-- ── RING G: Gallate ester (bottom-left) ──
-           3,4,5-trihydroxybenzoate
-           Center ~(235, 530) -->
-      <ellipse class="ring-glow" cx="215" cy="525" rx="52" ry="52"/>
-
-      <!-- C3 ester linkage: C3-O-C=O-C1'' -->
-      <!-- Ester O bridge -->
-      <line class="bond-ester" x1="445" y1="300" x2="400" y2="380"/>
-      <line class="bond-ester" x1="400" y1="380" x2="355" y2="430"/>
-      <!-- C=O double bond indicator -->
-      <line class="bond-ester" x1="355" y1="430" x2="320" y2="430"/>
-      <line style="stroke:#661100;stroke-width:3;stroke-linecap:round;" x1="350" y1="435" x2="318" y2="435"/>
-
-      <!-- C1'' to gallate ring -->
-      <line class="bond" x1="320" y1="430" x2="285" y2="460"/>
-      <line class="bond" x1="285" y1="460" x2="265" y2="500"/>
-      <line class="bond" x1="265" y1="500" x2="230" y2="525"/>
-      <line class="bond" x1="230" y1="525" x2="195" y2="510"/>
-      <line class="bond" x1="195" y1="510" x2="170" y2="470"/>
-      <line class="bond" x1="170" y1="470" x2="190" y2="440"/>
-      <line class="bond" x1="190" y1="440" x2="245" y2="445"/>
-      <line class="bond" x1="245" y1="445" x2="285" y2="460"/>
-
-      <!-- G ring aromatic inner -->
-      <line class="bond-aromatic" x1="268" y1="497" x2="233" y2="523"/>
-      <line class="bond-aromatic" x1="197" y1="510" x2="173" y2="473"/>
-      <line class="bond-aromatic" x1="193" y1="443" x2="247" y2="447"/>
-
-      <!-- ====================================================
-           ATOMS — draw in order (back to front)
-           ==================================================== -->
-
-      <!-- ── B ring carbons ── -->
-      <circle class="atom-C" cx="285" cy="150" r="10"/>  <!-- C3' -->
-      <circle class="atom-C" cx="250" cy="155" r="10"/>  <!-- C4' -->
-      <circle class="atom-C" cx="238" cy="200" r="10"/>  <!-- C5' -->
-      <circle class="atom-C" cx="265" cy="230" r="10"/>  <!-- C6' -->
-      <circle class="atom-C" cx="325" cy="200" r="10"/>  <!-- C2' -->
-      <circle class="atom-C" cx="360" cy="225" r="10"/>  <!-- C1' -->
-
-      <!-- ── Chroman core ── -->
-      <circle class="atom-O" cx="375" cy="290" r="12"/>  <!-- O1 pyran -->
-      <circle class="atom-C" cx="415" cy="270" r="10"/>  <!-- C2 -->
-      <circle class="atom-C" cx="445" cy="300" r="10"/>  <!-- C3 -->
-      <circle class="atom-C" cx="435" cy="340" r="10"/>  <!-- C4 -->
-      <circle class="atom-C" cx="395" cy="360" r="10"/>  <!-- C4a -->
-      <circle class="atom-C" cx="360" cy="390" r="10"/>  <!-- C5 -->
-      <circle class="atom-C" cx="325" cy="375" r="10"/>  <!-- C6 -->
-      <circle class="atom-C" cx="320" cy="340" r="10"/>  <!-- C7 -->
-      <circle class="atom-C" cx="350" cy="315" r="10"/>  <!-- C8a -->
-
-      <!-- ── Ester linkage ── -->
-      <circle class="atom-O" cx="400" cy="380" r="12"/>  <!-- O-ester -->
-      <circle class="atom-O" cx="320" cy="430" r="12"/>  <!-- C=O -->
-
-      <!-- ── G ring ── -->
-      <circle class="atom-C" cx="285" cy="460" r="10"/>
-      <circle class="atom-C" cx="265" cy="500" r="10"/>
-      <circle class="atom-C" cx="230" cy="525" r="10"/>
-      <circle class="atom-C" cx="195" cy="510" r="10"/>
-      <circle class="atom-C" cx="170" cy="470" r="10"/>
-      <circle class="atom-C" cx="190" cy="440" r="10"/>
-      <circle class="atom-C" cx="245" cy="445" r="10"/>
-
-      <!-- ====================================================
-           –OH GROUPS  (Oxygen atoms + H)
-           ==================================================== -->
-
-      <!-- B ring OHs: C3'→top, C4'→left, C5'→left -->
-      <!-- OH on C3' (top of B ring) -->
-      <line class="bond" x1="285" y1="150" x2="285" y2="105"/>
-      <circle class="atom-O" cx="285" cy="98" r="12"/>
-      <line style="stroke:#888;stroke-width:2;" x1="285" y1="86" x2="285" y2="78"/>
-      <circle class="atom-H" cx="285" cy="73" r="7"/>
-
-      <!-- OH on C4' (left upper of B ring) -->
-      <line class="bond" x1="250" y1="155" x2="213" y2="132"/>
-      <circle class="atom-O" cx="207" cy="128" r="12"/>
-      <line style="stroke:#888;stroke-width:2;" x1="196" y1="120" x2="188" y2="113"/>
-      <circle class="atom-H" cx="184" cy="109" r="7"/>
-
-      <!-- OH on C5' (left lower of B ring) -->
-      <line class="bond" x1="238" y1="200" x2="196" y2="208"/>
-      <circle class="atom-O" cx="188" cy="210" r="12"/>
-      <line style="stroke:#888;stroke-width:2;" x1="177" y1="210" x2="166" y2="210"/>
-      <circle class="atom-H" cx="160" cy="210" r="7"/>
-
-      <!-- Chroman OHs: C5→bottom, C7→left -->
-      <!-- OH on C5 (bottom of benzo) -->
-      <line class="bond" x1="360" y1="390" x2="360" y2="430"/>
-      <circle class="atom-O" cx="360" cy="437" r="12"/>
-      <line style="stroke:#888;stroke-width:2;" x1="360" y1="449" x2="360" y2="458"/>
-      <circle class="atom-H" cx="360" cy="464" r="7"/>
-
-      <!-- OH on C7 (left of benzo) -->
-      <line class="bond" x1="320" y1="340" x2="280" y2="332"/>
-      <circle class="atom-O" cx="272" cy="330" r="12"/>
-      <line style="stroke:#888;stroke-width:2;" x1="261" y1="322" x2="252" y2="315"/>
-      <circle class="atom-H" cx="247" cy="310" r="7"/>
-
-      <!-- G ring OHs: 3'', 4'', 5'' -->
-      <!-- OH on top-right of G ring -->
-      <line class="bond" x1="265" y1="500" x2="275" y2="545"/>
-      <circle class="atom-O" cx="277" cy="553" r="12"/>
-      <line style="stroke:#888;stroke-width:2;" x1="282" y1="565" x2="285" y2="574"/>
-      <circle class="atom-H" cx="287" cy="580" r="7"/>
-
-      <!-- OH on bottom of G ring -->
-      <line class="bond" x1="230" y1="525" x2="225" y2="568"/>
-      <circle class="atom-O" cx="224" cy="576" r="12"/>
-      <line style="stroke:#888;stroke-width:2;" x1="223" y1="588" x2="222" y2="597"/>
-      <circle class="atom-H" cx="221" cy="603" r="7"/>
-
-      <!-- OH on left of G ring -->
-      <line class="bond" x1="170" y1="470" x2="132" y2="478"/>
-      <circle class="atom-O" cx="124" cy="480" r="12"/>
-      <line style="stroke:#888;stroke-width:2;" x1="113" y1="480" x2="103" y2="480"/>
-      <circle class="atom-H" cx="97" cy="480" r="7"/>
-
-      <!-- ====================================================
-           AXIS ARROWS (like in the 3D viewer)
-           ==================================================== -->
-      <g filter="url(#glow)">
-        <!-- X axis (blue, left) -->
-        <line class="axis axis-x" x1="470" y1="290" x2="510" y2="290"/>
-        <polygon points="510,286 520,290 510,294" fill="#3355ff"/>
-        <!-- Y axis (green, up) -->
-        <line class="axis axis-y" x1="470" y1="290" x2="470" y2="248"/>
-        <polygon points="466,248 470,238 474,248" fill="#44cc44"/>
-        <!-- Z axis (red, diagonal) -->
-        <line class="axis axis-z" x1="470" y1="290" x2="443" y2="317"/>
-        <polygon points="440,321 438,312 447,314" fill="#cc1111"/>
-      </g>
-
-      <!-- ====================================================
-           ATOM LABELS
-           ==================================================== -->
-      <!-- O labels -->
-      <text class="atom-label atom-label-O" x="375" y="291">O</text>
-      <text class="atom-label atom-label-O" x="400" y="381">O</text>
-      <text class="atom-label atom-label-O" x="320" y="431">O</text>
-
-      <!-- OH labels floating near oxygens -->
-      <text class="oh-label" x="285" y="75">H</text>
-      <text class="oh-label" x="184" y="111">H</text>
-      <text class="oh-label" x="160" y="212">H</text>
-      <text class="oh-label" x="360" y="466">H</text>
-      <text class="oh-label" x="247" y="312">H</text>
-      <text class="oh-label" x="287" y="582">H</text>
-      <text class="oh-label" x="221" y="605">H</text>
-      <text class="oh-label" x="97" y="482">H</text>
-
-      <!-- C=O label -->
-      <text style="fill:#ff9977;font-family:'Share Tech Mono',monospace;font-size:10px;font-weight:bold;" x="290" y="420">C=O</text>
-
-    </svg>
-  </div>
-</div>
-            </div>
-        </section>
-        <!-- SLIDE 8: FICHE EL H'MIDHA -->
+        <!-- SLIDE 10: FICHE EL HALHAL -->
         <section class="slide" data-slide="10">
+            <div class="slide-content">
+                <div class="section-header reveal-item">
+                    <h2>🌸 Fiche : El Halhal (Origanum vulgare)</h2>
+                    <div class="divider"></div>
+                    <span class="badge bg-warning text-dark">Origanum vulgare</span>
+                </div>
+                <div class="scrollable-content">
+                   
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>1. Classification systématique</h5>
+                            <ul class="small">
+                                <li><strong>Règne :</strong> Plantae</li>
+                                <li><strong>Embranchement :</strong> Angiospermes</li>
+                                <li><strong>Classe :</strong> Dicotylédones</li>
+                                <li><strong>Ordre :</strong> Caryophyllales</li>
+                                <li><strong>Famille :</strong> Lamiaceae 🌿</li>
+                                <li><strong>Genre :</strong> Origanum</li>
+                                <li><strong>Espèce :</strong> Origanum vulgare</li>
+                            </ul>
+                            <h5>2. Description morphologique</h5>
+                            <p class="small">Plante herbacée sauvage à tige fine, feuilles vertes tendres et système racinaire simple. Les feuilles sont molles et comestibles.</p>
+                            <h5>3. Système végétatif</h5>
+                            <ul class="small">
+                                <li><strong>Racine :</strong> système racinaire simple</li>
+                                <li><strong>Tige :</strong> tige fine et herbacée</li>
+                                <li><strong>Feuilles :</strong> vertes, tendres, molles et comestibles</li>
+                            </ul>
+                            <h5>4. Système reproducteur</h5>
+                            <ul class="small">
+                                <li><strong>Fleur :</strong> petites fleurs typiques des plantes herbacées sauvages</li>
+                                <li><strong>Fruit :</strong> petits fruits contenant des graines</li>
+                                <li><strong>Graine :</strong> graines fines</li>
+                            </ul>
+                            <h5>5. Partie consommée</h5>
+                            <p class="small"><strong>Les feuilles 🍃</strong> et parfois les jeunes tiges.</p>
+                        </div>
+                         <div class="col-md-6">
+                            <video src="hlh.mp4" class="plant-video" autoplay muted loop playsinline></video>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 11: 3D MODEL -->
+        <section class="slide" data-slide="11" style="justify-content:center;align-items:center;">
+            <div class="sketchfab-slide-content">
+               <iframe
+                    class="c-viewer__iframe"
+                    src="https://sketchfab.com/models/9758c9f1bb464b7388c442ae8ffe57a1/embed?autostart=1&internal=1&tracking=0&ui_ar=0&ui_infos=0&ui_snapshots=1&ui_stop=0&ui_theatre=1&ui_watermark=0&transparent=1"
+                    allow="autoplay; fullscreen; xr-spatial-tracking"
+                    xr-spatial-tracking="true"
+                    execution-while-out-of-viewport="true"
+                    execution-while-not-rendered="true"
+                    web-share="true"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+
+        <!-- SLIDE 12: FICHE EL HALHAL (suite) -->
+        <section class="slide" data-slide="12">
+            <div class="slide-content">
+                <div class="section-header reveal-item">
+                    <h2>🌸 Fiche : El Halhal (Origanum vulgare)</h2>
+                    <div class="divider"></div>
+                    <span class="badge bg-warning text-dark">Origanum vulgare</span>
+                </div>
+                <div class="scrollable-content">
+                   
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>6. Phytochimie et valeur nutritionnelle</h5>
+                            <ul class="small">
+                                <li><strong>Métabolites primaires :</strong> glucides, faibles quantités de protéines, lipides très bas</li>
+                                <li><strong>Métabolites secondaires :</strong> polyphénols, flavonoïdes (forte activité antioxydante)</li>
+                                <li><strong>Vitamines :</strong> riche en vitamine C</li>
+                                <li><strong>Minéraux :</strong> fer, calcium, potassium</li>
+                            </ul>
+                            <h5>7. Bienfaits pour la santé</h5>
+                            <ul class="small">
+                                <li>✅ Antioxydant puissant (protège contre le stress oxydatif)</li>
+                                <li>✅ Anti-inflammatoire naturel</li>
+                                <li>✅ Soutien du système immunitaire (vitamine C)</li>
+                                <li>✅ Améliore la digestion et régule le transit intestinal</li>
+                                <li>✅ Apporte des minéraux essentiels (fer, calcium)</li>
+                            </ul>
+                            <h5>8. Valeur nutritionnelle (Cru vs Cuit)</h5>
+                            <ul class="small">
+                                <li><strong>Cru :</strong> préserve la vitamine C et les antioxydants, mais peut être moins digeste</li>
+                                <li><strong>Cuit :</strong> plus facile à digérer, mais perte de vitamines sensibles à la chaleur</li>
+                                <li><strong>Méthodes :</strong> vapeur (préserve les nutriments) ; ébullition (perte d'éléments dans l'eau) ; friture (diminue la qualité nutritionnelle)</li>
+                            </ul>
+                            <div class="highlight-box">
+                                👉 Pour conserver au mieux les bienfaits du Halhal, il est recommandé d'utiliser des méthodes de cuisson douces comme la <strong>vapeur</strong>.
+                            </div>
+                            <h5 class="mt-3">9. Conclusion</h5>
+                            <p class="small">En conclusion, le halhal est une plante aromatique de la famille des Lamiacées, utilisée traditionnellement pour ses effets digestifs et calmants. Il fait partie de la richesse des plantes médicinales locales qu'il faut préserver.</p>
+                        </div>
+                         <div class="col-md-6">
+                            <video src="hlh.mp4" class="plant-video" autoplay muted loop playsinline></video>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 13: 3D MODEL -->
+        <section class="slide" data-slide="13" style="justify-content:center;align-items:center;">
+            <div class="sketchfab-slide-content">
+                <iframe
+                    class="c-viewer__iframe"
+                    src="https://sketchfab.com/models/9758c9f1bb464b7388c442ae8ffe57a1/embed?autostart=1&internal=1&tracking=0&ui_ar=0&ui_infos=0&ui_snapshots=1&ui_stop=0&ui_theatre=1&ui_watermark=0&transparent=1"
+                    allow="autoplay; fullscreen; xr-spatial-tracking"
+                    xr-spatial-tracking="true"
+                    execution-while-out-of-viewport="true"
+                    execution-while-not-rendered="true"
+                    web-share="true"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+
+        <!-- SLIDE 14: FICHE EL HMIDHA -->
+        <section class="slide" data-slide="14">
             <div class="slide-content">
                 <div class="section-header reveal-item">
                     <h2>🍃 Fiche : El Hmidha (Oseille)</h2>
@@ -1993,7 +1057,7 @@
                     <span class="badge bg-warning text-dark">Oseille</span>
                 </div>
                 <div class="scrollable-content">
-                    <video src="hlh.mp4" class="plant-video" autoplay muted loop playsinline></video>
+                   
                     <div class="row">
                         <div class="col-md-6">
                             <h5>1. Classification systématique</h5>
@@ -2023,6 +1087,41 @@
                             <h5>5. Partie consommée</h5>
                             <p class="small"><strong>Les feuilles 🌿</strong>.</p>
                         </div>
+                         <div class="col-md-6">
+                          <video src="new.mp4" class="plant-video" autoplay muted loop playsinline></video>
+                         </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 15: 3D MODEL -->
+        <section class="slide" data-slide="15" style="justify-content:center;align-items:center;">
+            <div class="sketchfab-slide-content">
+                <iframe
+                    class="c-viewer__iframe"
+                    src="https://sketchfab.com/models/9758c9f1bb464b7388c442ae8ffe57a1/embed?autostart=1&internal=1&tracking=0&ui_ar=0&ui_infos=0&ui_snapshots=1&ui_stop=0&ui_theatre=1&ui_watermark=0&transparent=1"
+                    allow="autoplay; fullscreen; xr-spatial-tracking"
+                    xr-spatial-tracking="true"
+                    execution-while-out-of-viewport="true"
+                    execution-while-not-rendered="true"
+                    web-share="true"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+
+        <!-- SLIDE 16: FICHE EL HMIDHA (suite) -->
+        <section class="slide" data-slide="16">
+            <div class="slide-content">
+                <div class="section-header reveal-item">
+                    <h2>🍃 Fiche : El Hmidha (Oseille)</h2>
+                    <div class="divider"></div>
+                    <span class="badge bg-warning text-dark">Oseille</span>
+                </div>
+                <div class="scrollable-content">
+                    <div class="row">
                         <div class="col-md-6">
                             <h5>6. Phytochimie et valeur nutritionnelle</h5>
                             <ul class="small">
@@ -2049,296 +1148,33 @@
                                 👉 Pour préserver les bienfaits de la Hmida, il est préférable d'utiliser une cuisson douce comme la vapeur ou une cuisson rapide.
                             </div>
                         </div>
+                        <div class="col-md-6">
+                          <video src="new.mp4" class="plant-video" autoplay muted loop playsinline></video>
+                         </div>
                     </div>
+                    
                 </div>
             </div>
         </section>
-        <section class="slide" data-slide="11">
-            <div class="slide-content">
-               
-<div class="title-block">
-  <h1>Epigallocatechin Gallate</h1>
-  <p>EGCG · Polyphenol · Green Tea Extract</p>
-</div>
 
-<div class="info-panel">
-  <div class="formula">C₂₂H₁₈O₁₁</div>
-  <div class="mw">MW: 458.37 g/mol<br>8 × –OH groups</div>
-</div>
-
-<div class="legend">
-  <div class="legend-item"><div class="legend-dot c"></div>Carbon (C)</div>
-  <div class="legend-item"><div class="legend-dot o"></div>Oxygen (O)</div>
-</div>
-
-<div class="hint">
-  Hover to pause rotation<br>
-  Auto-rotating 3D model
-</div>
-
-<div class="scene-wrapper">
-  <div class="molecule" id="mol">
-    <svg class="mol-svg" viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <!-- Carbon sphere gradient -->
-        <radialGradient id="grad-carbon" cx="35%" cy="30%" r="65%">
-          <stop offset="0%" stop-color="#666"/>
-          <stop offset="60%" stop-color="#2a2a2a"/>
-          <stop offset="100%" stop-color="#111"/>
-        </radialGradient>
-        <!-- Oxygen sphere gradient -->
-        <radialGradient id="grad-oxygen" cx="35%" cy="30%" r="65%">
-          <stop offset="0%" stop-color="#ff7755"/>
-          <stop offset="55%" stop-color="#cc3300"/>
-          <stop offset="100%" stop-color="#661100"/>
-        </radialGradient>
-        <!-- Hydrogen sphere gradient -->
-        <radialGradient id="grad-hydrogen" cx="35%" cy="30%" r="65%">
-          <stop offset="0%" stop-color="#eee"/>
-          <stop offset="70%" stop-color="#aaa"/>
-          <stop offset="100%" stop-color="#666"/>
-        </radialGradient>
-
-        <!-- Arrow marker -->
-        <marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
-          <path d="M0,1 L6,4 L0,7 Z" fill="inherit"/>
-        </marker>
-
-        <!-- Ambient glow filter -->
-        <filter id="glow">
-          <feGaussianBlur stdDeviation="3" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-        <filter id="glow-soft">
-          <feGaussianBlur stdDeviation="1.5" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-      </defs>
-
-      <!-- ============================================================
-           MOLECULE LAYOUT — EGCG (Epigallocatechin Gallate)
-           Three rings:
-           A = Pyranochromane ring (right, chroman core)
-           B = Galloyl ring (top-left, trihydroxyphenyl)
-           G = Gallate ester ring (bottom-left, trihydroxybenzoyl)
-           + Ester linkage O-C=O between C3 and gallate
-           ============================================================ -->
-
-      <!-- ── RING A: Chroman/Pyran core (right side) ──
-           Atoms: O1(pyran), C2, C3, C4, C4a, C5, C6, C7, C8, C8a
-           Center ~(440,320) -->
-
-      <!-- Ring glow -->
-      <ellipse class="ring-glow" cx="460" cy="315" rx="55" ry="42"/>
-
-      <!-- Bonds — Chroman core ring -->
-      <!-- O1-C2 -->  <line class="bond" x1="375" y1="290" x2="415" y2="270"/>
-      <!-- C2-C3 -->  <line class="bond" x1="415" y1="270" x2="445" y2="300"/>
-      <!-- C3-C4 -->  <line class="bond" x1="445" y1="300" x2="435" y2="340"/>
-      <!-- C4-C4a --> <line class="bond" x1="435" y1="340" x2="395" y2="360"/>
-      <!-- C4a-O1 --> <!-- fused, handled below -->
-      <!-- C4a-C8a-O1 aromatic benzo -->
-      <!-- Benzo fused ring: C4a,C5,C6,C7,C8,C8a -->
-      <line class="bond" x1="395" y1="360" x2="360" y2="390"/>
-      <line class="bond" x1="360" y1="390" x2="325" y2="375"/>
-      <line class="bond" x1="325" y1="375" x2="320" y2="340"/>
-      <line class="bond" x1="320" y1="340" x2="350" y2="315"/>
-      <line class="bond" x1="350" y1="315" x2="375" y2="290"/>
-
-      <!-- C4a to C8a shortcut of fused -->
-      <line class="bond" x1="395" y1="360" x2="350" y2="315"/>
-
-      <!-- Aromatic inner lines benzo ring -->
-      <line class="bond-aromatic" x1="362" y1="385" x2="330" y2="372"/>
-      <line class="bond-aromatic" x1="330" y1="372" x2="326" y2="344"/>
-      <line class="bond-aromatic" x1="355" y1="320" x2="375" y2="300"/>
-
-      <!-- ── RING B: Galloyl B ring (top, attached at C2) ──
-           3,4,5-trihydroxyphenyl
-           Center ~(310, 185) -->
-      <ellipse class="ring-glow" cx="290" cy="175" rx="52" ry="52"/>
-
-      <!-- C2 to C1' -->
-      <line class="bond" x1="415" y1="270" x2="360" y2="225"/>
-
-      <!-- B ring hexagon -->
-      <line class="bond" x1="360" y1="225" x2="325" y2="200"/>
-      <line class="bond" x1="325" y1="200" x2="285" y2="150"/>
-      <line class="bond" x1="285" y1="150" x2="250" y2="155"/>
-      <line class="bond" x1="250" y1="155" x2="238" y2="200"/>
-      <line class="bond" x1="238" y1="200" x2="265" y2="230"/>
-      <line class="bond" x1="265" y1="230" x2="325" y2="200"/>
-      <!-- close to C1' -->
-      <line class="bond" x1="265" y1="230" x2="360" y2="225"/>
-
-      <!-- B ring aromatic inner -->
-      <line class="bond-aromatic" x1="328" y1="202" x2="288" y2="155"/>
-      <line class="bond-aromatic" x1="288" y1="155" x2="253" y2="160"/>
-      <line class="bond-aromatic" x1="241" y1="202" x2="268" y2="226"/>
-
-      <!-- ── RING G: Gallate ester (bottom-left) ──
-           3,4,5-trihydroxybenzoate
-           Center ~(235, 530) -->
-      <ellipse class="ring-glow" cx="215" cy="525" rx="52" ry="52"/>
-
-      <!-- C3 ester linkage: C3-O-C=O-C1'' -->
-      <!-- Ester O bridge -->
-      <line class="bond-ester" x1="445" y1="300" x2="400" y2="380"/>
-      <line class="bond-ester" x1="400" y1="380" x2="355" y2="430"/>
-      <!-- C=O double bond indicator -->
-      <line class="bond-ester" x1="355" y1="430" x2="320" y2="430"/>
-      <line style="stroke:#661100;stroke-width:3;stroke-linecap:round;" x1="350" y1="435" x2="318" y2="435"/>
-
-      <!-- C1'' to gallate ring -->
-      <line class="bond" x1="320" y1="430" x2="285" y2="460"/>
-      <line class="bond" x1="285" y1="460" x2="265" y2="500"/>
-      <line class="bond" x1="265" y1="500" x2="230" y2="525"/>
-      <line class="bond" x1="230" y1="525" x2="195" y2="510"/>
-      <line class="bond" x1="195" y1="510" x2="170" y2="470"/>
-      <line class="bond" x1="170" y1="470" x2="190" y2="440"/>
-      <line class="bond" x1="190" y1="440" x2="245" y2="445"/>
-      <line class="bond" x1="245" y1="445" x2="285" y2="460"/>
-
-      <!-- G ring aromatic inner -->
-      <line class="bond-aromatic" x1="268" y1="497" x2="233" y2="523"/>
-      <line class="bond-aromatic" x1="197" y1="510" x2="173" y2="473"/>
-      <line class="bond-aromatic" x1="193" y1="443" x2="247" y2="447"/>
-
-      <!-- ====================================================
-           ATOMS — draw in order (back to front)
-           ==================================================== -->
-
-      <!-- ── B ring carbons ── -->
-      <circle class="atom-C" cx="285" cy="150" r="10"/>  <!-- C3' -->
-      <circle class="atom-C" cx="250" cy="155" r="10"/>  <!-- C4' -->
-      <circle class="atom-C" cx="238" cy="200" r="10"/>  <!-- C5' -->
-      <circle class="atom-C" cx="265" cy="230" r="10"/>  <!-- C6' -->
-      <circle class="atom-C" cx="325" cy="200" r="10"/>  <!-- C2' -->
-      <circle class="atom-C" cx="360" cy="225" r="10"/>  <!-- C1' -->
-
-      <!-- ── Chroman core ── -->
-      <circle class="atom-O" cx="375" cy="290" r="12"/>  <!-- O1 pyran -->
-      <circle class="atom-C" cx="415" cy="270" r="10"/>  <!-- C2 -->
-      <circle class="atom-C" cx="445" cy="300" r="10"/>  <!-- C3 -->
-      <circle class="atom-C" cx="435" cy="340" r="10"/>  <!-- C4 -->
-      <circle class="atom-C" cx="395" cy="360" r="10"/>  <!-- C4a -->
-      <circle class="atom-C" cx="360" cy="390" r="10"/>  <!-- C5 -->
-      <circle class="atom-C" cx="325" cy="375" r="10"/>  <!-- C6 -->
-      <circle class="atom-C" cx="320" cy="340" r="10"/>  <!-- C7 -->
-      <circle class="atom-C" cx="350" cy="315" r="10"/>  <!-- C8a -->
-
-      <!-- ── Ester linkage ── -->
-      <circle class="atom-O" cx="400" cy="380" r="12"/>  <!-- O-ester -->
-      <circle class="atom-O" cx="320" cy="430" r="12"/>  <!-- C=O -->
-
-      <!-- ── G ring ── -->
-      <circle class="atom-C" cx="285" cy="460" r="10"/>
-      <circle class="atom-C" cx="265" cy="500" r="10"/>
-      <circle class="atom-C" cx="230" cy="525" r="10"/>
-      <circle class="atom-C" cx="195" cy="510" r="10"/>
-      <circle class="atom-C" cx="170" cy="470" r="10"/>
-      <circle class="atom-C" cx="190" cy="440" r="10"/>
-      <circle class="atom-C" cx="245" cy="445" r="10"/>
-
-      <!-- ====================================================
-           –OH GROUPS  (Oxygen atoms + H)
-           ==================================================== -->
-
-      <!-- B ring OHs: C3'→top, C4'→left, C5'→left -->
-      <!-- OH on C3' (top of B ring) -->
-      <line class="bond" x1="285" y1="150" x2="285" y2="105"/>
-      <circle class="atom-O" cx="285" cy="98" r="12"/>
-      <line style="stroke:#888;stroke-width:2;" x1="285" y1="86" x2="285" y2="78"/>
-      <circle class="atom-H" cx="285" cy="73" r="7"/>
-
-      <!-- OH on C4' (left upper of B ring) -->
-      <line class="bond" x1="250" y1="155" x2="213" y2="132"/>
-      <circle class="atom-O" cx="207" cy="128" r="12"/>
-      <line style="stroke:#888;stroke-width:2;" x1="196" y1="120" x2="188" y2="113"/>
-      <circle class="atom-H" cx="184" cy="109" r="7"/>
-
-      <!-- OH on C5' (left lower of B ring) -->
-      <line class="bond" x1="238" y1="200" x2="196" y2="208"/>
-      <circle class="atom-O" cx="188" cy="210" r="12"/>
-      <line style="stroke:#888;stroke-width:2;" x1="177" y1="210" x2="166" y2="210"/>
-      <circle class="atom-H" cx="160" cy="210" r="7"/>
-
-      <!-- Chroman OHs: C5→bottom, C7→left -->
-      <!-- OH on C5 (bottom of benzo) -->
-      <line class="bond" x1="360" y1="390" x2="360" y2="430"/>
-      <circle class="atom-O" cx="360" cy="437" r="12"/>
-      <line style="stroke:#888;stroke-width:2;" x1="360" y1="449" x2="360" y2="458"/>
-      <circle class="atom-H" cx="360" cy="464" r="7"/>
-
-      <!-- OH on C7 (left of benzo) -->
-      <line class="bond" x1="320" y1="340" x2="280" y2="332"/>
-      <circle class="atom-O" cx="272" cy="330" r="12"/>
-      <line style="stroke:#888;stroke-width:2;" x1="261" y1="322" x2="252" y2="315"/>
-      <circle class="atom-H" cx="247" cy="310" r="7"/>
-
-      <!-- G ring OHs: 3'', 4'', 5'' -->
-      <!-- OH on top-right of G ring -->
-      <line class="bond" x1="265" y1="500" x2="275" y2="545"/>
-      <circle class="atom-O" cx="277" cy="553" r="12"/>
-      <line style="stroke:#888;stroke-width:2;" x1="282" y1="565" x2="285" y2="574"/>
-      <circle class="atom-H" cx="287" cy="580" r="7"/>
-
-      <!-- OH on bottom of G ring -->
-      <line class="bond" x1="230" y1="525" x2="225" y2="568"/>
-      <circle class="atom-O" cx="224" cy="576" r="12"/>
-      <line style="stroke:#888;stroke-width:2;" x1="223" y1="588" x2="222" y2="597"/>
-      <circle class="atom-H" cx="221" cy="603" r="7"/>
-
-      <!-- OH on left of G ring -->
-      <line class="bond" x1="170" y1="470" x2="132" y2="478"/>
-      <circle class="atom-O" cx="124" cy="480" r="12"/>
-      <line style="stroke:#888;stroke-width:2;" x1="113" y1="480" x2="103" y2="480"/>
-      <circle class="atom-H" cx="97" cy="480" r="7"/>
-
-      <!-- ====================================================
-           AXIS ARROWS (like in the 3D viewer)
-           ==================================================== -->
-      <g filter="url(#glow)">
-        <!-- X axis (blue, left) -->
-        <line class="axis axis-x" x1="470" y1="290" x2="510" y2="290"/>
-        <polygon points="510,286 520,290 510,294" fill="#3355ff"/>
-        <!-- Y axis (green, up) -->
-        <line class="axis axis-y" x1="470" y1="290" x2="470" y2="248"/>
-        <polygon points="466,248 470,238 474,248" fill="#44cc44"/>
-        <!-- Z axis (red, diagonal) -->
-        <line class="axis axis-z" x1="470" y1="290" x2="443" y2="317"/>
-        <polygon points="440,321 438,312 447,314" fill="#cc1111"/>
-      </g>
-
-      <!-- ====================================================
-           ATOM LABELS
-           ==================================================== -->
-      <!-- O labels -->
-      <text class="atom-label atom-label-O" x="375" y="291">O</text>
-      <text class="atom-label atom-label-O" x="400" y="381">O</text>
-      <text class="atom-label atom-label-O" x="320" y="431">O</text>
-
-      <!-- OH labels floating near oxygens -->
-      <text class="oh-label" x="285" y="75">H</text>
-      <text class="oh-label" x="184" y="111">H</text>
-      <text class="oh-label" x="160" y="212">H</text>
-      <text class="oh-label" x="360" y="466">H</text>
-      <text class="oh-label" x="247" y="312">H</text>
-      <text class="oh-label" x="287" y="582">H</text>
-      <text class="oh-label" x="221" y="605">H</text>
-      <text class="oh-label" x="97" y="482">H</text>
-
-      <!-- C=O label -->
-      <text style="fill:#ff9977;font-family:'Share Tech Mono',monospace;font-size:10px;font-weight:bold;" x="290" y="420">C=O</text>
-
-    </svg>
-  </div>
-</div>
+        <!-- SLIDE 17: 3D MODEL -->
+        <section class="slide" data-slide="17" style="justify-content:center;align-items:center;">
+            <div class="sketchfab-slide-content">
+                <iframe
+                    class="c-viewer__iframe"
+                    src="https://sketchfab.com/models/9758c9f1bb464b7388c442ae8ffe57a1/embed?autostart=1&internal=1&tracking=0&ui_ar=0&ui_infos=0&ui_snapshots=1&ui_stop=0&ui_theatre=1&ui_watermark=0&transparent=1"
+                    allow="autoplay; fullscreen; xr-spatial-tracking"
+                    xr-spatial-tracking="true"
+                    execution-while-out-of-viewport="true"
+                    execution-while-not-rendered="true"
+                    web-share="true"
+                    allowfullscreen>
+                </iframe>
             </div>
         </section>
 
-        <!-- SLIDE 9: CONCLUSION -->
-        <section class="slide" data-slide="12">
+        <!-- SLIDE 18: CONCLUSION -->
+        <section class="slide" data-slide="18">
             <div class="slide-content">
                 <div class="section-header reveal-item">
                     <h2>🔴 Conclusion Générale</h2>
@@ -2357,8 +1193,8 @@
             </div>
         </section>
 
-        <!-- SLIDE 10: CLOSING -->
-        <section class="slide closing" data-slide="13">
+        <!-- SLIDE 19: CLOSING -->
+        <section class="slide closing" data-slide="19">
             <div class="slide-content closing-content">
                 <span class="thank-you">🙏 Merci !</span>
                 <p class="final-message">
@@ -2375,6 +1211,25 @@
             </div>
         </section>
 
+        <!-- SLIDE 20: 3D MODEL -->
+               <!-- SLIDE 7: 3D MODEL — ui_watermark=0 & transparent=1 FIXED -->
+        <section class="slide" data-slide="20" style="justify-content:center;align-items:center;">
+            <div class="sketchfab-slide-content">
+                <iframe
+                    class="c-viewer__iframe"
+                    src="https://sketchfab.com/models/9758c9f1bb464b7388c442ae8ffe57a1/embed?autostart=1&internal=1&tracking=0&ui_ar=0&ui_infos=0&ui_snapshots=1&ui_stop=0&ui_theatre=1&ui_watermark=0&transparent=1"
+                    allow="autoplay; fullscreen; xr-spatial-tracking"
+                    xr-spatial-tracking="true"
+                    execution-while-out-of-viewport="true"
+                    execution-while-not-rendered="true"
+                    web-share="true"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+
+
+
     </div><!-- /slides-container -->
 
     <!-- Navigation -->
@@ -2382,7 +1237,7 @@
         <button class="nav-btn" id="prevBtn" onclick="prevSlide()" title="Précédent">
             <i class="fas fa-chevron-left"></i>
         </button>
-        <div class="slide-counter" id="slideCounter">1 / 11</div>
+        <div class="slide-counter" id="slideCounter">1 / 20</div>
         <div class="slide-dots" id="slideDots"></div>
         <button class="nav-btn" id="nextBtn" onclick="nextSlide()" title="Suivant">
             <i class="fas fa-chevron-right"></i>
@@ -2392,11 +1247,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // ============================================
-        // INTELLIGENT SLIDE ENGINE
-        // ============================================
         let currentSlide = 1;
-        const totalSlides = 13;
+        const totalSlides = 20;
         let isTransitioning = false;
 
         function initSlides() {
@@ -2419,11 +1271,9 @@
             const prevEl = document.querySelector(`.slide[data-slide="${currentSlide}"]`);
             const nextEl = document.querySelector(`.slide[data-slide="${slideNum}"]`);
 
-            // Remove all state classes
             prevEl.classList.remove('active');
             prevEl.classList.add(direction === 'up' ? 'exiting-up' : 'exiting-down');
 
-            // Small delay before showing next for clean overlap
             requestAnimationFrame(() => {
                 nextEl.classList.add('active');
             });
@@ -2431,7 +1281,6 @@
             currentSlide = slideNum;
             updateUI();
 
-            // Clean up exiting class after transition
             setTimeout(() => {
                 prevEl.classList.remove('exiting-up', 'exiting-down');
                 isTransitioning = false;
@@ -2443,27 +1292,22 @@
 
         function updateUI() {
             document.getElementById('slideCounter').textContent = `${currentSlide} / ${totalSlides}`;
-
             document.querySelectorAll('.slide-dot').forEach((dot, i) => {
                 dot.classList.toggle('active', i + 1 === currentSlide);
             });
-
             document.getElementById('prevBtn').disabled = currentSlide === 1;
             document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
-
             const progress = (currentSlide / totalSlides) * 100;
             document.getElementById('progressBar').style.width = `${progress}%`;
         }
 
-        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
-            if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+            if (e.key === 'ArrowLeft')  { e.preventDefault(); prevSlide(); }
             if (e.key >= '1' && e.key <= '9') goToSlide(parseInt(e.key));
             if (e.key === '0') goToSlide(10);
         });
 
-        // Touch/swipe support
         let touchStartY = 0;
         document.addEventListener('touchstart', e => { touchStartY = e.touches[0].clientY; }, { passive: true });
         document.addEventListener('touchend', e => {
@@ -2471,9 +1315,6 @@
             if (Math.abs(diff) > 50) { diff > 0 ? nextSlide() : prevSlide(); }
         }, { passive: true });
 
-        // ============================================
-        // ORGANIC FLOATING LEAVES
-        // ============================================
         function createFloatingLeaves() {
             const container = document.getElementById('floating-leaves-container');
             if (!container) return;
@@ -2490,39 +1331,31 @@
                 { fill: '#3a9a5c', stroke: '#2a7a42' },
                 { fill: '#1a5c3a', stroke: '#0d4028' },
                 { fill: '#4aaa6a', stroke: '#2a8a48' },
-                { fill: '#c5a065', stroke: '#a07845' }, // occasional gold leaf
+                { fill: '#c5a065', stroke: '#a07845' },
             ];
 
             for (let i = 0; i < 18; i++) {
                 const leaf = document.createElement('div');
                 leaf.className = 'floating-leaf';
-
                 const shape = leafShapes[Math.floor(Math.random() * leafShapes.length)];
-                const pal = palettes[Math.floor(Math.random() * palettes.length)];
-                const size = 28 + Math.random() * 55;
-                const leftPos = Math.random() * 100;
-                const duration = 22 + Math.random() * 35;
+                const pal   = palettes[Math.floor(Math.random() * palettes.length)];
+                const left  = Math.random() * 100;
+                const dur   = 22 + Math.random() * 35;
                 const delay = Math.random() * 30;
-                // Random horizontal drift per leaf
                 const drift = (Math.random() - 0.5) * 80;
 
                 leaf.style.cssText = `
-                    left: ${leftPos}%;
+                    left: ${left}%;
                     width: ${size}px;
-                    animation-duration: ${duration}s;
+                    animation-duration: ${dur}s;
                     animation-delay: -${delay}s;
                     --drift: ${drift}px;
                 `;
-
-                leaf.innerHTML = shape
-                    .replace(/FILL/g, pal.fill)
-                    .replace(/STROKE/g, pal.stroke);
-
+                leaf.innerHTML = shape.replace(/FILL/g, pal.fill).replace(/STROKE/g, pal.stroke);
                 container.appendChild(leaf);
             }
         }
 
-        // Override leaf journey to use drift
         const leafStyle = document.createElement('style');
         leafStyle.textContent = `
             @keyframes leafJourney {
@@ -2537,62 +1370,10 @@
         `;
         document.head.appendChild(leafStyle);
 
-        // ============================================
-        // INIT
-        // ============================================
         document.addEventListener('DOMContentLoaded', () => {
             initSlides();
             createFloatingLeaves();
         });
-
-  
-  // Mouse drag to rotate
-  const mol = document.getElementById('mol');
-  let isDragging = false;
-  let prevX = 0, prevY = 0;
-  let rotX = 15, rotY = 0;
-
-  mol.addEventListener('mousedown', e => {
-    isDragging = true;
-    prevX = e.clientX;
-    prevY = e.clientY;
-    mol.style.animation = 'none';
-  });
-
-  window.addEventListener('mousemove', e => {
-    if (!isDragging) return;
-    const dx = e.clientX - prevX;
-    const dy = e.clientY - prevY;
-    rotY += dx * 0.5;
-    rotX += dy * 0.3;
-    mol.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
-    prevX = e.clientX;
-    prevY = e.clientY;
-  });
-
-  window.addEventListener('mouseup', () => { isDragging = false; });
-
-  // Touch support
-  mol.addEventListener('touchstart', e => {
-    isDragging = true;
-    prevX = e.touches[0].clientX;
-    prevY = e.touches[0].clientY;
-    mol.style.animation = 'none';
-  });
-
-  window.addEventListener('touchmove', e => {
-    if (!isDragging) return;
-    const dx = e.touches[0].clientX - prevX;
-    const dy = e.touches[0].clientY - prevY;
-    rotY += dx * 0.5;
-    rotX += dy * 0.3;
-    mol.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
-    prevX = e.touches[0].clientX;
-    prevY = e.touches[0].clientY;
-  });
-
-  window.addEventListener('touchend', () => { isDragging = false; });
-
     </script>
 </body>
 </html>
