@@ -512,8 +512,7 @@
     }
 
     .molecule-cell {
-      background: #ffffffdd;
-      background: linear-gradient(135deg, #ffffff 0%, #fefefe 100%);
+      background: transparent;
       border-radius: 2rem;
       box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.15);
       backdrop-filter: blur(0px);
@@ -776,6 +775,25 @@
       .slide-dots { display:none; }
       .section-header h2 { font-size:1.4rem; }
     }
+     /* Make the video container resizable */
+  .resizable-video {
+    resize: both;
+    overflow: auto;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background: #f8f9fa;
+    padding: 8px;
+    display: block;        /* Changed from inline-block to block for full column width */
+    width: 55%;           /* Take full width of the column */
+    min-height: 60px;
+}
+
+.resizable-video video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+}
   </style>
 </head>
 <body>
@@ -982,65 +1000,105 @@
         </div>
       </div>
     </section>
-
-    <!-- SLIDE 7 · MÉTHODE DE PRÉPARATION (étapes 1–4) -->
-    <section class="slide" data-slide="7">
-      <div class="slide-content">
-        <div class="section-header reveal-item">
-          <h2>🔴 Méthode de Préparation</h2>
-          <div class="divider"></div>
-        </div>
-        <div class="scrollable-content">
-          <p class="text-muted mb-3 reveal-item">La préparation de l'Habitat demande de la patience et du soin pour préserver les qualités nutritionnelles des plantes.</p>
-          <div class="row g-3 align-items-start">
-            <div class="col-md-6">
-              <div class="step-card"><strong>1 – Nettoyage des plantes :</strong><br>Les feuilles de meijir, lahlah et hamida sont soigneusement lavées plusieurs fois pour éliminer toute impureté.</div>
-              <div class="step-card"><strong>2 – Découpage :</strong><br>Les plantes sont coupées finement afin de faciliter la cuisson et d'obtenir une texture homogène.</div>
-              <div class="step-card"><strong>3 – Cuisson initiale :</strong><br>Les plantes sont mises dans une marmite avec de l'eau et laissées à bouillir pendant quelques minutes jusqu'à ce qu'elles deviennent tendres.</div>
-              <div class="step-card"><strong>4 – Égouttage :</strong><br>Après cuisson, on retire l'excès d'eau pour éviter que le plat soit trop liquide.</div>
-            </div>
-            <div class="col-md-6">
-              <div class="preparation-image text-center">
-                <img src="7.jpg" alt="Illustration de la préparation des plantes - lavage et découpage" class="img-fluid rounded-3 shadow-sm" style="object-fit: cover; width: 150%; height: 65%; border-radius: 16px;" onerror="this.onerror=null; this.src='https://placehold.co/600x450/f8f3ec/b87c47?text=Image+7:+Nettoyage+%26+découpe';">
-                <p class="image-caption text-muted mt-2 small fst-italic">🌿 Nettoyage et découpe des feuilles traditionnelles</p>
+<!-- SLIDE 7 -->
+  <!-- SLIDE 7 : Méthode de Préparation (part 1) -->
+  <section class="slide" data-slide="7">
+    <div class="slide-content">
+      <div class="section-header reveal-item">
+        <h2>🔴 Méthode de Préparation</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="scrollable-content">
+        <p class="text-muted mb-3 reveal-item">La préparation de l'Habitat demande de la patience et du soin pour préserver les qualités nutritionnelles des plantes.</p>
+        <div class="row g-3 align-items-start">
+          <div class="col-md-6">
+            <div class="step-card"><strong>1 – Nettoyage des plantes :</strong><br>Les feuilles de meijir, lahlah et hamida sont soigneusement lavées plusieurs fois pour éliminer toute impureté.</div>
+            <div class="step-card"><strong>2 – Découpage :</strong><br>Les plantes sont coupées finement afin de faciliter la cuisson et d'obtenir une texture homogène.</div>
+            <div class="step-card"><strong>3 – Cuisson initiale :</strong><br>Les plantes sont mises dans une marmite avec de l'eau et laissées à bouillir pendant quelques minutes jusqu'à ce qu'elles deviennent tendres.</div>
+            <div class="step-card"><strong>4 – Égouttage :</strong><br>Après cuisson, on retire l'excès d'eau pour éviter que le plat soit trop liquide.</div>
+          </div>
+          <div class="col-md-6">
+            <div class="preparation-image text-center">
+              <!-- PREMIER VIDÉO : résizable avec STYLES INLINE (pas de CSS externe) -->
+              <div 
+                class="resizable-video" 
+                style="resize: both; overflow: auto; border: 2px solid #ddd; border-radius: 8px; background: #f8f9fa; padding: 8px; display: block; width: 55%; min-height: 60px; margin-left: auto; margin-right: auto;"
+              >
+                <video 
+                  src="11.mp4" 
+                  autoplay muted loop playsinline 
+                  style="width: 100%; height:auto; display: block; border-radius: 4px;"
+                ></video>
               </div>
+              <p class="image-caption text-muted mt-2 small fst-italic">🫒  Nettoyage des feuilles traditionnelles</p>
+              
+              <!-- DEUXIÈME VIDÉO : résizable avec STYLES INLINE -->
+              <div 
+                class="resizable-video mt-3" 
+                style="resize: both; overflow: auto; border: 2px solid #ddd; border-radius: 8px; background: #f8f9fa; padding: 8px; display: block; width: 55%; min-height: 60px; margin-left: auto; margin-right: auto; margin-top: 1rem;"
+              >
+                <video 
+                  src="12.mp4" 
+                  autoplay muted loop playsinline 
+                  style="width: 100%; height: auto; display: block; border-radius: 4px;"
+                ></video>
+              </div>
+              <p class="image-caption text-muted mt-2 small fst-italic">🫒  Découpe des feuilles traditionnelles</p>
             </div>
           </div>
-          <div class="highlight-box mt-4 mb-0 reveal-item">💡 <strong>Conseil :</strong> Privilégier une cuisson douce comme la vapeur pour préserver les nutriments.</div>
+        </div>
+        <div class="highlight-box mt-4 mb-0 reveal-item">💡 <strong>Conseil :</strong> Privilégier une cuisson douce comme la vapeur pour préserver les nutriments.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 8 : Méthode de Préparation (part 2 - Harbit) -->
+  <section class="slide" data-slide="8">
+    <div class="slide-content">
+      <div class="section-header reveal-item">
+        <h2>🔴 Méthode de Préparation</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="scrollable-content">
+        <p class="text-muted mb-3 reveal-item">La préparation de l'Harbit demande de la patience et du soin pour préserver les qualités nutritionnelles des plantes.</p>
+        <div class="row g-3 align-items-start">
+          <div class="col-md-6">
+            <div class="step-card"><strong>5 – Écrasement :</strong><br>Les plantes sont légèrement écrasées à l'aide d'une cuillère ou d'un ustensile traditionnel pour obtenir une consistance plus liée.</div>
+            <div class="step-card"><strong>6 – Assaisonnement :</strong><br>On ajoute l'ail écrasé, le sel et les épices selon le goût.</div>
+            <div class="step-card"><strong>7 – Ajout de l'huile d'olive :</strong><br>Une quantité généreuse d'huile d'olive est incorporée pour améliorer le goût et apporter une texture onctueuse.</div>
+            <div class="step-card"><strong>8 – Cuisson finale :</strong><br>Le mélange est remis à feu doux pendant quelques minutes pour bien mélanger les saveurs.</div>
+          </div>
+          <div class="col-md-6">
+            <div class="preparation-image text-center">
+              <!-- TROISIÈME VIDÉO : résizable avec STYLES INLINE (sans CSS externe) -->
+              <div 
+                class="resizable-video" 
+                style="resize: both; overflow: auto; border: 2px solid #ddd; border-radius: 8px; background: #f8f9fa; padding: 8px; display: block; width: 55%; min-height: 60px; margin-left: auto; margin-right: auto;"
+              >
+                <video 
+                  src="13.mp4" 
+                  autoplay muted loop playsinline 
+                  style="width: 100%; height: auto; display: block; border-radius: 4px;"
+                ></video>
+              </div>
+              <p class="image-caption text-muted mt-2 small fst-italic">🫒 Ajout d'huile d'olive et mélange des saveurs</p>
+            </div>
+          </div>
+        </div>
+        <div class="highlight-box mt-4 mb-0 reveal-item">💡 <strong>Conseil :</strong> Privilégier une cuisson douce comme la vapeur pour préserver les nutriments.</div>
+      </div>
+    </div>
+  </section>
+  <section class="slide" data-slide="9">
+      <div class="media-frame-slide">
+        <div class="media-frame">
+          <img src="9.jpg" alt="La région de Jijel">
+          <span class="frame-label"> Le Plat « Harbit »</span>
         </div>
       </div>
     </section>
-
-    <!-- SLIDE 8 · MÉTHODE DE PRÉPARATION (étapes 5–8) -->
-    <section class="slide" data-slide="8">
-      <div class="slide-content">
-        <div class="section-header reveal-item">
-          <h2>🔴 Méthode de Préparation</h2>
-          <div class="divider"></div>
-        </div>
-        <div class="scrollable-content">
-          <p class="text-muted mb-3 reveal-item">La préparation de l'Harbit demande de la patience et du soin pour préserver les qualités nutritionnelles des plantes.</p>
-          <div class="row g-3 align-items-start">
-            <div class="col-md-6">
-              <div class="step-card"><strong>5 – Écrasement :</strong><br>Les plantes sont légèrement écrasées à l'aide d'une cuillère ou d'un ustensile traditionnel pour obtenir une consistance plus liée.</div>
-              <div class="step-card"><strong>6 – Assaisonnement :</strong><br>On ajoute l'ail écrasé, le sel et les épices selon le goût.</div>
-              <div class="step-card"><strong>7 – Ajout de l'huile d'olive :</strong><br>Une quantité généreuse d'huile d'olive est incorporée pour améliorer le goût et apporter une texture onctueuse.</div>
-              <div class="step-card"><strong>8 – Cuisson finale :</strong><br>Le mélange est remis à feu doux pendant quelques minutes pour bien mélanger les saveurs.</div>
-            </div>
-            <div class="col-md-6">
-              <div class="preparation-image text-center">
-                <img src="8.jpg" alt="Illustration de l'écrasement et de l'assaisonnement des plantes" class="img-fluid rounded-3 shadow-sm" style="object-fit: cover; width: 83%; height: 65%; border-radius: 16px;" onerror="this.onerror=null; this.src='https://placehold.co/600x450/f8f3ec/b87c47?text=Image+8:+Assaisonnement+%26+huile+olive';">
-                <p class="image-caption text-muted mt-2 small fst-italic">🫒 Ajout d'huile d'olive et mélange des saveurs</p>
-              </div>
-            </div>
-          </div>
-          <div class="highlight-box mt-4 mb-0 reveal-item">💡 <strong>Conseil :</strong> Privilégier une cuisson douce comme la vapeur pour préserver les nutriments.</div>
-        </div>
-      </div>
-    </section>
-
     <!-- SLIDE 9 · FICHE EL MJIRE -->
-    <section class="slide" data-slide="9">
+    <section class="slide" data-slide="10">
       <div class="slide-content">
         <div class="section-header reveal-item">
           <h2>🌿 Fiche : El Mjire</h2>
@@ -1068,9 +1126,11 @@
         </div>
       </div>
     </section>
+    
+    
 
     <!-- SLIDE 10 · IMAGE (mj.jpg) -->
-    <section class="slide" data-slide="10">
+    <section class="slide" data-slide="11">
       <div class="media-frame-slide">
         <div class="media-frame">
           <img src="mj.jpg" alt="El Mjire — Chenopodium sp.">
@@ -1080,7 +1140,7 @@
     </section>
 
     <!-- SLIDE 11 · FICHE EL MJIRE (suite) -->
-    <section class="slide" data-slide="11">
+    <section class="slide" data-slide="12">
       <div class="slide-content">
         <div class="section-header reveal-item">
           <h2>🌿 Fiche : El Mjire (suite)</h2>
@@ -1108,7 +1168,7 @@
     </section>
 
     <!-- SLIDE 12 · CHEMICAL STRUCTURES -->
-    <section class="slide" data-slide="12">
+    <section class="slide" data-slide="13">
       <div class="slide-content">
         <div class="section-header reveal-item"></div>
         <div class="row g-4 justify-content-center align-items-center">
@@ -1120,14 +1180,14 @@
     </section>
 
     <!-- SLIDE 13 · SKETCHFAB (Mjire) -->
-    <section class="slide" data-slide="13">
+    <section class="slide" data-slide="14">
       <div class="media-frame-slide">
         <div class="media-frame"><iframe src="https://sketchfab.com/models/564a464203e44736a5c155b3bc59464f/embed?autostart=1&internal=1&tracking=0&ui_ar=0&ui_infos=0&ui_snapshots=1&ui_stop=0&ui_theatre=1&ui_watermark=0&transparent=1" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking="true" execution-while-out-of-viewport="true" execution-while-not-rendered="true" web-share="true" allowfullscreen></iframe><span class="frame-label">vitamine C</span></div>
       </div>
     </section>
 
     <!-- SLIDE 14 · FICHE EL HALHAL -->
-    <section class="slide" data-slide="14">
+    <section class="slide" data-slide="15">
       <div class="slide-content">
         <div class="section-header reveal-item"><h2>🌸 Fiche : El Halhal</h2><div class="divider"></div><span class="badge bg-warning text-dark">Origanum vulgare / Lavandula dentata</span></div>
         <div class="scrollable-content">
@@ -1141,12 +1201,12 @@
     </section>
 
     <!-- SLIDE 15 · IMAGE (m.png) -->
-    <section class="slide" data-slide="15">
+    <section class="slide" data-slide="16">
       <div class="media-frame-slide"><div class="media-frame"><img src="m.png" alt="El Halhal"><span class="frame-label">El Halhal — Lavandula dentata</span></div></div>
     </section>
 
     <!-- SLIDE 16 · FICHE EL HALHAL (suite) -->
-    <section class="slide" data-slide="16">
+    <section class="slide" data-slide="17">
       <div class="slide-content">
         <div class="section-header reveal-item"><h2>🌸 Fiche : El Halhal (suite)</h2><div class="divider"></div><span class="badge bg-warning text-dark">Lavandula dentata</span></div>
         <div class="scrollable-content"><div class="row"><div class="col-md-6"><h5>6. Phytochimie et valeur nutritionnelle</h5><ul class="small"><li><strong>Métabolites primaires :</strong> glucides, faibles quantités de protéines, lipides très bas</li><li><strong>Métabolites secondaires :</strong> polyphénols, flavonoïdes (forte activité antioxydante)</li><li><strong>Vitamines :</strong> riche en vitamine C</li><li><strong>Minéraux :</strong> fer, calcium, potassium</li></ul><h5>7. Bienfaits pour la santé</h5><ul class="small"><li>✅ Antioxydant puissant (protège contre le stress oxydatif)</li><li>✅ Anti-inflammatoire naturel</li><li>✅ Soutien du système immunitaire (vitamine C)</li><li>✅ Améliore la digestion et régule le transit intestinal</li><li>✅ Apporte des minéraux essentiels (fer, calcium)</li></ul><h5>8. Valeur nutritionnelle (Cru vs Cuit)</h5><ul class="small"><li><strong>Cru :</strong> préserve la vitamine C et les antioxydants, mais moins digeste</li><li><strong>Cuit :</strong> plus facile à digérer, mais perte de vitamines sensibles à la chaleur</li><li><strong>Méthodes :</strong> vapeur (préserve les nutriments) ; ébullition (perte d'éléments dans l'eau)</li></ul></div><div class="col-md-6"><div class="highlight-box">👉 Pour conserver au mieux les bienfaits du Halhal, il est recommandé d'utiliser des méthodes de cuisson douces comme la <strong>vapeur</strong>.</div><h5>9. Conclusion</h5><p class="small">Le halhal est une plante aromatique de la famille des Lamiaceae, utilisée traditionnellement pour ses effets digestifs et calmants. Il fait partie de la richesse des plantes médicinales locales qu'il faut préserver.</p><iframe title="Lavandula dentata 3D" class="sketchfab-inline" src="https://sketchfab.com/models/39c64907e40548a3b99d4d6a192ef4fc/embed?autostart=1&transparent=1&ui_controls=0&ui_infos=0&ui_inspector=0&ui_watermark=0&ui_watermark_link=0&ui_stop=0&ui_theatre=0" frameborder="0" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen></iframe></div></div></div>
@@ -1154,27 +1214,23 @@
     </section>
 
     <!-- SLIDE 17 · TWO MOLECULES (Potassium & Calcium) -->
-    <section class="slide" data-slide="17">
+    <section class="slide" data-slide="18">
       <div class="media-frame-slide">
         <div class="molecule-grid">
           <div class="molecule-cell">
             <iframe src="https://sketchfab.com/models/f5eaad269ac6475abc99e1952408cc2d/embed?autostart=1&internal=1&tracking=0&ui_ar=0&ui_infos=0&ui_snapshots=1&ui_stop=0&ui_theatre=1&ui_watermark=0&transparent=1" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking="true" execution-while-out-of-viewport="true" execution-while-not-rendered="true" web-share="true" allowfullscreen loading="lazy" title="Interactive 3D model of Potassium"></iframe>
             <span class="molecule-label">Potassium</span>
-            <div class="rotate-instruction"><span>🖱️ click&nbsp;&amp;&nbsp;hold</span><span class="click-icon">⟳</span><span class="torotate-text">torotate</span></div>
-            <div class="chem-sub">K · alkali metal · 3D interactive</div>
-          </div>
+            </div>
           <div class="molecule-cell">
             <iframe src="https://sketchfab.com/models/0b623dde379141c08b05c5537d72719e/embed?autostart=1&internal=1&tracking=0&ui_ar=0&ui_infos=0&ui_snapshots=1&ui_stop=0&ui_theatre=1&ui_watermark=0&transparent=1" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking="true" execution-while-out-of-viewport="true" execution-while-not-rendered="true" web-share="true" allowfullscreen loading="lazy" title="Interactive 3D model of Calcium"></iframe>
             <span class="molecule-label">Calcium</span>
-            <div class="rotate-instruction"><span>🖱️ click&nbsp;&amp;&nbsp;hold</span><span class="click-icon">⟳</span><span class="torotate-text">torotate</span></div>
-            <div class="chem-sub">Ca · alkaline earth metal · explore in 3D</div>
-          </div>
+            </div>
         </div>
       </div>
     </section>
 
     <!-- SLIDE 18 · FICHE EL HMIDHA -->
-    <section class="slide" data-slide="18">
+    <section class="slide" data-slide="19">
       <div class="slide-content">
         <div class="section-header reveal-item"><h2>🍃 Fiche : El Hmidha (Oseille)</h2><div class="divider"></div><span class="badge bg-warning text-dark">Rumex acetosa</span></div>
         <div class="scrollable-content">
@@ -1185,12 +1241,12 @@
     </section>
 
     <!-- SLIDE 19 · IMAGE (n.jpg) -->
-    <section class="slide" data-slide="19">
+    <section class="slide" data-slide="20">
       <div class="media-frame-slide"><div class="media-frame"><img src="n.jpg" alt="El Hmidha"><span class="frame-label">El Hmidha — Rumex acetosa</span></div></div>
     </section>
 
     <!-- SLIDE 20 · FICHE EL HMIDHA (suite) -->
-    <section class="slide" data-slide="20">
+    <section class="slide" data-slide="21">
       <div class="slide-content">
         <div class="section-header reveal-item"><h2>🍃 Fiche : El Hmidha (suite)</h2><div class="divider"></div><span class="badge bg-warning text-dark">Rumex acetosa</span></div>
         <div class="scrollable-content">
@@ -1201,17 +1257,17 @@
     </section>
 
     <!-- SLIDE 21 · IMAGE (b2.jpg) -->
-    <section class="slide" data-slide="21">
+    <section class="slide" data-slide="22">
       <div class="media-frame-slide"><div class="media-frame"><img src="b2.jpg" alt="El Hmidha (suite)"><span class="frame-label">El Hmidha — Rumex acetosa</span></div></div>
     </section>
 
     <!-- SLIDE 22 · SKETCHFAB (Hmidha) -->
-    <section class="slide" data-slide="22">
+    <section class="slide" data-slide="23">
       <div class="media-frame-slide"><div class="media-frame"><iframe src="https://sketchfab.com/models/246a085569d7495c99ba2c67a5f7dc7a/embed?autostart=1&internal=1&tracking=0&ui_ar=0&ui_infos=0&ui_snapshots=1&ui_stop=0&ui_theatre=1&ui_watermark=0&transparent=1" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking="true" execution-while-out-of-viewport="true" execution-while-not-rendered="true" web-share="true" allowfullscreen></iframe><span class="frame-label">vitamine b2</span></div></div>
     </section>
 
     <!-- SLIDE 23 · CONCLUSION GÉNÉRALE -->
-    <section class="slide" data-slide="23">
+    <section class="slide" data-slide="24">
       <div class="slide-content">
         <div class="section-header reveal-item"><h2>🔴 Conclusion Générale</h2><div class="divider"></div></div>
         <div class="scrollable-content"><div class="card-journal reveal-item"><p class="lead mb-3">En conclusion, le plat traditionnel <strong>Harbit</strong> illustre parfaitement la richesse de la nature et de la culture culinaire de la région de Jijel. À travers l'utilisation de plantes comme <strong>el mejir, el halhal et el hamida</strong>, nous découvrons une alimentation simple, naturelle et pleine de bienfaits.</p><p>Ce projet nous a permis de comprendre que les plantes ne sont pas seulement des ingrédients, mais de véritables sources de santé, riches en nutriments essentiels et en composés protecteurs.</p><div class="highlight-box mt-3" style="border-left-color:var(--primary-dark);">👉 <strong>Héritage :</strong> Plus qu'un simple plat, l'Harbit représente un héritage précieux transmis de génération en génération, qui reflète notre identité et notre lien profond avec la nature.</div><p class="mb-0 mt-3">Ainsi, préserver les plantes et valoriser leur utilisation dans notre alimentation est une nécessité pour un avenir sain et durable.</p></div></div>
@@ -1219,12 +1275,12 @@
     </section>
 
     <!-- SLIDE 24 · CLOSING -->
-    <section class="slide closing" data-slide="24">
+    <section class="slide closing" data-slide="25">
       <div class="closing-content"><span class="thank-you">🙏 Merci !</span><p class="final-message">Cette présentation vous a permis de découvrir l'art nutritionnel du <strong>Harbit de Jijel</strong>.<br>Ensemble, valorisons notre patrimoine botanique pour une alimentation saine et durable.</p><div class="signature"><i class="fas fa-leaf me-2"></i><strong style="color:var(--accent-gold-light);"></strong> Université Saad Dahlab <br><small>Projet de Recherche en Nutrition &amp; Botanique</small></div><button class="closing-btn" onclick="goToSlide(1)"><i class="fas fa-redo me-2"></i>Recommencer la Présentation</button></div>
     </section>
 
     <!-- SLIDE 25 · QR CODE -->
-    <section class="slide" data-slide="25">
+    <section class="slide" data-slide="26">
       <div class="media-frame-slide"><div class="media-frame" style="background:white;"><img src="qr.jpg" alt="QR Code" style="object-fit:contain;background:white;"><span class="frame-label">QR Code — Harbit de Jijel</span></div></div>
     </section>
 
@@ -1241,7 +1297,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     let currentSlide   = 1;
-    const totalSlides  = 25;
+    const totalSlides  = 26;
     let isTransitioning = false;
 
     function goToSlide(slideNum) {
